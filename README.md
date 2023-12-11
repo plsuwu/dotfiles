@@ -2,7 +2,7 @@
 
 h*skell
 
-![screensh](screensh.png)
+
 
 ## deps
 
