@@ -1,0 +1,17 @@
+#!/bin/bash
+
+shutdown() {
+    systemctl poweroff
+    # notify-send "power button" "hello"
+}
+
+case "$1" in
+    --shutdown | -s)
+        shutdown
+        ;;
+    *)
+        echo '
+    use:
+        --shutdown, -s:
+                        shut computer down via systemd.'
+    esac

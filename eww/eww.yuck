@@ -1,0 +1,214 @@
+;; -----------------------------------------------
+;; -- variables ----------------------------------
+;; -----------------------------------------------
+
+;; -- panel
+(defvar PANEL_LCHR "$HOME/.config/eww/scripts/panel")
+(defvar PANEL_CPU "$HOME/.config/eww/scripts/panel")
+
+;; -- monitor
+(defvar PRIMARY_W "2650px")
+(defvar PRIMARY_H "1440px")
+
+;; -- datetime
+(defpoll TIME :interval "5s" `date +\"%I:%M%P\"`)
+(defpoll DATE :interval "1m" `date +\"%a, %d %b\"`)
+
+;; -- volume
+(defpoll VOLICON :interval "0.5s" `scripts/vol --icon`)
+(defpoll VOLUME :interval "0.5s" `scripts/vol --get`)
+(defvar VOLMUTETOGGLE `scripts/vol --toggle`)
+
+;; -- mem
+(defpoll MEMICON :interval "1h" `scripts/mem --icon`)
+(defpoll MEMPCT :interval "15s" `scripts/mem --gett`)
+(defpoll MEMTEXT :interval "15s" `scripts/mem --getf`)
+
+(defpoll TOPMEM :interval "10s" `scripts/panel mem-topram`)
+
+;; -- cpu
+(defpoll CPUTOTALUTIL :interval "5s" `scripts/cpu total`)
+(defpoll CPUCORESUTIL :interval "5s" `scripts/cpu cores`)
+(defpoll CPUTEMP :interval "5s" `scripts/cpu temp`)
+(defpoll CPUICON :interval "1h" `scripts/cpu icon`)
+
+(defvar PWR_OFF `scripts/power -s`)
+
+;; -- workspaces
+
+(deflisten WS_ACTIVITY_0 :initial "(box (label :text 'init'))"
+    `scripts/workspaces0`)
+(deflisten WS_ACTIVITY_1 :initial "(box (label :text 'init'))"
+    `scripts/workspaces1`)
+
+;; (deflisten ws_info :initial "{ \"0\": \"current active\" }"
+;;     `xprop -spy -root _XMONAD_LOG | stdbuf -o0 sed 's/_XMONAD_LOG(UTF8_STRING) = "\\(.*\\), "/{ \\1 }/' | stdbuf -o0 sed 's/\\\\//g'`)
+;; (deflisten ws_max :initial 0
+;;     `xprop -spy -root _XMONAD_LOG | stdbuf -o0 sed 's/.*\\([0-9]\\).*/\\1/'`)
+
+;; -- me
+(defvar IMAGE "images/profile.jpg")
+(defvar USER `whoami`)
+
+;; -----------------------------------------------
+;; -- widgets ------------------------------------
+;; -----------------------------------------------
+;; -- separator
+(defwidget separator []
+        (box :orientation "h" :spacing 0 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
+            (label :class "separator" :text "|")))
+
+;; -----------------------------------------------
+;; -- right side modules -------------------------
+;; -----------------------------------------------
+
+;; -- volume
+(defwidget vol []
+    (circular-progress :value {VOLUME  == "off" ? 0 : VOLUME} :thickness 4 :class {VOLUME  == "off" ? "trayprogred" : "trayprog"}
+        (button :onclick "${VOLMUTETOGGLE}" :class "traybtn" :tooltip {VOLUME == "off" ? "mute" : "${VOLUME}%"}
+            (box :class "tray" :orientation "h" :spacing 0 :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false"
+                (label :class "trayicon" :halign "center" :text VOLICON)))))
+
+;; -- memory
+(defwidget ram []
+    (circular-progress :value MEMPCT :thickness 4 :class "trayprog"
+        (button :onclick "${PANEL_LCHR} mem" :class "traybtn" :tooltip "${MEMTEXT}"
+            (box :class "tray" :orientation "h" :spacing 0 :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false"
+                (label :class "trayicon" :halign "center" :text MEMICON)))))
+
+(defwidget mempanel []
+    (box :class "mempanel" :orientation "v" :space-evenly "false" :spacing 0 :hexpand "false" :vexpand "false"
+        (label :text "memory" :halign "start" :class "mempanel_header" :show-truncated "false" :wrap "false")
+        (label :text "${MEMTEXT}" :halign "start" :class "mempanel_main" :show-truncated "false" :wrap "false")
+        (label :text "${MEMPCT}% used" :halign "start" :class "mempanel_sub" :show-truncated "false" :wrap "false")
+        (label :text " " :halign "start" :class "mempanel_top" :show-truncated "false" :wrap "false")
+        (label :text "${TOPMEM}" :valign "start" :halign "start" :class "mempanel_top_sub" :show-truncated "true" :wrap "false")))
+
+(defwidget cpu []
+   (circular-progress :value CPUTOTALUTIL :thickness 4 :class "trayprog"
+        (button :onclick "${PANEL_CPU} cpu" :class "traybtn" :tooltip "${CPUTOTALUTIL}% utilization"
+            (box :class "tray" :orientation "h" :spacing 0 :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false"
+                (label :class "trayicon" :halign "center" :text CPUICON)))))
+
+;; -- proc_top && proc_top_sub
+(defwidget cpupanel []
+    (box :class "cpupanel" :orientation "v" :space-evenly "false" :spacing 0 :hexpand "false" :vexpand "false"
+        (label :text "processor":halign "start" :class "processor" :show-truncated "false" :wrap "false")
+        ;; -- needs to be fed cores 0 thru 31 to display properly --
+        (label :text "temp: ${CPUTEMP}" :halign "start" :class "proc_sub" :show-truncated "false" :wrap "false")))
+
+
+(defwidget time []
+    (box :class "time" :orientation "h" :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false" :spacing 5
+        (label :class "time_sub" :text "${TIME}" :halign "center" :valign "center" :show-truncated "false" :wrap "false")))
+(defwidget date []
+    (box :class "date" :orientation "h" :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false" :spacing 5
+        (label :class "date_sub" :text "${DATE}" :halign "center" :valign "center" :show-truncated "false" :wrap "false")))
+(defwidget power []
+    (box :class "a" :orientation "h" :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false" :spacing 5
+        (button :onclick "${PWR_OFF}" :class " " :tooltip "system off"
+            (box :class "" :orientation "h" :spacing 0 :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false"
+                (label :class "powerbtn" :halign "center" :text "󰐦")))))
+
+(defwidget right []
+    (box :orientation "h" :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false" :spacing 5
+        (separator)
+        (cpu)
+        (ram)
+        (separator)
+        (vol)
+        (separator)
+        (time)
+        (date)
+        (separator)
+        (power)))
+
+;; -----------------------------------------------
+;; -- left side modules --------------------------
+;; -----------------------------------------------
+
+
+(defwidget workspaces_0 []
+    (box :class "workspaces0" :orientation "h" :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false"
+        (literal :content WS_ACTIVITY_0)))
+(defwidget workspaces_1 []
+    (box :class "workspaces0" :orientation "h" :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false"
+        (literal :content WS_ACTIVITY_1)))
+
+
+(defwidget windows []
+    (box :class "windows" :orientation "h" :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false"
+        (box :class "active_window" :orientation "h" :valign "center" :vexpand "false" :hexpand "false")))
+
+(defwidget left []
+    (box :orientation "h" :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false" :spacing 5
+        (workspaces_0)))
+(defwidget left_2 []
+    (box :orientation "h" :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false" :spacing 5
+        (workspaces_1)))
+
+;; --> use `centerbox` when center module avail:
+;; centerbox
+;; a box that must contain exactly three children, which will be layed out at the start, center and end of the container.
+;; Properties
+;; orientation: string orientation of the centerbox. possible values: "vertical", "v", "horizontal", "h"
+
+(defwidget full []
+    (box :class "full" :orientation "h" :space-evenly "true" :vexpand "false" :hexpand "false"
+        (left)
+        ;;(center)
+        (right)))
+
+(defwidget full_2 []
+    (box :class "full_2" :orientation "h" :space-evenly "true" :vexpand "false" :hexpand "false"
+        (left_2)
+        ;;(center)
+        ;;(right_2)
+    ))
+
+;; -----------------------------------------------
+;; -- windows ------------------------------------
+;; -----------------------------------------------
+
+(defwindow bar_0_main
+                :monitor 0
+                :geometry (geometry :x "0"
+                                    :y "0"
+                                    :width "100%"
+                                    :height "2%"
+                                    :anchor "top left")
+                :stacking "fg"
+                :reserve (struts :distance "30px" :side "top")
+                :windowtype "dock"
+                :wm-ignore false
+            (full))
+
+(defwindow bar_1_main
+                :monitor 1
+                :geometry (geometry :x "0"
+                                    :y "0"
+                                    :width "100%"
+                                    :height "2.5%"
+                                    :anchor "top left")
+                :stacking "fg"
+                :reserve (struts :distance "30px" :side "top")
+                :windowtype "dock"
+                :wm-ignore false
+            (full_2))
+
+;; -- info panels
+(defwindow mem
+                :geometry (geometry :x "-20px"
+                        :y "7%"
+                        :anchor "top right"
+                        :width "290px"
+                        :height "120px")
+            (mempanel))
+
+(defwindow cpu
+                :geometry (geometry :x "-20px"
+                        :y "7%"
+                        :anchor "top right"
+                        :width "290px"
+                        :height "120px")
+            (cpupanel))
