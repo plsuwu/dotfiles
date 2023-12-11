@@ -70,17 +70,6 @@ myLayout =
       delta    = 3/100
       gap      = 2
 
-
-{--
-
-    fullscreen
-    ----------
-    sometimes works and then sometimes doesnt
-    but i think its trayer's fault when it doesnt.
-    idk
-
---}
-
 toggleFull = withFocused (\windowId -> do
     { floats <- gets (W.floating . windowset);
         if windowId `M.member` floats
@@ -154,5 +143,4 @@ main = xmonad . ewmh . ewmhFullscreen . dynamicSBs myStatusBarSpawner . docks $ 
     , ("M-M1-c", spawn "tmux kill-server")
     , ("M-S-t", spawn mySysTray)
     ]
-
 
