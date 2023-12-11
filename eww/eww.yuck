@@ -46,10 +46,6 @@
 ;; (deflisten ws_max :initial 0
 ;;     `xprop -spy -root _XMONAD_LOG | stdbuf -o0 sed 's/.*\\([0-9]\\).*/\\1/'`)
 
-;; -- me
-(defvar IMAGE "images/profile.jpg")
-(defvar USER `whoami`)
-
 ;; -----------------------------------------------
 ;; -- widgets ------------------------------------
 ;; -----------------------------------------------
@@ -147,8 +143,8 @@
     (box :orientation "h" :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false" :spacing 5
         (workspaces_1)))
 
-;; --> use `centerbox` when center module avail:
-;; centerbox
+;; centerbox:
+;; ---------
 ;; a box that must contain exactly three children, which will be layed out at the start, center and end of the container.
 ;; Properties
 ;; orientation: string orientation of the centerbox. possible values: "vertical", "v", "horizontal", "h"
@@ -188,7 +184,7 @@
                 :geometry (geometry :x "0"
                                     :y "0"
                                     :width "100%"
-                                    :height "2.5%"
+                                    :height "2.25%"
                                     :anchor "top left")
                 :stacking "fg"
                 :reserve (struts :distance "30px" :side "top")
