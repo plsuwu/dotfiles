@@ -95,37 +95,35 @@ end
 local buttons = {
   type = "group",
   val = {
-    button("s", "   Restore               ", ":SessionManager load_last_session<CR>"),
-    button("r", "   Recents               ", ":Telescope oldfiles<CR>"),
-    button("f", "   Search                ", ":Telescope find_files<CR>"),
-    button("e", "   Create                ", ":ene <BAR> startinsert<CR>"),
-    button("u", "   Update                ", ":PackerSync<CR>"),
-    button("c", "   Config                ", ":e ~/.config/nvim/<CR>"),
-    button("q", "   Quit                  ", ":qa!<CR>"),
+    button("r", "   recent                ", ":Telescope oldfiles<CR>"),
+    button("f", "   search                ", ":Telescope find_files<CR>"),
+    button("e", "   create                ", ":ene <BAR> startinsert<CR>"),
+    button("u", "   update                ", ":PackerSync<CR>"),
+    button("c", "   config                ", ":e ~/.config/nvim/<CR>"),
+    button("q", "   quit                  ", ":qa!<CR>"),
   },
   opts = {
     position = "center",
-    spacing = 1,
+    spacing = 0,
   },
 }
 
 local section = {
   header = header,
   buttons = buttons,
-  footer = fortune,
 }
 
 local opts = {
   layout = {
-    { type = "padding", val = 3 },
+    { type = "padding", val = 4 },
     section.header,
-    { type = "padding", val = 3 },
+    { type = "padding", val = 2 },
     section.buttons,
     { type = "padding", val = 2 },
     section.footer,
   },
   opts = {
-    margin = 44,
+    margin = 46,
   },
 }
 
