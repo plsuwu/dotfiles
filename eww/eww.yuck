@@ -14,6 +14,11 @@
 (defpoll TIME :interval "5s" `date +\"%I:%M%P\"`)
 (defpoll DATE :interval "1m" `date +\"%a, %d %b\"`)
 
+
+(defpoll WINDOWNAME :interval "0.15s" `scripts/active_win_name`)
+;;(defpoll WINDOWNAME_0 :interval "0.5s" `scripts/windowname_0`)
+;;(defpoll WINDOWNAME_1 :interval "0.5s" `scripts/windowname_1`)
+
 ;; -- volume
 (defpoll VOLICON :interval "0.5s" `scripts/vol --icon`)
 (defpoll VOLUME :interval "0.5s" `scripts/vol --get`)
@@ -35,37 +40,27 @@
 (defvar PWR_OFF `scripts/power -s`)
 
 ;; -- workspaces
-
 (deflisten WS_ACTIVITY_0 :initial "(box (label :text 'init'))"
     `scripts/workspaces0`)
 (deflisten WS_ACTIVITY_1 :initial "(box (label :text 'init'))"
     `scripts/workspaces1`)
+(defpoll SPOTIFY_ARTIST :interval "0.5s"
+    `scripts/spotify_info -a`)
+(defpoll SPOTIFY_TRACK :interval "0.5s"
+    `scripts/spotify_info -t`)
+(defpoll SPOTIFY_STATICON :interval "0.5s"
+    `scripts/spotify_info -s`)
 
-;; (deflisten ws_info :initial "{ \"0\": \"current active\" }"
-;;     `xprop -spy -root _XMONAD_LOG | stdbuf -o0 sed 's/_XMONAD_LOG(UTF8_STRING) = "\\(.*\\), "/{ \\1 }/' | stdbuf -o0 sed 's/\\\\//g'`)
-;; (deflisten ws_max :initial 0
-;;     `xprop -spy -root _XMONAD_LOG | stdbuf -o0 sed 's/.*\\([0-9]\\).*/\\1/'`)
-
-;; -----------------------------------------------
-;; -- widgets ------------------------------------
-;; -----------------------------------------------
-;; -- separator
 (defwidget separator []
         (box :orientation "h" :spacing 0 :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false"
-            (label :class "separator" :text "|")))
+            (label :class "separator" :text "/")))
 
-;; -----------------------------------------------
-;; -- right side modules -------------------------
-;; -----------------------------------------------
-
-;; -- volume
 (defwidget vol []
     (circular-progress :value {VOLUME  == "off" ? 0 : VOLUME} :thickness 4 :class {VOLUME  == "off" ? "trayprogred" : "trayprog"}
         (button :onclick "${VOLMUTETOGGLE}" :class "traybtn" :tooltip {VOLUME == "off" ? "mute" : "${VOLUME}%"}
             (box :class "tray" :orientation "h" :spacing 0 :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false"
                 (label :class "trayicon" :halign "center" :text VOLICON)))))
 
-;; -- memory
 (defwidget ram []
     (circular-progress :value MEMPCT :thickness 4 :class "trayprog"
         (button :onclick "${PANEL_LCHR} mem" :class "traybtn" :tooltip "${MEMTEXT}"
@@ -86,13 +81,10 @@
             (box :class "tray" :orientation "h" :spacing 0 :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false"
                 (label :class "trayicon" :halign "center" :text CPUICON)))))
 
-;; -- proc_top && proc_top_sub
 (defwidget cpupanel []
     (box :class "cpupanel" :orientation "v" :space-evenly "false" :spacing 0 :hexpand "false" :vexpand "false"
-        (label :text "processor":halign "start" :class "processor" :show-truncated "false" :wrap "false")
-        ;; -- needs to be fed cores 0 thru 31 to display properly --
+        (label :text "processor" :halign "start" :class "processor" :show-truncated "false" :wrap "false")
         (label :text "temp: ${CPUTEMP}" :halign "start" :class "proc_sub" :show-truncated "false" :wrap "false")))
-
 
 (defwidget time []
     (box :class "time" :orientation "h" :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false" :spacing 5
@@ -102,9 +94,16 @@
         (label :class "date_sub" :text "${DATE}" :halign "center" :valign "center" :show-truncated "false" :wrap "false")))
 (defwidget power []
     (box :class "a" :orientation "h" :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false" :spacing 5
-        (button :onclick "${PWR_OFF}" :class " " :tooltip "system off"
+        (button :onclick "${PWR_OFF}" :class " " :tooltip "systspotify_player -d playback volume --offset 5em off"
             (box :class "" :orientation "h" :spacing 0 :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false"
                 (label :class "powerbtn" :halign "center" :text "󰐦")))))
+
+(defwidget spotify []
+    (box :orientation "h" :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false" :spacing 5
+        (separator)
+        (label :class "spotify_status" :text SPOTIFY_STATICON)
+        (label :class "spotify_track" :text SPOTIFY_TRACK)
+        (label :class "spotify_artist" :text SPOTIFY_ARTIST)))
 
 (defwidget right []
     (box :orientation "h" :valign "center" :halign "end" :space-evenly "false" :vexpand "false" :hexpand "false" :spacing 5
@@ -119,52 +118,52 @@
         (separator)
         (power)))
 
-;; -----------------------------------------------
-;; -- left side modules --------------------------
-;; -----------------------------------------------
-
+(defwidget right_2 []
+    (box :orientation "h" :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" :spacing 5))
 
 (defwidget workspaces_0 []
     (box :class "workspaces0" :orientation "h" :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false"
         (literal :content WS_ACTIVITY_0)))
+
 (defwidget workspaces_1 []
     (box :class "workspaces0" :orientation "h" :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false"
         (literal :content WS_ACTIVITY_1)))
 
-
-(defwidget windows []
-    (box :class "windows" :orientation "h" :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false"
-        (box :class "active_window" :orientation "h" :valign "center" :vexpand "false" :hexpand "false")))
+;;(defwidget windows []
+;;    (box :class "windows" :orientation "h" :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false"
+;;        (box :class "active_window" :orientation "h" :valign "center" :vexpand "false" :hexpand "false")))
 
 (defwidget left []
     (box :orientation "h" :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false" :spacing 5
-        (workspaces_0)))
+        (workspaces_0)
+        (spotify)
+        (separator)))
+
 (defwidget left_2 []
     (box :orientation "h" :valign "center" :halign "start" :space-evenly "false" :vexpand "false" :hexpand "false" :spacing 5
-        (workspaces_1)))
+        (workspaces_1)
+        (separator)))
 
-;; centerbox:
-;; ---------
-;; a box that must contain exactly three children, which will be layed out at the start, center and end of the container.
-;; Properties
-;; orientation: string orientation of the centerbox. possible values: "vertical", "v", "horizontal", "h"
+(defwidget center []
+    (box :orientation "h" :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" :spacing 5
+        (label :class "active_window" :text "${WINDOWNAME}" :halign "center" :valign "center" :show-truncated "false" :wrap "false")))
+
+(defwidget center_2 []
+    (box :orientation "h" :valign "center" :halign "center" :space-evenly "false" :vexpand "false" :hexpand "false" :spacing 5
+    (time)
+    (date)))
 
 (defwidget full []
     (box :class "full" :orientation "h" :space-evenly "true" :vexpand "false" :hexpand "false"
         (left)
-        ;;(center)
+        (center)
         (right)))
 
 (defwidget full_2 []
     (box :class "full_2" :orientation "h" :space-evenly "true" :vexpand "false" :hexpand "false"
         (left_2)
-        ;;(center)
-        ;;(right_2)
-    ))
-
-;; -----------------------------------------------
-;; -- windows ------------------------------------
-;; -----------------------------------------------
+        (center_2)
+        (right_2)))
 
 (defwindow bar_0_main
                 :monitor 0
@@ -172,7 +171,7 @@
                                     :y "0"
                                     :width "100%"
                                     :height "2%"
-                                    :anchor "top left")
+                                    :anchor "top center")
                 :stacking "fg"
                 :reserve (struts :distance "30px" :side "top")
                 :windowtype "dock"
@@ -184,18 +183,17 @@
                 :geometry (geometry :x "0"
                                     :y "0"
                                     :width "100%"
-                                    :height "2.25%"
-                                    :anchor "top left")
+                                    :height "2.6%"
+                                    :anchor "top center")
                 :stacking "fg"
                 :reserve (struts :distance "30px" :side "top")
                 :windowtype "dock"
                 :wm-ignore false
             (full_2))
 
-;; -- info panels
 (defwindow mem
                 :geometry (geometry :x "-20px"
-                        :y "7%"
+                        :y "50px"
                         :anchor "top right"
                         :width "290px"
                         :height "120px")
@@ -203,7 +201,7 @@
 
 (defwindow cpu
                 :geometry (geometry :x "-20px"
-                        :y "7%"
+                        :y "50px"
                         :anchor "top right"
                         :width "290px"
                         :height "120px")

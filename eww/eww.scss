@@ -39,7 +39,7 @@ $crust: #11111b;
 
 .separator {
 	color: $surface2;
-	padding: 0px 5px 0px 5px;
+	padding: 0px 5px 4px 5px;
 }
 
 .tray {
@@ -66,6 +66,7 @@ $crust: #11111b;
 .mempanel {
 	background-color: $crust;
 	padding: 18px;
+  margin: 6px;
 	border-radius: 25px;
 }
 
@@ -97,6 +98,29 @@ $crust: #11111b;
 	font-size: 12px;
 }
 
+.cpupanel {
+  background-color: $crust;
+  padding: 6px;
+  margin: 6px;
+  border-radius: 25px;
+  font-weight: bold;
+}
+
+.processor {
+  font-size: 14px;
+  background-color: $crust;
+  margin: 12px 12px 0px 12px;
+  border-bottom: 1px solid $overlay0;
+}
+
+.proc_sub {
+  font-size: 12px;
+  background-color: $crust;
+  padding: 6px;
+  margin: 6px;
+  font-weight: normal;
+}
+
 .time {
 	padding: 0px 10px 0px 0px;
 }
@@ -115,7 +139,7 @@ $crust: #11111b;
 }
 
 .workspaces0 {
-  margin: 0px 6px 0px 6px;
+  margin: 0px 0px 0px 6px;
 }
 
 .ws_active {
@@ -128,7 +152,6 @@ $crust: #11111b;
 
 .ws_occupied {
     color: $overlay0;
-    // opacity: 0.5;
 }
 
 .ws_other {
@@ -146,5 +169,15 @@ $crust: #11111b;
 
 .powerbtn {
   color: $red;
-  padding: 0px 10px 0px 0px;
+  margin: 0px 13px 0px 0px;
+}
+
+.td_right {
+  margin: 0px 10px 0px 0px;
+}
+
+.active_window {
+  font-size: 14px;
+  font-weight: bold;
+  color: $mauve;
 }

@@ -14,29 +14,33 @@ MEMLOCK="$LOCKDIR/mem_lock"
 CPULOCK="$LOCKDIR/cpu_lock"
 
 open_panel() {
-    ${EWW_BIN} -c $EWW_CNF open "$PANEL";
+    "${EWW_BIN}" -c "$EWW_CNF" open "$PANEL";
 }
 close_panel() {
-    ${EWW_BIN} -c $EWW_CNF close "$PANEL";
+    "${EWW_BIN}" -c "$EWW_CNF" close "$PANEL";
 }
 
 top_ram() {
     i=1
     for id in $(ps aux --sort -rss | tail -n +2 | head -n 5 | awk '{print $2}'); do
-        WMNAME=$(wmctrl -lp | awk -v pid=$id '$3==pid {for(i=5;i<=NF;i++) printf "%s ", $i; printf "\n"; exit}')
-        PROC=$(ps -p $id -o comm= | xargs -n 1 basename);
+
+      WMNAME=$(wmctrl -lp | awk -v pid="$id" '$3==pid {for(i=5;i<=NF;i++) printf "%s ", $i; printf "\n"; exit}')
+      PROC=$(ps -p "$id" -o comm= | xargs -n 1 basename);
+
         if [[ $WMNAME ]]; then
-            echo "[$i] $WMNAME(pid $id)"
-        else``
-            echo "[$i] $PROC (pid $id)"
+          echo "[*] $WMNAME ($id)"
+        else
+          echo "[*] $PROC ($id)"
         fi
         ((i++))
+
     done
 }
 
 mem_info() {
+
     if [[ ! -f "$MEMLOCK" ]]; then
-        ${EWW_BIN} -c $EWW_CNF close cpu;
+        "${EWW_BIN}" -c "$EWW_CNF" close cpu;
         touch "$MEMLOCK";
         open_panel;
         echo "OPENED $1"
@@ -45,11 +49,12 @@ mem_info() {
         rm "$MEMLOCK";
         echo "CLOSED $1"
     fi
+
 }
 
 cpu_cores() {
         if [[ ! -f "$CPULOCK" ]]; then
-            ${EWW_BIN} -c $EWW_CNF close mem;
+            "${EWW_BIN}" -c "$EWW_CNF" close mem;
             touch "$CPULOCK";
             open_panel;
             echo "OPENED $1"
@@ -61,13 +66,13 @@ cpu_cores() {
 }
 
 case "$PANEL" in
-	mem)
-        mem_info
+  mem)
+    mem_info "$@"
 		;;
-    mem-topram)
-        top_ram
-        ;;
-    cpu)
-        cpu_cores
-        ;;
+  mem-topram)
+    top_ram "$@"
+    ;;
+  cpu)
+    cpu_cores "$@"
+    ;;
 esac

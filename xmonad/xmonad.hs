@@ -47,7 +47,15 @@ screenshotFull          = "/home/pls/.config/xmonad/scripts/screenshot.sh -f"
 screenshotSelect        = "/home/pls/.config/xmonad/scripts/screenshot.sh -s"
 myAppLauncher           = "rofi -show drun"
 mySysTray               = "killall trayer; trayer --edge top --align right --SetDockType true --SetPartialStrut true \
-                            \--monitor 1 --width 20 --margin 5 --distance 2.5 --iconspacing 7 --expand false"
+                            \--monitor 1 --width 10 --margin 5 --distance 2.5 --iconspacing 7 --expand false"
+spotifyDaemon           = "killall spotify_player; spotify_player -d"
+spotifyPausePlay        = "playerctl -p spotify_player play-pause"
+spotifyNext             = "playerctl -p spotify_player next"
+spotifyPrev             = "playerctl -p spotify_player previous"
+spotifyVolU             = "spotify_player -d playback volume --offset 5"
+spotifyVolD             = "spotify_player -d playback volume --offset -- -5"
+
+
 
 
 myLayout =
@@ -91,20 +99,7 @@ myManageHook = composeAll
 
 ewwPP :: ScreenId -> PP
 ewwPP s = marshallPP s $ def
-    { ppCurrent             = wrap "[" "]"
-    , ppVisible             = wrap "<" ">"
-    , ppHidden              = wrap "(" ")"
-    , ppHiddenNoWindows     = id
-    , ppSep                 = ", "
-    , ppWsSep               = " : "
-    }
-
--- myStatusBarSpawner :: Applicative f => ScreenId -> f StatusBarConfig
--- myStatusBarSpawner (S s) = do
---     -- pure $ statusBarProp ("/usr/local/bin/eww -c /home/pls/.config/eww open-many bar_" ++ show s ++ "_main")
---     pure $ statusBarPropTo ("_XMONAD_LOG_bar_" ++ show s)
---         ("/usr/local/bin/eww -c /home/pls/.config/eww open-many bar_0_main bar_1_main")
---         (pure $ ewwPP (S s))
+    { ppCurrent             = wrap "[" "]" }
 
 myStartupHook :: X ()
 myStartupHook = do
@@ -113,15 +108,16 @@ myStartupHook = do
     spawnOnce "xrandr --output DP-0 --mode 2560x1440 --pos 0x0 --rate 165.08 --primary --output HDMI-1 --mode 1920x1080 --pos 2560x0 --rotate normal --scale 1.2"
     spawnOnce "feh --bg-fill --no-fehbg /home/pls/.config/feh/mikumain.png"
     spawnOnce "picom --config /home/pls/.config/picom/picom.conf -b"
-    spawnOn "0" "discord --start-minimized &"
-    spawnOn "0" "caprine &"
-    spawnOnce mySysTray
+    spawn   spotifyDaemon
+    -- spawnOn "0" "discord --start-minimized"
+    -- spawnOn "0" "caprine &"
+    spawn mySysTray
 
 {----  -----------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------  ----}
 
 main :: IO ()
-main = xmonad . ewmh . ewmhFullscreen . dynamicSBs myStatusBarSpawner . docks $ def
+main = xmonad . ewmh . ewmhFullscreen . docks $ def
     { modMask = mod4Mask
     , layoutHook = myLayout
     , borderWidth = myBorderWidth
@@ -130,6 +126,7 @@ main = xmonad . ewmh . ewmhFullscreen . dynamicSBs myStatusBarSpawner . docks $ 
     , workspaces = myWorkspaces
     , startupHook = myStartupHook
     , manageHook = manageSpawn <+> myManageHook
+    --, keys = myKeys
     }
     `additionalKeysP`
     [ ("M-<Return>", spawn myTerminal)
@@ -142,5 +139,10 @@ main = xmonad . ewmh . ewmhFullscreen . dynamicSBs myStatusBarSpawner . docks $ 
     , ("M-S-e", spawn myNvim)
     , ("M-M1-c", spawn "tmux kill-server")
     , ("M-S-t", spawn mySysTray)
+    , ("M-<F4>", spawn spotifyVolU)
+    , ("M-<F3>", spawn spotifyVolD)
+    , ("M-<F5>", spawn spotifyPausePlay)
+    , ("M-<F7>", spawn spotifyPrev)
+    , ("M-<F8>", spawn spotifyNext)
     ]
 
