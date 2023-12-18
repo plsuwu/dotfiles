@@ -37,7 +37,6 @@ xprop -spy -root _NET_CURRENT_DESKTOP | while read -r; do
         statusClass="ws_inactive"
         icon="󰝦"
 
-
         if [ "$(check_occupied "$number")" == "true" ]; then
             statusClass="ws_occupied"
             icon=""
