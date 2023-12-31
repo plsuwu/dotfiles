@@ -1,153 +1,69 @@
-/* 				   -- palette --
-* drop-in replacable with catppuccin scss palette
-*/
+@import "palette/custom.scss";
 
-$rosewater: #f5e0dc;
-$flamingo: #f2cdcd;
-$pink: #f5c2e7;
-$mauve: #cba6f7;
-$red: #f38ba8;
-$maroon: #eba0ac;
-$peach: #fab387;
-$yellow: #f9e2af;
-$green: #a6e3a1;
-$teal: #94e2d5;
-$sky: #89dceb;
-$sapphire: #74c7ec;
-$blue: #89b4fa;
-$lavender: #b4befe;
-$text: #cdd6f4;
-$subtext1: #bac2de;
-$subtext0: #a6adc8;
-$overlay2: #9399b2;
-$overlay1: #7f849c;
-$overlay0: #6c7086;
-$surface2: #585b70;
-$surface1: #45475a;
-$surface0: #313244;
-$base: #1e1e2e;
-$mantle: #181825;
-$crust: #11111b;
+/* I would love to refactor this */
 
 * {
-	all: unset;
-	font-family: "RobotoMono Nerd Font Propo";
-	background-color: $base;
-	color: $text;
-	margin: 1px 0px 1px 0px;
+    all: unset;
+}
+
+.bar {
+    background-color: $base;
+    color: $text;
+    font-family: UbuntuNerdFont;
+    font-size: 13px;
+    padding: 0.25rem;
+}
+
+.text {
+    margin-top: 1px;
+    color: $subtext1;
+    font-size: 13px;
+    font-family: UbuntuMonoNerdFont;
+}
+
+.net-subtext {
+    margin-left: 5px;
+    font-family: UbuntuMonoNerdFont;
+    color: $subtext0;
+    font-size: 9px;
+}
+
+.net-title {
+    all: unset;
+    font-family: UbuntuMonoNerdFont;
+    color: $subtext0;
+    font-size: 11px;
 }
 
 .separator {
-	color: $surface2;
-	padding: 0px 5px 4px 5px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    margin: 0rem 0.75rem;
+    color: $surface0;
 }
 
-.tray {
-	font-size: 11px;
+.separator-v {
+    margin: 0rem 0rem;
+    color: $surface0;
 }
 
-.trayicon {
-	color: $text;
-	font-size: 14px;
-	padding: 6px;
+.separator-sm {
+    font-weight: 600;
+    margin: 0rem 0.5rem;
+    color: $surface2;
 }
 
-.trayprog {
-	background-color: $surface2;
-	color: $mauve;
-	padding: 4px 0px 4px 0px;
-}
-
-.trayprogred {
-	background-color: $red;
-	padding: 4px 0px 4px 0px;
-}
-
-.mempanel {
-	background-color: $crust;
-	padding: 18px;
-  margin: 6px;
-	border-radius: 25px;
-}
-
-.mempanel_header {
-	background-color: $crust;
-	font-weight: bold;
-	border-bottom: 1px solid $overlay0;
-}
-
-.mempanel_main {
-	background-color: $crust;
-	font-size: 12px;
-}
-
-.mempanel_sub {
-	background-color: $crust;
-	font-size: 12px;
-	margin-bottom: 12px;
-}
-
-.mempanel_top {
-	background-color: $crust;
-	font-weight:bold;
-	border-bottom: 1px solid $overlay0;
-}
-
-.mempanel_top_sub {
-	background-color: $crust;
-	font-size: 12px;
-}
-
-.cpupanel {
-  background-color: $crust;
-  padding: 6px;
-  margin: 6px;
-  border-radius: 25px;
-  font-weight: bold;
-}
-
-.processor {
-  font-size: 14px;
-  background-color: $crust;
-  margin: 12px 12px 0px 12px;
-  border-bottom: 1px solid $overlay0;
-}
-
-.proc_sub {
-  font-size: 12px;
-  background-color: $crust;
-  padding: 6px;
-  margin: 6px;
-  font-weight: normal;
-}
-
-.time {
-	padding: 0px 10px 0px 0px;
-}
-
-.time_sub {
-  font-weight: bold;
-	color: $text;
-}
-
-.date {
-	padding: 0px 0px 0px 0px;
-}
-
-.date_sub {
-  color: $overlay2;
-}
-
-.workspaces0 {
-  margin: 0px 0px 0px 6px;
+.workspaces {
+    margin-left: 6px;
 }
 
 .ws_active {
-  color: $mauve;
+    color: $lavender;
+    opacity: 1;
 }
 
 .ws_inactive {
-  color: $surface2;
+    color: $overlay0;
 }
 
 .ws_occupied {
@@ -156,28 +72,220 @@ $crust: #11111b;
 
 .ws_other {
     color: $overlay0;
+    opacity: 0.75;
 }
 
 .ws_other_active {
-    color: $subtext0;
+    color: $lavender;
+    opacity: 0.8;
 }
 
 .ws_active_unfocused {
-    color: $mauve;
+    color: $lavender;
     opacity: 0.5;
 }
 
-.powerbtn {
-  color: $red;
-  margin: 0px 13px 0px 0px;
+.ico {
+    margin: 0px 5px;
+    //padding: 0px 1px;
+    padding-left: 2px;
+    button {
+        margin: 1px;
+        padding: 1px 2px 1px 6px;
+        transition: all 200ms ease-out;
+        border-radius: 10px;
+    }
+    button:hover {
+        color: $crust;
+        background-color: $overlay2;
+    }
 }
 
-.td_right {
-  margin: 0px 10px 0px 0px;
+.opts {
+    border: 1px solid $overlay0;
+    border-right-style: none;
+    background-color: $crust;
+    border-radius: 10px;
+    border-top-right-radius: unset;
+    border-bottom-right-radius: unset;
 }
 
-.active_window {
-  font-size: 14px;
-  font-weight: bold;
-  color: $mauve;
+.eventbox, .clickbox {
+    border: 1px solid $surface1;
+    color: $text;
+    padding: 3px;
+    border-radius: 10px;
+
 }
+
+.metric scale.volume trough highlight {
+    all: unset;
+    background-color: $overlay2;
+    color: $text;
+    border-radius: 10px;
+    transition: all 200ms ease-out;
+}
+
+.metric scale trough {
+    background-color: $surface2;
+    border-radius: 50px;
+    min-height: 6.25px;
+    min-width: 70px;
+    margin-left: 5px;
+    margin-right: 5px;
+    transition: all 200ms ease-out;
+}
+
+.metric scale trough:hover {
+    background-color: $overlay0;
+}
+
+.metric scale.volume {
+    background-color: $crust;
+    padding: 0px 1px 0px 2px;
+    border: 1px solid $overlay0;
+    border-right-style: none;
+    border-radius: 10px;
+    border-top-right-radius: unset;
+    border-bottom-right-radius: unset;
+}
+
+.metric scale trough highlight:hover {
+    background-color: $text;
+}
+
+
+.time {
+    font-weight: 500;
+    color: $text;
+}
+
+.date {
+    font-weight: 400;
+    color: $subtext1;
+}
+
+.music {
+    color: $text;
+    padding: 0px 6px;
+    font-weight: 400;
+    border: 1px solid $overlay2;
+    border-right-style: none;
+    background-color: $crust;
+    border-radius: 10px;
+    border-top-right-radius: unset;
+    border-bottom-right-radius: unset;
+}
+
+.player-ctl {
+    all: unset;
+    color: $text;
+    padding: 1px 2px;
+    button {
+        color: $text;
+        margin: 1px;
+        padding: 1px 4px;
+        transition: all 200ms ease-out;
+    }
+    button.player-prev {
+        margin-left: 10px;
+    }
+    button:hover {
+        color: $crust;
+        background-color: $overlay2;
+    }
+}
+
+.docker-ico {
+    margin: 0px 4px;
+    padding: 0px 4px;
+    transition: all 200ms ease-out;
+    color: $blue;
+    border-radius: 10px;
+}
+
+.docker-ico:hover {
+        color: $crust;
+        background-color: $overlay2;
+}
+
+.docker {
+    background-color: $crust;
+    border: 1px solid $overlay0;
+    border-right-style: none;
+    border-radius: 10px;
+    border-top-right-radius: unset;
+    border-bottom-right-radius: unset;
+}
+
+.docker-count {
+    margin: 0px 0px;
+    background-color: $crust;
+    padding:0px 3px;
+    color: $text;
+    button {
+        transition: all 200ms ease-out;
+        .ctr-exit {
+            color: $red;
+            margin: 2px 0px;
+            margin-left: 4px;
+            padding: 0px 4px;
+            transition: all 200ms ease-out;
+            border-radius: 10px;
+        }
+    }
+    button:hover {
+        .ctr-exit {
+            color:$crust;
+            background-color: $overlay2;
+        }
+    }
+}
+
+.netg-box {
+    border: 1px solid $overlay2;
+    background-color: $crust;
+    color: $subtext0;
+    margin: 0px 5px;
+    padding: 0px 0px;
+    border-radius: 10px;
+}
+
+.netgraph {
+    all: unset;
+    background-color: $text;
+    border: 1px solid $overlay2;
+    margin: 3px 5px;
+}
+
+.sysinfo {
+    margin: 0px 5px;
+}
+
+.sys {
+    background-color: $surface1;
+	color: $text;
+	padding: 5px 0px;
+}
+
+.sys-icon {
+    font-family: UbuntuMonoNerdFont;
+    color: $text;
+    padding: 2px;
+    padding-left: 3px;
+}
+
+.sys scale {
+    all: unset;
+    background-color: $overlay2;
+    color: $text;
+    border-radius: 10px;
+    transition: all 200ms ease-out;
+    border-radius: 10px;
+}
+
+
+
+
+
+

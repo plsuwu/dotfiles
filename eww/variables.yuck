@@ -1,0 +1,27 @@
+; --- insantiates variables n stuff --- ;
+; ------------------------------------- ;
+
+(defvar revealPower false)
+(defvar revealSpotify false)
+(defvar revealVolume false)
+(defvar revealDocker false)
+
+; polling vars
+(defpoll raw-time :interval "5s" "date '+%H:%M'")
+(defpoll raw-date :interval "1m" "date '+%a, %d %b'")
+(defpoll raw-volume :interval "1s" "scripts/vol")
+
+(defpoll inetDefault :interval "60s" "ip route | grep default | head -n1 | awk '{print $5}'")
+(defpoll dockerContainers :interval "10s" "sudo docker ps -q | wc -l")
+(defpoll dockerImages :interval "10s" "sudo docker images -q | wc -l")
+
+; listener vars
+(deflisten music
+  :initial ""
+  :onchange "eww update revealSpotify=true && sleep 5 && eww update revealSpotify=false"
+  "playerctl --player spotify_player --follow metadata --format '{{title}} - {{artist}}' || true")
+(deflisten musicStatus "playerctl --follow status || true")
+(deflisten  raw-workspaces-1 :initial "(box (label :text ''))"
+    `scripts/workspaces1`)
+(deflisten  raw-workspaces-0 :initial "(box (label :text ''))"
+    `scripts/workspaces0`)

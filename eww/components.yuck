@@ -1,0 +1,278 @@
+; TODO: refactor for organization & clarity
+; --------------- ;
+; - atomic  ----- ;
+; --------------- ;
+
+(defwidget workspaces-pri []
+    (box :space-evenly false
+        (literal
+            :class "workspaces"
+            :valign "center"
+            :content raw-workspaces-0)
+        )
+)
+(defwidget workspaces-sec []
+    (box :space-evenly false
+        (literal
+            :class "workspaces"
+            :valign "center"
+            :content raw-workspaces-1)
+    )
+)
+
+(defwidget datetime []
+    (box :orientation "h" :space-evenly false
+        (label :class "time" :text "${raw-time}")
+        (separator-sm)
+        (label :class "date" :text "${raw-date}")
+    )
+)
+
+; should be refactored into something more reusable
+(defwidget power [?class]
+    (box :space-evenly false :class "hover-module ${class}"
+        (revealer-on-hover :class "hl-on-hover" :var revealPower :varname "revealPower" :transition "slideleft" :class "ico"
+            (hovered-sign :var revealPower
+                (label :text "")
+                (label :text "")
+            )
+            (box :space-evenly false :orientation "h" :class "${class} opts" :halign "center" :valign "center"
+                (button :tooltip "Power off" :class "poweroff" :onclick "systemctl poweroff"
+                    "󰐥 ")
+                (button :tooltip "Reboot" :class "reset" :onclick "reboot"
+                    " ")
+                (button :tooltip "Sleep" :class "sleep" :onclick "systemctl suspend"
+                    " ")
+                (button :tooltip "Lock" :class "lock" :onclick "notify-send 'not implemented' 'my bad lol'"
+                    " ")
+            )
+        "󰐦 ")
+    )
+)
+
+(defwidget spotify [?class]
+    (box :space-evenly false :class "hover-module ${class}"
+        (revealer-on-hover :class "hl-on-hover" :var revealSpotify :varname "revealSpotify" :transition "slideleft" :class "ico"
+            (hovered-sign :var revealSpotify
+                (label :text "")
+                (label :text "")
+            )
+            (box :orientation "h" :space-evenly false
+                (music)
+            )
+            (musicStatus)
+        )
+    )
+)
+
+(defwidget musicStatus []
+    (box :orientation "h" :space-evenly false
+        (label :text "  ")
+    )
+)
+
+
+(defwidget volume [?class]
+  (box :space-evenly false :class "hover-module ${class} "
+    (revealer-on-hover :class "hl-on-hover" :var revealVolume :varname "revealVolume" :transition "slideleft" :class "ico"
+      (hovered-sign :var revealVolume
+        (label :text "")
+        (label :text "")
+      )
+      (metric :icon "" :class "volume" :value raw-volume :onchange "amixer -D pulse sset Master {}%")
+    " ")
+  )
+)
+
+(defwidget music []
+    (box :class "music" :orientation "h" :space-evenly false
+        (label :class "text" :text {music != "" ? " 󰌳  ${music}" : ""})
+        (centerbox :class "player-ctl"
+            (button :class "player-prev" :onclick "playerctl --player spotify_player next"
+                (label :text "󰙤")
+            )
+            (button :class "player-pp" :onclick "playerctl --player spotify_player play-pause"
+                (label :text "${ musicStatus == "Playing" ? "󱖒": "󰐍" }")
+            )
+            (button :class "player-next" :onclick "playerctl --player spotify_player next"
+                (label :text "󰙢")
+            )
+        )
+    )
+)
+
+(defwidget docker-counts []
+    (box :space-evenly false
+        (box :class "docker" :space-evenly false
+            (box :class "docker-count" :space-evenly false
+                (button :class "kill-cts" :tooltip "Kill running containers" :onclick "notify-send 'docker-ctl' 'exit btn'" ;:onclick "eww update revealDocker=false && (sudo docker ps -qa | xargs docker stop || true) "
+                    (label :class "ctr-exit" :text "󰩈")
+                )
+                (separator-v)
+                (label :class "text" :text "ctr [${dockerContainers}]")
+                (separator-sm)
+                (label :class "text" :text "img [${dockerImages}]")
+            )
+        )
+    )
+)
+
+(defwidget docker [?class]
+  (box :space-evenly false :class "hover-module ${class}"
+    (revealer-on-click :class "hl-on-hover" :var revealDocker :varname "revealDocker" :transition "slideleft" :class "ico-btn"
+            (hovered-sign :var revealDocker
+                (label :text "")
+                (label :text "")
+            )
+            (box :orientation "h" :space-evenly false
+                (docker-counts)
+            )
+            (docker-icon)
+        )
+    )
+)
+
+(defwidget docker-icon []
+    (box :orientation "h" :space-evenly false
+        (label :class "docker-ico" :text "󰡨")
+    )
+)
+
+(defwidget netgraph []
+    (box :orientation "h" :class "netg-box" :space-evenly false
+        (label :class "net-subtext" :text "eth0: ") ; <-- maybe revealbox when bothered
+        ;(separator-v)
+        (label :class "net-subtext" :text "${round(EWW_NET.enp6s0.NET_DOWN / 1000000, 2)} ") ; -> B/s/100k == MiB/s i think
+        (label :class "net-title" :text "")
+        (separator-v)
+        (graph :class "netgraph" :width 35 :min 0 :max 100 :value {EWW_NET.enp6s0.NET_DOWN/100000} :time-range "2m" :dynamic true)
+        (separator-v)
+        (label :class "net-subtext" :text "${round(EWW_NET.enp6s0.NET_UP / 1000000, 2)} ")
+        (label :class "net-title" :text "")
+        (separator-v)
+        (graph :class "netgraph" :width 37 :min 0 :max 100 :value {EWW_NET.enp6s0.NET_UP/100000} :time-range "2m" :dynamic true)
+        (separator-v)
+    )
+)
+
+(defwidget sysinfo []
+    (box :orientation "h" :space-evenly false :spacing 6 :class "sysinfo"(circular-progress :class "sys" :clockwise true :start-at 25 :value {round(EWW_CPU.avg, 2)} :thickness 3 :width 5 :height 5
+                            :tooltip "CPU avg. usage: ${round(EWW_CPU.avg, 2)}%"
+            (box :orientation "h" :class "sys-icon" :space-evenly false
+                (label :class "sys-icon" :text "󰊚 ")
+            )
+        )
+        (circular-progress :class "sys" :clockwise true :start-at 25 :value {EWW_RAM.used_mem_perc} :thickness 3 :width 5 :height 5
+                            :tooltip "avail: ${round(EWW_RAM.available_mem/1000000000,2)} GiB / ${round(EWW_RAM.total_mem/1000000000,2)} GiB total (${round(EWW_RAM.used_mem/1000000000,2)}GiB / ${round(EWW_RAM.used_mem_perc,2)}% in use)"
+            (box :orientation "h" :class "sys-icon" :space-evenly false
+                (label :class "sys-icon" :text "󰘚 ")
+            )
+        )
+        ;    (box :orientation "h" :class "sys-icon" :space-evenly false
+        ;        (label :class "sys-icon" :text "󰋜 ~")
+        ;    )
+        ; (box :class "disks" :orientation "h" :space-evenly false
+        ;     (scale :class "sys" :value {EWW_DISK["/home"].used_perc} :width 5
+        ;                         :tooltip "/home: ${round(EWW_DISK["/home"].free/1000000000,2)} GiB free of ${round(EWW_DISK["/home"].total/1000000000,2)} GiB total"
+
+        ;     )
+        ;         (box :orientation "h" :class "sys-icon" :space-evenly false
+        ;             (label :class "sys-icon" :text "󰴁 /data")
+        ;         )
+        ;     (scale :class "sys" :value {EWW_DISK["/data"].used_perc} :width 5
+        ;                         :tooltip "/data: ${round(EWW_DISK["/data"].free/1000000000,2)} GiB free of ${round(EWW_DISK["/data"].total/1000000000,2)} GiB total"
+
+        ;     )
+        ; )
+
+    )
+)
+
+(defwidget metric [icon value ?onchange ?onclick ?class ?height ?width]
+  (box :orientation "h" :class "metric" :space-evenly false
+    ;(termbutton :command "${onclick}" :height "1000" :width "1000"  :text "${icon}")
+    (scale  :class {class != "" ? class : value > 50 ? value > 75 ? "error" : "warning" : "normal"}
+            :active {onchange != ""}
+            :min 0 :max 101 :value value :onchange onchange)
+    )
+)
+
+(defwidget utils [?class]
+    (box :class "utils" :orientation "h" :space-evenly false :halign "end" :spacing 0
+        (box :orientation "h" :space-evenly false :halign "end"
+            (sysinfo)
+            (netgraph)
+            (docker)
+            (separator)
+            (spotify)
+            (volume)
+            (separator)
+            (datetime)
+            (separator)
+            (power)
+        )
+    )
+)
+
+; --------------- ;
+; - util -------- ;
+; --------------- ;
+
+(defwidget separator []
+    (box :orientation "h" :space-evenly false
+        (label :class "separator" :text "//")
+    )
+)
+(defwidget separator-v []
+    (box :orientation "h" :space-evenly false
+        (label :class "separator-h" :text "")
+    )
+)
+(defwidget separator-sm []
+    (box :orientation "h" :space-evenly false
+        (label :class "separator-sm" :text "~")
+    )
+)
+
+(defwidget hovered-sign [var]
+  (box :space-evenly false
+      (revealer :reveal {!var} :duration "250ms" :transition "slideleft"
+        (children :nth 0))
+      (revealer :reveal {var} :duration "250ms" :transition "slideleft"
+        (children :nth 1))))
+
+(defwidget revealer-on-hover [var varname ?class ?duration ?transition]
+    (box :class "${class} revealer-on-hover" :orientation "h" :space-evenly false
+        (eventbox :class "eventbox" :onhover "eww update ${varname}=true" :onhoverlost "eww update ${varname}=false"
+            (box :space-evenly false
+                (children :nth 0)
+                (revealer :reveal var :transition {transition ?: "slideleft"} :duration {duration ?: "500ms"}
+                    (children :nth 1)
+                )
+                (box :class "${class}"
+                    (children :nth 2)
+                )
+            )
+        )
+    )
+)
+(defwidget revealer-on-click [var varname ?class ?duration ?transition]
+    (box :class "${class} revealer-on-click" :orientation "h" :space-evenly false
+        (eventbox :class "eventbox" :onclick "eww update ${varname}=${!var}"
+            (box :space-evenly false
+                (children :nth 0)
+                (revealer :reveal var :transition {transition ?: "slideleft"} :duration {duration ?: "500ms"}
+                    (children :nth 1)
+                )
+                (box :class "${class}"
+                    (children :nth 2)
+                )
+            )
+        )
+    )
+)
+
+
+
+
+

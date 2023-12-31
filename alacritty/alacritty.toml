@@ -1,0 +1,48 @@
+import = ["/home/pls/.config/alacritty/catppuccin/catppuccin-mocha.toml"]
+live_config_reload = true
+
+[cursor.style]
+shape = "Block"
+
+#[env]
+#TERM = "alacritty"
+
+[font]
+size = 10.0
+
+[font.bold]
+family = "JetBrainsMonoNerdFont"
+style = "Bold"
+
+[font.bold_italic]
+family = "JetBrainsMonoNerdFont"
+style = "Bold Italic"
+
+[font.italic]
+family = "JetBrainsMonoNerdFont"
+style = "Italic"
+
+[font.normal]
+family = "JetBrainsMonoNerdFont"
+style = "Regular"
+
+[scrolling]
+history = 5000
+multiplier = 3
+
+[shell]
+args = ["--login", "-c", "tmux"]
+program = "/usr/bin/zsh"
+
+[window]
+decorations = "full"
+dynamic_padding = true
+dynamic_title = true
+opacity = 1.0
+
+[window.class]
+general = "Alacritty"
+
+[window.padding]
+x = 0
+y = 10

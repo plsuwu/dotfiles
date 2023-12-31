@@ -28,8 +28,6 @@ check_active_unfocused() {
     fi
 }
 
-
-
 xprop -spy -root _NET_CURRENT_DESKTOP | while read -r; do
 
     wsNumber=$(wmctrl -d | awk '{print $1}' | tail -c 2)
@@ -42,7 +40,7 @@ xprop -spy -root _NET_CURRENT_DESKTOP | while read -r; do
             icon=""
             if [ "$(check_other_unfocused "$number")" == "true" ]; then
                 statusClass="ws_other"
-                icon=""
+                icon=""
             fi
         fi
 
@@ -61,14 +59,14 @@ xprop -spy -root _NET_CURRENT_DESKTOP | while read -r; do
 
             elif [ "$vp" != "$D0_DP_VP" ]; then
                 statusClass="ws_other_active"
-                icon=""
+                icon=""
             fi
         fi
 
 
         buffered+="(label :class '$statusClass' :text '$icon')"
         if [ "$number" == "$wsNumber" ]; then
-            echo "(box :space-evenly false :spacing 10 $buffered)"
+            echo "(box :space-evenly false :spacing 5 $buffered)"
         fi
 
 
