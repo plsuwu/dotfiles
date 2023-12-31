@@ -2,7 +2,7 @@
 
 h*skell
 
-![](20231219_044939.png)
+![9WHATl](screenshot.png)
 
 ## deps
 
