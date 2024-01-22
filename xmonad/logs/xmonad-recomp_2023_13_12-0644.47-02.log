@@ -1,5 +1,0 @@
-[*] Recompiling XMonad & updating binary at /usr/local/bin/xmonad...
-XMonad will use stack ghc --stack-yaml "/home/pls/.config/xmonad/stack.yaml" to recompile.
-XMonad recompiling (forced).
-XMonad recompilation process exited with success!
-[*] Compile done (0):
