@@ -44,7 +44,7 @@ screenshotFull          = "/home/pls/.config/xmonad/scripts/screenshot.sh -f"
 screenshotSelect        = "/home/pls/.config/xmonad/scripts/screenshot.sh -s"
 myAppLauncher           = "rofi -show drun"
 restartTray               = "killall trayer; trayer --edge top --align right --SetDockType true --SetPartialStrut true \
-                            \--monitor 1 --width 10 --margin 5 --distance 2.5 --iconspacing 7 --expand false"
+                            \--monitor 0 --width 10 --margin 5 --distance 2.5 --iconspacing 7 --expand false"
 termAtCwd               = "/home/pls/.config/xmonad/scripts/term_at_cwd.sh"
 polkitVirt              = "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
 
@@ -77,7 +77,7 @@ myAdditionalKeys =
     , ("M-f", toggleFull)
     , ("M-M1-S-x", spawn "tmux kill-server")
     , ("M-S-t", spawn restartTray)
-
+    , ("M-M1-l", spawn "dm-tool switch-to-greeter")
     -- spotify
     , ("M-<F4>", spawn spotifyVolU)
     , ("M-<F3>", spawn spotifyVolD)
@@ -92,7 +92,7 @@ myAdditionalKeys =
 
 myLayout =
 
-  gaps [(L, 2), (R, 2), (U, 35), (D, 2)]
+  gaps [(L, 2), (R, 2), (U, 30), (D, 2)]
   $ spacingRaw True (Border gap gap gap gap)
                 True (Border gap gap gap gap)
                 True
@@ -138,14 +138,15 @@ myStartupHook = do
     spawnOnce "xsetroot -cursor_name left_ptr &"
     spawnOnce "solaar --window=hide"
     spawnOnce "/usr/local/bin/eww -c /home/pls/.config/eww open-many primary-bar secondary-bar"
-    spawnOnce "xrandr --output DP-0 --mode 2560x1440 --pos 0x0 --rate 165.08 --primary --output HDMI-1 --mode 1920x1080 --pos 2560x0 --rotate normal --scale 1.2"
-    spawnOnce "feh --bg-fill --no-fehbg /home/pls/.config/wallpapers/characters/mikumain.png"
+    spawnOnce "xrandr --output DP-0 --mode 2560x1440 --pos 0x1440 --rate 170 --primary \
+                \--output DP-4 --mode 2560x1440 --pos 0x0 --rate 165"
+    spawnOnce "feh --bg-tile --no-fehbg /home/pls/.config/feh/yae_main.png"
     spawnOnce "picom --config /home/pls/.config/picom/picom.conf -b"
     spawn   spotifyDaemon
-    spawnOn "0" "discord --start-minimized"
-    spawnOn "0" "caprine &"
-    spawn "sleep 6 && trayer --edge top --align right --SetDockType true --SetPartialStrut true \
-            \--monitor 1 --width 10 --margin 5 --distance 2.5 --iconspacing 7 --expand false"
+    -- spawnOn "0" "discord --start-minimized"
+    -- spawnOn "0" "caprine &"
+    {-- spawn "sleep 2 && trayer --edge top --align right --SetDockType true --SetPartialStrut true \
+            \--monitor 0 --width 10 --margin 5 --distance 2.5 --iconspacing 7 --expand false" --}
     spawn polkitVirt
 
 {----  -----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -156,7 +157,7 @@ main = xmonad . ewmh . ewmhFullscreen . docks $ def
     { modMask = mod4Mask
     , layoutHook = myLayout
     , borderWidth = 3
-    , focusedBorderColor = "#ca9ee6"
+    , focusedBorderColor = "#f4b5d8"
     , normalBorderColor = "#838ba7"
     , terminal = myTerminal
     , workspaces = myWorkspaces

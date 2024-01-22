@@ -1,6 +1,6 @@
 #!/bin/bash
 
-D1_HD_VP="2560,0" # viewport for physical display
+D1_HD_VP="0,0" # viewport for physical display
 UF_D1_LOCK="$HOME/.cache/eww_d1.lock"
 UF_D0_LOCK="$HOME/.cache/eww_d0.lock"
 [ ! -f "$UF_D1_LOCK" ] && touch "$UF_D1_LOCK"
@@ -67,7 +67,7 @@ xprop -spy -root _NET_CURRENT_DESKTOP | while read -r; do
 
         buffered+="(label :class '$statusClass' :text '$icon')"
         if [ "$number" == "$wsNumber" ]; then
-            echo "(box :space-evenly false :spacing 5 $buffered)"
+            echo "(box :space-evenly false :spacing 7 $buffered)"
         fi
 
 

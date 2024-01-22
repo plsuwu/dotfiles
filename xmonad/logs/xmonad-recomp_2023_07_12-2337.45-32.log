@@ -1,0 +1,25 @@
+[*] Recompiling XMonad & updating binary at /usr/local/bin/xmonad...
+XMonad will use stack ghc --stack-yaml "/home/pls/.config/xmonad/stack.yaml" to recompile.
+XMonad recompiling (forced).
+Errors detected while compiling xmonad config: /home/pls/.config/xmonad/xmonad.hs
+$ stack build --silent --stack-yaml /home/pls/.config/xmonad/stack.yaml
+/home/pls/.stack/hooks/ghc-install.sh: line 12: ghcup: command not found
+/home/pls/.stack/hooks/ghc-install.sh: line 12: ghcup: command not found
+Installing 9.4.8 via ghcup failed exit 3
+$ stack ghc --stack-yaml /home/pls/.config/xmonad/stack.yaml -- --make xmonad.hs -i -ilib -fforce-recomp -main-is main -v0 -outputdir /home/pls/.cache/xmonad/build-x86_64-linux -o /home/pls/.cache/xmonad/xmonad-x86_64-linux
+/home/pls/.stack/hooks/ghc-install.sh: line 12: ghcup: command not found
+/home/pls/.stack/hooks/ghc-install.sh: line 12: ghcup: command not found
+Installing 9.4.8 via ghcup failed exit 3
+
+Warning: Path to GHC binary is not a valid path: .
+
+xmonad.hs:126:17: error:
+    Variable not in scope: ewwPP :: ScreenId -> PP
+    |
+126 |         (pure $ ewwPP (S s))
+    |                 ^^^^^
+
+Please check the file for errors.
+
+xmonad: xmessage: executeFile: does not exist (No such file or directory)
+[*] Recompile job exited with status 0:

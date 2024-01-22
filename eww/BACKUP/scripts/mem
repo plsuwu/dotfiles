@@ -1,0 +1,31 @@
+#!/bin/bash
+
+get_mem_full() {
+    total_r="$(free -m | grep Mem: | awk '{ print $2 }')"
+    used_r="$(free -m | grep Mem: | awk '{ print $3 }')"
+    total="$total_r MiB"
+    used="$used_r MiB"
+    free="$(expr $total_r - $used_r) MiB"
+    echo "$used of $total ($free free)"
+
+}
+
+get_mem_trunc() {
+    printf "%.0f\n" $(free -m | grep Mem | awk '{print ($3/$2)*100}')
+}
+
+get_icon() {
+    echo ""
+}
+
+case "$1" in
+	--gett)
+		get_mem_trunc
+		;;
+    --getf)
+    get_mem_full
+    ;;
+	--icon)
+		get_icon
+		;;
+esac

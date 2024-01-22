@@ -1,94 +1,22 @@
+; TODO:
+;   refactor components
+;   refactor css into tailwind-style classes
+;   recolor.
+
+
 ; includes as necessary
-(include "tests.yuck")
 (include "components.yuck")
 
 
 
-
-; -----
-
-; topbar for primary display
-(defwidget primary-bar []
-    (centerbox :orientation "h" :class "bar"
-        ; -- centerboxes --------------------------------------------- ;
-        (box :orientation "h" :space-evenly false
-            (workspaces-pri))
-        (box :orientation "h" :space-evenly false
-            (label :text ""))
-        (box :orientation "h" :halign "end" :space-evenly false
-            (utils))
-    )
+(defwindow primary-bar :monitor 0 :windowtype "dock"
+                    :geometry (geometry :x "0" :y "0" :width "100%" :height "25px" :anchor "top center")
+                    :reserve (struts :side "top" :distance "4%")
+                    (primary-bar)
+)
+(defwindow secondary-bar :monitor 1 :windowtype "dock"
+                    :geometry (geometry :x "0" :y "0" :width "100%" :height "25px" :anchor "top center")
+                    :reserve (struts :side "top" :distance "4%")
+                    (secondary-bar)
 )
 
-(defwindow primary-bar
-    :monitor 0
-    :windowtype "dock"
-    :geometry (geometry
-        :x "0"
-        :y "0"
-        :width "100%"
-        :height "15px"
-        :anchor "top center"
-    )
-    :reserve (struts
-        :side "top"
-        :distance "4%"
-    )
-    (primary-bar)
-)
-
-(defwidget secondary-bar []
-    (centerbox :orientation "h" :class "bar"
-        (box :orientation "h" :space-evenly false
-            (workspaces-sec)
-        )
-        (box :orientation "h" :space-evenly false
-            (datetime)
-        )
-
-        (box :orientation "h" :space-evenly false
-            (label :text "")
-        )
-    )
-)
-
-(defwindow secondary-bar
-    :monitor 1
-    :windowtype "dock"
-    :geometry (geometry
-        :x "0"
-        :y "0"
-        :width "100%"
-        :height "30px"
-        :anchor "top center"
-    )
-    :reserve (struts
-        :side "top"
-        :distance "4%"
-    )
-    (secondary-bar)
-)
-
-
-
-
-(defwidget test-bar []
- (box)
-)
-
-(defwindow test-bar
-    :monitor 0
-    :windowtype "dock"
-    :geometry (geometry
-        :x "0"
-        :y "0"
-        :width "100%"
-        :height "25px"
-        :anchor "top center"
-    )
-    :reserve (struts
-        :side "top"
-        :distance "4%"
-    )
-    (test-bar)
-)
