@@ -1,4 +1,4 @@
-vim.g.mapleader      = " "
+vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 require("setup")
@@ -21,12 +21,9 @@ require("lazy").setup("plugins")
 
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
+
 local main_group = augroup("Main", {})
 local yank_group = augroup("HighlightYank", {})
-
-function R(name)
-    require("plenary.reload").reload_module(name)
-end
 
 autocmd('TextYankPost', {
     group = yank_group,
@@ -55,10 +52,7 @@ autocmd("LspAttach", {
         vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
         vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
         vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-
-        -- still learning keybinds and i don't find myself needing these currently...
         -- vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
         -- vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
     end
 })
-
