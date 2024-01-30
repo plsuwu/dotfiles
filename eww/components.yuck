@@ -54,7 +54,7 @@
         (label :text "")
         (label :text "")
       )
-      (metric :icon "" :class "volume" :value raw-volume :onchange "amixer -D pulse sset Master {}%")
+      (metric :icon "" :class "volume" :value raw-volume :onchange "pamixer --set-volume {}")
     " ")
   )
 )

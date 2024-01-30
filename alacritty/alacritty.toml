@@ -1,11 +1,10 @@
-import = ["/home/pls/.config/alacritty/catppuccin/catppuccin-mocha.toml"]
+# from `https://github.com/alacritty/alacritty-theme`
+import = [ "~/.config/alacritty/themes/themes/tokyo-night.toml" ]
 live_config_reload = true
 
-[cursor.style]
-shape = "Block"
-
-#[env]
-#TERM = "alacritty"
+[scrolling]
+history = 10000
+multiplier = 3
 
 [font]
 size = 10.0
@@ -26,10 +25,6 @@ style = "Italic"
 family = "JetBrainsMonoNerdFont"
 style = "Regular"
 
-[scrolling]
-history = 5000
-multiplier = 3
-
 [shell]
 args = ["--login", "-c", "tmux"]
 program = "/usr/bin/zsh"
@@ -44,5 +39,5 @@ opacity = 1.0
 general = "Alacritty"
 
 [window.padding]
-x = 0
-y = 10
+x = 25
+y = 25

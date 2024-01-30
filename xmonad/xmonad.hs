@@ -39,14 +39,14 @@ myTerminal = "alacritty"
 myWorkspaces            = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 myNvim                  = "alacritty -e tmux new-session nvim"
 myBrowser               = "/usr/bin/google-chrome-stable"
-scriptsPath             = "/home/pls/.config/xmonad/scripts/"
-screenshotFull          = "/home/pls/.config/xmonad/scripts/screenshot.sh -f"
-screenshotSelect        = "/home/pls/.config/xmonad/scripts/screenshot.sh -s"
+scriptsPath             = "/home/please/.config/xmonad/scripts/"
+screenshotFull          = "/home/please/.config/xmonad/scripts/screenshot.sh -f"
+screenshotSelect        = "/home/please/.config/xmonad/scripts/screenshot.sh -s"
 myAppLauncher           = "rofi -show drun"
 restartTray               = "killall trayer; trayer --edge top --align right --SetDockType true --SetPartialStrut true \
                             \--monitor 0 --width 10 --margin 5 --distance 2.5 --iconspacing 7 --expand false"
-termAtCwd               = "/home/pls/.config/xmonad/scripts/term_at_cwd.sh"
-polkitVirt              = "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
+termAtCwd               = "/home/please/.config/xmonad/scripts/term_at_cwd.sh"
+gnomePolkit              = "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &"
 
 -- these spotify commands need a little bit of work (maybe try `amixer` & `dbus`??)
 --   -- volume controls
@@ -135,19 +135,19 @@ ewwPP s = marshallPP s $ def
 
 myStartupHook :: X ()
 myStartupHook = do
-    spawnOnce "xsetroot -cursor_name left_ptr &"
+    spawn "xsetroot -cursor_name left_ptr &"
     spawnOnce "solaar --window=hide"
-    spawnOnce "/usr/local/bin/eww -c /home/pls/.config/eww open-many primary-bar secondary-bar"
+    spawnOnce "/usr/local/bin/eww -c /home/please/.config/eww open-many primary-bar secondary-bar"
     spawnOnce "xrandr --output DP-0 --mode 2560x1440 --pos 0x1440 --rate 170 --primary \
                 \--output DP-4 --mode 2560x1440 --pos 0x0 --rate 165"
-    spawnOnce "feh --bg-tile --no-fehbg /home/pls/.config/feh/yae_main.png"
-    spawnOnce "picom --config /home/pls/.config/picom/picom.conf -b"
-    spawn   spotifyDaemon
+    spawnOnce "feh --bg-tile --no-fehbg /home/please/.config/feh/main.png"
+    spawnOnce "picom --config /home/please/.config/picom/picom.conf -b"
+    spawnOnce gnomePolkit
+    -- spawn   spotifyDaemon
     -- spawnOn "0" "discord --start-minimized"
     -- spawnOn "0" "caprine &"
     {-- spawn "sleep 2 && trayer --edge top --align right --SetDockType true --SetPartialStrut true \
             \--monitor 0 --width 10 --margin 5 --distance 2.5 --iconspacing 7 --expand false" --}
-    spawn polkitVirt
 
 {----  -----------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------  ----}
