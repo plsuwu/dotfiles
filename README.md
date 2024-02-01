@@ -14,4 +14,4 @@ h*skell
 - neovim
 - probably some other things
   
-> non-exhaustive list; `xmonad.hs` and `eww/scripts`/`eww/variables.yuck` indicate a majority of the system util-type packages. 
+> non-exhaustive list; see `xmonad.hs` and `eww/scripts`/`eww/variables.yuck`.
