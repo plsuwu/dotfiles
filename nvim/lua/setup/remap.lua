@@ -1,5 +1,5 @@
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-vim.keymap.set("n", "<leader>vv", ":NvimTreeToggle<CR>", { silent = true })
+vim.keymap.set("n", "<leader>vt", ":NvimTreeToggle<CR>", { silent = true })
 vim.keymap.set("n", "<leader>cp", ":Copilot panel<CR>")
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -24,4 +24,8 @@ vim.keymap.set("n", "<leader>f", function()
 end)
 vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
+end)
+
+vim.keymap.set("n", "<F10>", function ()
+    vim.cmd("set wrap!")
 end)

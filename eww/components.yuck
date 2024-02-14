@@ -14,6 +14,8 @@
         (box :halign "end" :space-evenly false :spacing 7
             (volume)
             (separator)
+            (network)
+            (separator)
             (power)
 )))
 
@@ -56,6 +58,25 @@
       )
       (metric :icon "" :class "volume" :value raw-volume :onchange "pamixer --set-volume {}")
     " ")
+  )
+)
+
+(defwidget network []
+  (box :space-evenly false :class "font-main text-main"
+      (revealer-on-hover :var revealNetwork :varname "revealNetwork" :transition "slideleft"
+        (hovered-sign :var revealNetwork
+          (label :text "")
+          (label :text "")
+        )
+                    (box :space-evenly false :spacing 1 :orientation "h" :halign "center" :valign "center" :class "background-overlay text-sub"
+                (button :tooltip "Restart networkmanager" :class "btn mx-1 px-2 ico-adjust-reg" :onclick "sudo systemctl restart NetworkManager" :halign "center"
+                    "󰑐")
+
+                ;; (button :tooltip "Connection details" :class "btn mx-1 px-2 ico-adjust-reg" :onclick 'notify-send -i terminal "\'bash -c nmcli device show\'"' :halign "center"
+                ;;     "󰮫")
+)
+            (label :class "${netStat == 'UP' ? '' : 'text-red'}" :text "net: ${netStat}")
+    )
   )
 )
 

@@ -5,7 +5,7 @@
 (defvar revealSpotify false)
 (defvar revealVolume false)
 (defvar revealDocker false)
-
+(defvar revealNetwork false)
 ; polling vars
 (defpoll raw-time :interval "5s" "date '+%H:%M'")
 (defpoll raw-date :interval "1m" "date '+%a, %d %b'")
@@ -14,6 +14,8 @@
 (defpoll inetDefault :interval "60s" "ip route | grep default | head -n1 | awk '{print $5}'")
 (defpoll dockerContainers :interval "10s" "sudo docker ps -q | wc -l")
 (defpoll dockerImages :interval "10s" "sudo docker images -q | wc -l")
+
+(defpoll netStat :interval "5s" "scripts/net")
 
 ; listener vars
 (deflisten music
