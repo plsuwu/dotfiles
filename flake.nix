@@ -24,7 +24,6 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./hosts/ruby/configuration.nix
-            ./common/alacritty.nix
           ];
         };
 
