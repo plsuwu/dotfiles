@@ -1,9 +1,8 @@
 {
-  description = "Nix config flake for desktop && macbook.";
+  description = "nixos & home-manager config flake";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -11,24 +10,32 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
+      inherit (self) outputs;
+
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-    in
-    {
-      nixosConfigurations = {
 
-        # desktop
-        ruby = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = [
-            ./hosts/ruby/configuration.nix
-          ];
+    in {
+
+    # nixos-rebuild --flake .#<hostname>
+    nixosConfigurations = {
+
+      ruby = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs outputs; };
+        modules = [ ./hosts/ruby/configuration.nix ];
+      };
+
+    };
+
+      homeConfigurations = {
+        
+	"please@ruby" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [ ./home/please/ruby.nix ];
+          extraSpecialArgs = { inherit inputs outputs; };
         };
-
-        # macbook # when bothered.
-        # emerald = ....
 
       };
     };
