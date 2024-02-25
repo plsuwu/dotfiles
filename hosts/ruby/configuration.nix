@@ -12,6 +12,8 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
+
+    # force remap of QK100's f-keys in the kernel
     extraModprobeConfig = ''
       options hid_apple fnmode=2
     '';
@@ -22,6 +24,7 @@
     networkmanager.enable = true;
   };
 
+
   services = {
     xserver = {
       enable = true;
@@ -31,6 +34,11 @@
       autoRepeatDelay = 200;
       autoRepeatInterval = 50;
 
+      # xrandrOptions = {
+      #     output = "DP-0";
+      #     primary = true;
+      # };
+
       # xmonad-related stuff is untested!!
       # compiles ok but i wanna push this prior to testing.
       windowManager.xmonad = {
@@ -38,9 +46,10 @@
         enableContribAndExtras = true;
         config = builtins.readFile ./xmonad/xmonad.hs;
       };
+      # picom = {};
       displayManager = {
         sessionCommands = ''
-          xset r rate 250 40
+          xset r rate 200 50
         '';
         gdm = {
           enable = true;
@@ -61,6 +70,7 @@
       modesetting.enable = true;
       nvidiaSettings = true;
       open = false;
+
       package = config.boot.kernelPackages.nvidiaPackages.latest;
     };
   };
@@ -74,13 +84,17 @@
     ];
   };
 
-  programs.zsh.enable = true;
+  programs = {
+      zsh.enable = true;
+  };
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "Ubuntu" "UbuntuMono" "Noto" "JetBrainsMono" ]; })
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
+  nixpkgs.config = {
+    allowUnfree = true;
+    allowBroken = true;
+  };
   environment = {
     shells = with pkgs; [ zsh ];
     variables.EDITOR = "nvim";
@@ -91,19 +105,18 @@
       git
       gh
       gnumake
-      gcc_multi rustup luajitPackages.luarocks
+      gcc_multi rustup luajitPackages.luarocks haskellPackages.haskell-language-server
       python3Full nodejs go php dotnet-sdk dotnet-runtime
-      mono maven julia
-      cmake csharpier pkg-config openssl
+      mono maven julia cmake csharpier pkg-config openssl
       p7zip unzip
       fd ripgrep jq fzf
-      alacritty tmux zsh zoxide
+      alacritty tmux zsh zoxide neofetch
       google-chrome
       bitwarden bitwarden-cli
-      xorg.xrandr xorg.xprop gnome.gpaste xdotool wmctrl
-      playerctl
-      clipmenu rofi
-      eww solaar trayer polkit_gnome picom
+      xorg.xrandr arandr xorg.xprop xdotool wmctrl
+      playerctl pamixer
+      clipmenu xclip rofi
+      solaar trayer polkit_gnome picom feh
     ];
   };
 

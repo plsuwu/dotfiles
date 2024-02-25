@@ -18,8 +18,8 @@
       pkgs = nixpkgs.legacyPackages.${system};
 
     in {
+    modules = import ./modules;
 
-    # nixos-rebuild --flake .#<hostname>
     nixosConfigurations = {
 
       ruby = nixpkgs.lib.nixosSystem {
@@ -30,7 +30,7 @@
     };
 
       homeConfigurations = {
-        
+
 	"please@ruby" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [ ./home/please/ruby.nix ];

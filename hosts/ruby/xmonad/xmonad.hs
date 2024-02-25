@@ -12,6 +12,8 @@ import XMonad.Layout.ThreeColumns
 
 import Graphics.X11.Xinerama (getScreenInfo)
 
+import Data.Monoid
+import System.Exit
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 
@@ -34,10 +36,9 @@ import qualified Data.List as L
 {----  -----------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------  ----}
 
-myTerminal :: [Char]
 myTerminal = "alacritty"
 myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
-myBrowser = "google-chrome"
+myBrowser = "google-chrome-stable"
 scriptsPath = "./scripts"
 screenshotFull = scriptsPath ++ "/screenshot.sh -f"
 screenshotSelect = scriptsPath ++ "/screenshot.sh -s"
@@ -64,19 +65,20 @@ spotifyPrev = "playerctl -p spotify_player previous"
 spotifyVolU = "spotify_player -d playback volume --offset 5"
 spotifyVolD = "spotify_player -d playback volume --offset -- -5"
 
+rubyHMHosts = "~/.config/home-manager/hosts/ruby"
+
 myAdditionalKeys :: [(String, X ())]
 myAdditionalKeys =
     [ ("M-<Return>", spawn "alacritty")
-    , ("M-w", spawn "google-chrome")
+    , ("M-w", spawn "google-chrome-stable")
     , ("M-d", spawn "rofi -show drun")
-    -- , ("M-S-r", spawn $ scriptsPath ++ "recomp.sh")
     , ("M-S-s", spawn $ scriptsPath ++ "screenshot.sh -s")
     , ("M-C-s", spawn $ scriptsPath ++ "screenshot.sh -f")
     , ("M-f", toggleFull)
     , ("M-M1-S-x", spawn "tmux kill-server")
     , ("M-S-t", spawn restartTray)
     -- , ("M-M1-l", spawn "dm-tool switch-to-greeter")
-    , ("M-v", spawn "CM_LAUNCHER=rofi clipmenu")
+    , ("M-v", spawn "CM_LAUNCHER=fzf clipmenu")
     , ("M-<F4>", spawn spotifyVolU)
     , ("M-<F3>", spawn spotifyVolD)
     , ("M-<F5>", spawn spotifyPausePlay)
@@ -84,6 +86,30 @@ myAdditionalKeys =
     , ("M-<F8>", spawn spotifyNext)
     , ("M-q", kill)
     ]
+
+myKeys :: XConfig l -> M.Map (KeyMask, KeySym) (X ())
+myKeys conf@XConfig {XMonad.modMask = modm} = M.fromList $
+    [ ((modm, xK_Tab), windows W.focusDown)
+    , ((modm, xK_j), windows W.focusDown)
+    , ((modm, xK_k), windows W.focusUp)
+    , ((modm, xK_m), windows W.focusMaster)
+    , ((modm, xK_h), sendMessage Shrink)
+    , ((modm, xK_l), sendMessage Expand)
+    , ((modm, xK_t), withFocused $ windows . W.sink)
+    , ((modm, xK_comma), sendMessage (IncMasterN 1))
+    , ((modm, xK_period), sendMessage (IncMasterN (-1)))
+    , ((modm .|. shiftMask, xK_q), io (exitWith ExitSuccess))
+    , ((modm, xK_0), windows $ W.greedyView "0")
+    , ((modm .|. shiftMask, xK_0), windows $ W.shift "0")
+    ]
+    ++
+    [((m .|. modm, k), windows $ f i)
+        | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
+        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+    ++
+    [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
+        | (key, sc) <- zip [xK_e, xK_r] [0..]
+        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 myLayout =
     gaps [(L, 2), (R, 2), (U, 30), (D, 2)]
@@ -134,13 +160,20 @@ ewwPP s =
 myStartupHook :: X ()
 myStartupHook = do
     spawn "xsetroot -cursor_name left_ptr &"
+    spawn "xrandr --output DP-0 --mode 2560x1440 --pos 0x1440 --rate 170 --primary --output DP-4 \
+          \--mode 2560x1440 --pos 0x0 --rate 165"
+    spawn "systemctl --user import-environment DISPLAY"
+    spawn "clipmenud"
     spawnOnce "solaar --window=hide"
-    spawnOnce "picom --config picom/picom.conf -b"
-    spawnOnce "feh --bg-tile --no-fehbg ../feh/main.png"
-    spawnOnce "eww -c ../eww open-many primary-bar secondary-bar"
+    -- can be fixed in h-m modules!!
+    -- (programs.<whatever> = { enable = true; configDir = ./path/to/conf; };)
+    -- or something like that.
+    spawnOnce $ "picom --config " ++ rubyHMHosts ++ "/picom/picom.conf"
+    spawnOnce $ "feh --bg-tile --no-xinerama --no-fehbg " ++ rubyHMHosts ++ "/feh/main.png"
+    spawnOnce "eww open-many primary-bar secondary-bar"
+    spawnOn "0" "vesktop"
 
 -- spawn   spotifyDaemon
--- spawnOn "0" " --start-minimized"
 -- spawnOn "0" "caprine &"
 {-- spawn "trayer --edge top --align right --SetDockType true --SetPartialStrut true \
         \--monitor 0 --width 10 --margin 5 --distance 2.5 --iconspacing 7 --expand false" --}
@@ -161,6 +194,6 @@ main =
             , workspaces = myWorkspaces
             , startupHook = myStartupHook
             , manageHook = manageSpawn <+> myManageHook
-            -- , keys = myKeys
+            , keys = myKeys
             }
             `additionalKeysP` myAdditionalKeys
