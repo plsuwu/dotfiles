@@ -1,5 +1,12 @@
 { config, lib, pkgs, ... }:
 
+# this is the initial `configuration.nix` used to spawn the system's base.
+#
+# also see `iso.nix` for the live nix iso config, which was used as a workaround to
+# several consecutive issues i encountered with nvidia drivers, my cpu, the linux kernel,
+# and nixos during the installation.
+# maybe also solvable with a graphical image using calamares but i resent gparted.
+
 {
   imports =
     [
@@ -12,8 +19,6 @@
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
     };
-
-    # force remap of QK100's f-keys in the kernel
     extraModprobeConfig = ''
       options hid_apple fnmode=2
     '';
@@ -24,7 +29,6 @@
     networkmanager.enable = true;
   };
 
-
   services = {
     xserver = {
       enable = true;
@@ -33,27 +37,11 @@
       libinput.enable = true;
       autoRepeatDelay = 200;
       autoRepeatInterval = 50;
-
-      # xrandrOptions = {
-      #     output = "DP-0";
-      #     primary = true;
-      # };
-
-      # xmonad-related stuff is untested!!
-      # compiles ok but i wanna push this prior to testing.
-      windowManager.xmonad = {
+      desktopManager.gnome = {
         enable = true;
-        enableContribAndExtras = true;
-        config = builtins.readFile ./xmonad/xmonad.hs;
       };
-      # picom = {};
-      displayManager = {
-        sessionCommands = ''
-          xset r rate 200 50
-        '';
-        gdm = {
-          enable = true;
-        };
+      displayManager.gdm = {
+        enable = true;
       };
     };
     fstrim.enable = true;
@@ -70,7 +58,6 @@
       modesetting.enable = true;
       nvidiaSettings = true;
       open = false;
-
       package = config.boot.kernelPackages.nvidiaPackages.latest;
     };
   };
@@ -78,25 +65,18 @@
   users.users.please = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
-    shell = pkgs.zsh;
     packages = with pkgs; [
       tree
     ];
   };
 
-  programs = {
-      zsh.enable = true;
-  };
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "Ubuntu" "UbuntuMono" "Noto" "JetBrainsMono" ]; })
   ];
 
-  nixpkgs.config = {
-    allowUnfree = true;
-    allowBroken = true;
-  };
+  nixpkgs.config.allowUnfree = true;
+
   environment = {
-    shells = with pkgs; [ zsh ];
     variables.EDITOR = "nvim";
     systemPackages = with pkgs; [
       neovim
@@ -107,16 +87,12 @@
       gnumake
       gcc_multi rustup luajitPackages.luarocks
       python3Full nodejs go php dotnet-sdk dotnet-runtime
-      mono maven julia cmake csharpier pkg-config openssl
+      mono maven julia
       p7zip unzip
       fd ripgrep jq fzf
-      alacritty tmux zsh zoxide neofetch
+      alacritty tmux zsh zoxide
       google-chrome
       bitwarden bitwarden-cli
-      xorg.xrandr xorg.xprop xdotool wmctrl
-      playerctl pamixer
-      clipmenu xclip rofi
-      solaar trayer polkit_gnome picom feh
     ];
   };
 
@@ -130,6 +106,7 @@
     auto-optimise-store = true;
   };
 
+  # system.copySystemConfiguration = true;
   system.stateVersion = "24.05";
-}
 
+}
