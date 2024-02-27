@@ -1,0 +1,7 @@
+keys:
+  - &primary age17mjashe7wstsme09g0lshllctwlejue3vystpuuh888arfr9jeysfjlydv
+creation_rules:
+  - path_regex: home/please/secrets/secrets.ya?ml$
+    key_groups:
+    - age:
+      - *primary

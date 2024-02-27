@@ -1,9 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ inputs, config, lib, pkgs, ... }:
 
 {
   imports =
     [
       ./hardware-configuration.nix
+      inputs.sops-nix.nixosModules.sops
     ];
 
   boot = {
@@ -39,8 +40,6 @@
       #     primary = true;
       # };
 
-      # xmonad-related stuff is untested!!
-      # compiles ok but i wanna push this prior to testing.
       windowManager.xmonad = {
         enable = true;
         enableContribAndExtras = true;
@@ -75,6 +74,12 @@
     };
   };
 
+  sops = {
+    defaultSopsFile = ../../home/please/secrets/secrets.yaml;
+    defaultSopsFormat = "yaml";
+    age.keyFile = "/home/please/.config/sops/age/keys.txt";
+  };
+
   users.users.please = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
@@ -86,6 +91,7 @@
 
   programs = {
       zsh.enable = true;
+      neovim.enable = true;
   };
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "Ubuntu" "UbuntuMono" "Noto" "JetBrainsMono" ]; })
@@ -95,19 +101,23 @@
     allowUnfree = true;
     allowBroken = true;
   };
+
+  # home-manager.useGlobalPkgs = true;
+
   environment = {
     shells = with pkgs; [ zsh ];
     variables.EDITOR = "nvim";
     systemPackages = with pkgs; [
-      neovim
-      wget
-      curl
-      git
-      gh
-      gnumake
+      neovim vscode
+      netcat wget curl killall
+      git gh
+      gnumake platformio
+      python3Full cp210x-program
       gcc_multi rustup luajitPackages.luarocks
-      python3Full nodejs go php dotnet-sdk dotnet-runtime
+      nodejs go php dotnet-sdk dotnet-runtime
       mono maven julia cmake csharpier pkg-config openssl
+      openssl_legacy
+      gptfdisk parted
       p7zip unzip
       fd ripgrep jq fzf
       alacritty tmux zsh zoxide neofetch

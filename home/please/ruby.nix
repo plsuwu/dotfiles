@@ -3,8 +3,11 @@
 {
   imports = [
     outputs.modules.monitors
+    ./nvim
+    # inputs.sops-nix.nixosModules.sops
   ];
 
+  nixpkgs.config.allowUnfree = true;
   gtk.enable = true;
   home = {
     username = "please";
@@ -66,6 +69,11 @@
   home.packages = [
     pkgs.vesktop
     pkgs.zsh
+    pkgs.vscode
+    pkgs.zoom-us
+    pkgs.neofetch
+    pkgs.openssl
+    pkgs.pkg-config
   ];
 
   home.file = {
