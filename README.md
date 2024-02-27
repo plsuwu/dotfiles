@@ -2,6 +2,8 @@
 
 h*skell
 
+> work-in-progress nix config on the [nixos branch](https://github.com/plsuwu/dotfiles/tree/nixos).
+
 ![screen](screen.png)
 
 ## dependencies
