@@ -66,7 +66,7 @@ return {
                         settings = {
                             Lua = {
                                 diagnostics = {
-                                    globals = {"vim"}
+                                    globals = { "vim" }
                                 }
                             }
                         }
@@ -77,7 +77,9 @@ return {
 
         })
 
-        require("mason-null-ls").setup({handlers = {}})
+        require("mason-null-ls").setup({
+            handlers = {}
+        })
         require("null-ls").setup()
         require("neodev").setup()
         require('luasnip.loaders.from_vscode').lazy_load()

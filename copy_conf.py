@@ -5,7 +5,6 @@ import shlex
 import os
 import json
 
-# typing & os module changes are not tested i did these on a whim!!!
 HOME = os.getenv("HOME")
 CONF_DIR = f"{HOME}/.config/"
 

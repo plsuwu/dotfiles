@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#
 # Spawn a new instance of Alacritty using the CWD of the currently focused
 # Alacritty process.
 #

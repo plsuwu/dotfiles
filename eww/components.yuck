@@ -75,7 +75,7 @@
                 ;; (button :tooltip "Connection details" :class "btn mx-1 px-2 ico-adjust-reg" :onclick 'notify-send -i terminal "\'bash -c nmcli device show\'"' :halign "center"
                 ;;     "󰮫")
 )
-            (label :class "${netStat == 'UP' ? '' : 'text-red'}" :text "net: ${netStat}")
+            (label :class "font-sm ${netStat == 'ok' ? '' : 'font-bold text-red'}" :text "󰈀 [${netStat}]")
     )
   )
 )

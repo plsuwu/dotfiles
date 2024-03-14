@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 D1_HD_VP="0,0" # viewport for physical display
 UF_D1_LOCK="$HOME/.cache/eww_d1.lock"
