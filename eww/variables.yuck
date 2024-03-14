@@ -18,6 +18,8 @@
 (defpoll netStat :interval "5s" "scripts/net")
 
 ; listener vars
+(deflisten notifications :initial ""
+    `scripts/notification.py`)
 (deflisten music
   :initial ""
   :onchange "eww update revealSpotify=true && sleep 5 && eww update revealSpotify=false"

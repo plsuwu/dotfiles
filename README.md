@@ -1,8 +1,6 @@
-# dotfiles
+# xmonad dotfiles
 
 h*skell
-
-> work-in-progress nix config on the [nixos branch](https://github.com/plsuwu/dotfiles/tree/nixos).
 
 ![screen](screen.png)
 
@@ -14,6 +12,7 @@ h*skell
 - alacritty & tmux
 - rofi
 - neovim
-- probably some other things
-  
-> non-exhaustive list; see `xmonad.hs` and `eww/scripts`/`eww/variables.yuck`.
+- other misc stuff
+
+> check `xmonad.hs`, `xmonad/scripts`, `eww/scripts` & `eww/variables.yuck` for a
+slightly more exhaustive list.

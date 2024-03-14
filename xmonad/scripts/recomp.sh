@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 mkdir -p "/home/pls/.config/xmonad/logs"
 TIMESTAMP=$(date +'%Y_%d_%m-%H%M.%S-%2N')

@@ -18,7 +18,7 @@ $active-gradient: linear-gradient(to left, $pink-light, $purple-light);
 /* -- light --------------
 ----------------------- */
 .background {
-    background-color: #f4c6e0;
+    background-color: #ffffff;
 }
 
 .background-overlay {
@@ -53,10 +53,10 @@ $active-gradient: linear-gradient(to left, $pink-light, $purple-light);
 }
 
 .text-green {
-    color: #68ac75;
+    color: #84e563;
 }
 .text-red {
-    color: #c01616;
+    color: #d55763;
 }
 
 .text-pink-heavy {
@@ -124,6 +124,14 @@ $active-gradient: linear-gradient(to left, $pink-light, $purple-light);
 .mx-1 {
     margin-left: 0.25rem;
     margin-right: 0.25rem;
+}
+
+.m-4 {
+    margin: 1rem;
+}
+
+.p-4 {
+    padding: 1rem;
 }
 
 .px-4 {

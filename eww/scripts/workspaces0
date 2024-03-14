@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 D0_DP_VP="0,1440"                                 # DP-0 viewport to identify display
 UF_D0_LOCK="$HOME/.cache/eww_d0.lock"           # lockfile for DP-0
