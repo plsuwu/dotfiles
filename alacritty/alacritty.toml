@@ -7,7 +7,7 @@ history = 50000
 multiplier = 3
 
 [font]
-size = 10.0
+size = 10.5
 
 [font.bold]
 family = "JetBrainsMonoNerdFont"
@@ -31,7 +31,7 @@ program = "/usr/bin/zsh"
 
 [window]
 decorations = "full"
-dynamic_padding = true
+dynamic_padding = false
 dynamic_title = true
 opacity = 1.0
 
@@ -39,5 +39,5 @@ opacity = 1.0
 general = "Alacritty"
 
 [window.padding]
-x = 25
-y = 25
+x = 10
+y = 9
