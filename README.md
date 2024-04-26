@@ -4,15 +4,16 @@ h*skell
 
 ![screen](screen.png)
 
-## dependencies
+## applications
 
-- xmonad + xmonad-contrib
-- eww
-- picom
-- alacritty & tmux
-- rofi
-- neovim
-- other misc stuff
+**window manager**: [ xmonad (+ eww for status bars) ]
 
-> check `xmonad.hs`, `xmonad/scripts`, `eww/scripts` & `eww/variables.yuck` for a
-slightly more exhaustive list.
+**compositing**: [ picom ]
+
+**terminal**: [ alacritty (emulation) + tmux (multiplexing) ]
+
+**menu stuff**: [ rofi ]
+
+**editor**: [ neovim ]
+
+\+ a few of the default gnome applications (e.g gdm, nautilus, gnome's polkit, ...) and some other things that i can't think of rn.
