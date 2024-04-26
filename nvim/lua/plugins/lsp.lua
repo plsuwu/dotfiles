@@ -26,14 +26,14 @@ return {
 		"jose-elias-alvarez/null-ls.nvim",
 		"folke/neodev.nvim",
 		-- {
-			"j-hui/fidget.nvim",
-			opts = {
-				integration = {
-					["nvim-tree"] = {
-						enable = true,
-					},
+		"j-hui/fidget.nvim",
+		opts = {
+			integration = {
+				["nvim-tree"] = {
+					enable = true,
 				},
 			},
+		},
 		-- },
 	},
 	config = function()
@@ -49,8 +49,8 @@ return {
 		require("fidget").setup({})
 		require("mason").setup()
 		require("mason-lspconfig").setup({
-			ensure_installed = { "lua_ls", "tsserver", "rust_analyzer", "ruff_lsp", "clangd" },
-			automatic_installation = true,
+			ensure_installed = { "lua_ls", "tsserver", "rust_analyzer", "clangd" },
+			automatic_installation = false,
 			handlers = {
 				function(server_name)
 					require("lspconfig")[server_name].setup({
@@ -75,8 +75,13 @@ return {
 				["clangd"] = function()
 					local lspconfig = require("lspconfig")
 					lspconfig.clangd.setup({
-						capabilities = capabilities,
-						filetypes = { "c", "asm", "cpp", "objc", "objcpp", "cuda", "proto" },
+						capabilities = {
+							capabilities,
+
+                            -- fixes the 'warning: multiple different client offset_encodings
+                            -- detected for buffer, this is not supported yet' warning
+							offsetEncoding = "utf-8",
+						},
 					})
 				end,
 			},
@@ -115,7 +120,6 @@ return {
 			}, {
 				{ name = "buffer" },
 				{ name = "path" },
-				{ name = "cmdline" },
 			}),
 		})
 		vim.diagnostic.config({
