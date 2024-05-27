@@ -13,7 +13,7 @@ return {
 			view = {
 				centralize_selection = true,
                 signcolumn = "auto",
-				side = "right",
+				-- side = "right",
 				number = true,
                 relativenumber = true,
 				width = 38,

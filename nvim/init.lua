@@ -17,7 +17,13 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- setup plugin table from lua/plugins
-require("lazy").setup("plugins", { concurrency = 5 })
+require("lazy").setup("plugins", {
+    concurrency = 2,
+    change_detection = {
+        notify = false
+    }
+})
+
 require("colorizer").setup()
 
 local augroup = vim.api.nvim_create_augroup
