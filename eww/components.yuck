@@ -100,10 +100,8 @@
                     "󰐥")
                 (button :tooltip "Reboot" :class "btn mx-1 px-2 ico-adjust-med" :onclick "reboot"
                     "")
-                (button :tooltip "Sleep" :class "btn mx-1 px-2 ico-adjust-big" :onclick "systemctl suspend"
+                (button :tooltip "Sleep" :class "btn mx-1 px-2 ico-adjust-big" :onclick "xset dpms force off"
                     "")
-                (button :tooltip "Lock" :class "btn mx-1 px-2 ico-adjust-reg" :onclick "dm-tool switch-to-greeter"
-                    "")
             )
         "󰐦 ")
     )

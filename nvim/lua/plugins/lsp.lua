@@ -64,6 +64,7 @@ return {
 						capabilities = capabilities,
 						settings = {
 							Lua = {
+								runtime = { version = "Lua 5.1" },
 								diagnostics = {
 									globals = { "vim" },
 								},
@@ -78,8 +79,8 @@ return {
 						capabilities = {
 							capabilities,
 
-                            -- fixes the 'warning: multiple different client offset_encodings
-                            -- detected for buffer, this is not supported yet' warning
+							-- fixes the 'warning: multiple different client offset_encodings
+							-- detected for buffer, this is not supported yet' warning
 							offsetEncoding = "utf-8",
 						},
 					})
@@ -103,10 +104,6 @@ return {
 					luasnip.lsp_expand(args.body)
 				end,
 			},
-			-- window = {
-			-- 	completion = cmp.config.window.bordered(),
-			-- 	documentation = cmp.config.window.bordered(),
-			-- },
 			mapping = cmp.mapping.preset.insert({
 				["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
 				["<C-n>"] = cmp.mapping.select_next_item(cmp_select),

@@ -1,5 +1,4 @@
 local home = os.getenv("HOME")
-
 vim.g.python3_host_prog = home .. "/.pyenv/shims/python"
 vim.opt.undodir = home .. "/.vim/undodir"
 

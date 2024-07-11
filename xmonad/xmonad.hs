@@ -147,7 +147,9 @@ myStartupHook = do
   spawn "wired"
   spawnOn "0" "vesktop"
   spawn
-    "sleep 10; killall trayer; trayer --edge top --align right --SetDockType true --SetPartialStrut true --monitor 0 --width 10 --distance 1 --iconspacing 7 --expand false --tint 0xFFFFFF --transparent true --alpha 0"
+    "sleep 10; killall trayer; trayer --edge top --align right --SetDockType true \
+    \--SetPartialStrut true --monitor 0 --width 10 --distance 1 --iconspacing 7 --expand false \
+    \--tint 0xFFFFFF --transparent true --alpha 0"
 
 {- WM_CLASS:
     * appName => returns the application name; i.e, the *first* string returned in `WM_CLASS` prop,

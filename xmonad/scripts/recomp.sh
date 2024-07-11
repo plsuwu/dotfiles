@@ -1,17 +1,22 @@
-#!/usr/bin/env bash
+#!/bin/bash
+set -euox pipefail
 
-mkdir -p "/home/pls/.config/xmonad/logs"
+mkdir -p "/home/please/.config/xmonad/logs"
 TIMESTAMP=$(date +'%Y_%d_%m-%H%M.%S-%2N')
-LOGFILE="/home/pls/.config/xmonad/logs/xmonad-recomp_$TIMESTAMP.log"
+LOGFILE="/home/please/.config/xmonad/logs/xmonad-recomp_$TIMESTAMP.log"
 
-echo '[*] Recompiling XMonad & updating binary at /usr/local/bin/xmonad...' | tee "$LOGFILE"
 
-if xmonad --recompile 2>&1 | tee -a "$LOGFILE"; then
-    echo '[*] Compile done (0):' | tee -a "$LOGFILE" # uhioknji
-    sudo cp /home/pls/.local/bin/xmonad /usr/local/bin/xmonad
-    xmonad --restart
-    notify-send "XMonad recompiler" "XMonad recompile job complete - any errors logged to $LOGFILE ."
-else
-    echo "[!] Compile failed." | tee -a "$LOGFILE"
-    notify-send "XMonad recompiler" "Recompile failed. Logged to $LOGFILE."
-fi
+XMONAD_BASE="/home/please/.config/xmonad"
+XMONAD_MAIN="$XMONAD_BASE/xmonad-git"
+XMONAD_CONTRIB="$XMONAD_BASE/xmonad-contrib-git"
+
+printf '[*] Updating XMonad/Contrib repos:\n' | tee "$LOGFILE"
+cd "$XMONAD_MAIN" || exit 1 | tee "$LOGFILE"
+git pull | tee "$LOGFILE"
+
+cd "$XMONAD_CONTRIB" || exit 1
+git pull
+
+cd "$XMONAD_BASE" || exit 1
+stack install
+
