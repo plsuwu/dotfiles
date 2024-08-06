@@ -1,11 +1,10 @@
-; --- insantiates variables n stuff --- ;
-; ------------------------------------- ;
-
 (defvar revealPower false)
 (defvar revealSpotify false)
 (defvar revealVolume false)
 (defvar revealDocker false)
 (defvar revealNetwork false)
+(defvar monitor-off "scripts/monitor-off &")
+
 ; polling vars
 (defpoll raw-time :interval "5s" "date '+%H:%M'")
 (defpoll raw-date :interval "1m" "date '+%a, %d %b'")

@@ -1,0 +1,10 @@
+[Unit]
+Description=Apply X11 mouse and keyboard settings
+
+[Service]
+ExecStart=/bin/bash -c 'xset r rate 200 50 && xinput --set-prop "Logitech USB Receiver" "libinput Accel Speed" -0.5'
+Restart=on-failure
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=default.target

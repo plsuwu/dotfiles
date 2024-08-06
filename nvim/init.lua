@@ -18,9 +18,9 @@ vim.opt.rtp:prepend(lazypath)
 
 -- setup plugin table from lua/plugins
 require("lazy").setup("plugins", {
-    concurrency = 2,
+    concurrency = 5,
     change_detection = {
-        notify = false
+        notify = false,
     }
 })
 

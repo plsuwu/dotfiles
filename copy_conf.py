@@ -9,7 +9,7 @@ HOME = os.getenv("HOME")
 CONF_DIR = f"{HOME}/.config/"
 
 
-def walk_dir(dir: str, omit: (list[str] | None) = None):
+def walk_dir(dir: str, omit: list[str] | None = None):
     walked = os.listdir(f"{CONF_DIR+dir}")
     app_name = dir.lstrip("/")
 
@@ -24,7 +24,10 @@ def walk_dir(dir: str, omit: (list[str] | None) = None):
 
 # "repository_dir" : ["path/to/local_item_one", "path/to/local_item_two"]
 target_items: dict[str, list[str]] = {
-    "alacritty": ["alacritty/alacritty.toml", "alacritty/themes/themes/tokyo-night.toml"],
+    "alacritty": [
+        "alacritty/alacritty.toml",
+        "alacritty/themes/themes/tokyo-night.toml",
+    ],
     "eww": [],
     "feh": [],
     "gtk-3.0": ["gtk-3.0/settings.ini"],
@@ -33,16 +36,19 @@ target_items: dict[str, list[str]] = {
     "picom": ["picom/picom.conf"],
     "tmux": ["tmux/tmux.conf", "tmux/tokyonight.tmux"],
     "xmonad": [],
+    "systemd/user": ["systemd/user/xinput-xset.service"],
 }
 
+# specify directories/files to avoid copying over
 walk_dir("/eww", ["eww-git"])
 walk_dir("/feh")
-walk_dir("/xmonad", [".stack-work", "xmonad-contrib-git", "xmonad-git"]) # better/working hls support in neovim via hie.yaml & stack.yaml.
+walk_dir("/xmonad", [".stack-work", "xmonad-contrib-git", "xmonad-git"])
 
 pp_target_items = json.dumps(target_items, indent=2)
 
 print(f"The following items with be copied to this repository:\n{pp_target_items}")
 confirm = input("Confirm and continue? [Y]es/[n]o: ")
+
 if confirm.strip().lower() in ["", "y", "yes"]:
     for t, c in target_items.items():
         for i in c:

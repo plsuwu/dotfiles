@@ -1,39 +1,60 @@
 (include "variables.yuck")
 
 (defwidget primary-bar []
-    (centerbox :orientation "h" :class "mx-2 background" :valign "center"
+    (centerbox :orientation "h" :class "px-2 background main" :valign "center"
         (box :halign "start"
             (workspaces-primary)
         )
+
         (box :halign "center" :space-evenly false
-            (separator)
-            (datetime)
-            (separator)
         )
 
         (box :halign "end" :space-evenly false :spacing 7
+
+            (right-side)
+            )
+))
+
+(defwidget right-side []
+    (centerbox :orientation "h" :halign "end" :valign "center"
+        (box :halign "start" :space-evenly false)
+
+        (box :halign "center" :space-evenly false
             (volume)
             (separator)
             (network)
             (separator)
-            (power)
-)))
+            (power))
+
+        (box :halign "end" :space-evenly false
+            (separator-vert)
+            (datetime))
+
+    ))
 
 (defwidget secondary-bar []
-    (centerbox :orientation "h" :class "mx-2 background" :valign "center"
+    (centerbox :orientation "h" :class "px-2 background main" :valign "center"
         (box :halign "start"
             (workspaces-secondary)
         )
         (box :halign "center" :space-evenly false
-            (separator)
-            (datetime)
-            (separator)
+            ;; (separator)
+            ;; (datetime)
         )
-        (box)
+        (box :halign "end" :space-evenly false
+            (right-side)
+        )
 ))
+
 (defwidget separator []
-    (box :orientation "h" :class "font-xs font-bold text-min mx-2" :valign "center"
-        (label :text "󰑊")
+    (box :orientation "h" :class "font-sm font-bold text-min mx-1" :valign "center"
+        (label :text "+")
+    )
+)
+
+(defwidget separator-vert []
+    (box :orientation "h" :class "font-sm font-bold text-min mx-3" :valign "center"
+        (label :text "|")
     )
 )
 
@@ -50,7 +71,7 @@
 )
 
 (defwidget volume []
-  (box :space-evenly false :class "font-main text-main mx-2"
+  (box :space-evenly false :class "font-main text-main mx-1"
     (revealer-on-hover :var revealVolume :varname "revealVolume" :transition "slideleft"
       (hovered-sign :var revealVolume
         (label :text "")
@@ -62,7 +83,7 @@
 )
 
 (defwidget network []
-  (box :space-evenly false :class "font-main text-main"
+  (box :space-evenly false :class "font-main text-main mx-1"
       (revealer-on-hover :var revealNetwork :varname "revealNetwork" :transition "slideleft"
         (hovered-sign :var revealNetwork
           (label :text "")
@@ -81,15 +102,17 @@
 )
 
 (defwidget datetime []
-    (box :orientation "h" :class "font-main font-bold " :space-evenly false :spacing 7 :valign "center" :halign "end"
+    (box :orientation "h" :class "font-main font-medium" :space-evenly false :spacing 3 :valign "center" :halign "end"
         (label :class "text-main" :text "${raw-time}")
-        (label :class "text-sub" :text " ~")
+        ;; (label :class "text-sub" :text " ~")
+        (label :class "text-sub pr-4" :text "   ")
         (label :class "text-sub" :text "${raw-date}")
+        (box :orientation "h" :class "pr-2")
     )
 )
 
 (defwidget power []
-    (box :space-evenly false :class "font-main text-main mx-2" :orientation "h"
+    (box :space-evenly false :class "font-main text-main ml-1" :orientation "h"
         (revealer-on-hover :var revealPower :varname "revealPower" :transition "slideleft"
             (hovered-sign :var revealPower
                 (label :text "")
@@ -100,7 +123,7 @@
                     "󰐥")
                 (button :tooltip "Reboot" :class "btn mx-1 px-2 ico-adjust-med" :onclick "reboot"
                     "")
-                (button :tooltip "Sleep" :class "btn mx-1 px-2 ico-adjust-big" :onclick "xset dpms force off"
+                (button :tooltip "Sleep" :class "btn mx-1 px-2 ico-adjust-big" :onclick monitor-off
                     "")
             )
         "󰐦 ")
