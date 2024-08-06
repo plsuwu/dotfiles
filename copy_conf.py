@@ -36,7 +36,7 @@ target_items: dict[str, list[str]] = {
     "picom": ["picom/picom.conf"],
     "tmux": ["tmux/tmux.conf", "tmux/tokyonight.tmux"],
     "xmonad": [],
-    "systemd/user": ["systemd/user/xinput-xset.service"],
+    "systemd/user": ["systemd/user/xinput-xset.service", "systemd/user/usage"],
 }
 
 # specify directories/files to avoid copying over
