@@ -1,0 +1,10 @@
+probably able to just like paste the following into a terminal:
+
+```bash
+systemctl --user daemon-reload
+systemctl --user enable xinput-xset.service
+systemctl --user start xinput-xset.service
+```
+
+yet to actually test whether this persists through an initramfs rebuild from a pacman update but
+should be reasonably simple to make a hook that will restart this service if not.
