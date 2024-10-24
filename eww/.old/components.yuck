@@ -1,0 +1,181 @@
+(include "variables.yuck")
+
+(defwidget primary-bar []
+    (centerbox :orientation "h" :class "px-2 background main" :valign "center"
+        (box :halign "start"
+            (workspaces-primary)
+        )
+
+        (box :halign "center" :space-evenly false
+        )
+
+        (box :halign "end" :space-evenly false :spacing 7
+
+            (right-side)
+            )
+))
+
+(defwidget right-side []
+    (centerbox :orientation "h" :halign "end" :valign "center"
+        (box :halign "start" :space-evenly false)
+
+        (box :halign "center" :space-evenly false
+            (volume)
+            (separator)
+            (network)
+            (separator)
+            (power))
+
+        (box :halign "end" :space-evenly false
+            (separator-vert)
+            (datetime))
+
+    ))
+
+(defwidget secondary-bar []
+    (centerbox :orientation "h" :class "px-2 background main" :valign "center"
+        (box :halign "start"
+            (workspaces-secondary)
+        )
+        (box :halign "center" :space-evenly false
+            ;; (separator)
+            ;; (datetime)
+        )
+        (box :halign "end" :space-evenly false
+            (right-side)
+        )
+))
+
+(defwidget separator []
+    (box :orientation "h" :class "font-sm font-bold text-min mx-1" :valign "center"
+        (label :text "+")
+    )
+)
+
+(defwidget separator-vert []
+    (box :orientation "h" :class "font-sm font-bold text-min mx-3" :valign "center"
+        (label :text "|")
+    )
+)
+
+(defwidget workspaces-primary []
+    (box :orientation "h" :space-evenly false :class "mx-2 font-main font-bold" :valign "center"
+       (literal :content raw-workspaces-0)
+    )
+)
+
+(defwidget workspaces-secondary []
+    (box :orientation "h" :space-evenly false :class "font-main" :valign "center"
+       (literal :content raw-workspaces-1)
+    )
+)
+
+(defwidget volume []
+  (box :space-evenly false :class "font-main text-main mx-1"
+    (revealer-on-hover :var revealVolume :varname "revealVolume" :transition "slideleft"
+      (hovered-sign :var revealVolume
+        (label :text "")
+        (label :text "")
+      )
+      (metric :icon "" :class "volume" :value raw-volume :onchange "pamixer --set-volume {}")
+    " ")
+  )
+)
+
+(defwidget network []
+  (box :space-evenly false :class "font-main text-main mx-1"
+      (revealer-on-hover :var revealNetwork :varname "revealNetwork" :transition "slideleft"
+        (hovered-sign :var revealNetwork
+          (label :text "")
+          (label :text "")
+        )
+                    (box :space-evenly false :spacing 1 :orientation "h" :halign "center" :valign "center" :class "background-overlay text-sub"
+                (button :tooltip "Restart networkmanager" :class "btn mx-1 px-2 ico-adjust-reg" :onclick "sudo systemctl restart NetworkManager" :halign "center"
+                    "󰑐")
+
+                ;; (button :tooltip "Connection details" :class "btn mx-1 px-2 ico-adjust-reg" :onclick 'notify-send -i terminal "\'bash -c nmcli device show\'"' :halign "center"
+                ;;     "󰮫")
+)
+            (label :class "font-sm ${netStat == 'ok' ? '' : 'font-bold text-red'}" :text "󰈀 [${netStat}]")
+    )
+  )
+)
+
+(defwidget datetime []
+    (box :orientation "h" :class "font-main font-medium" :space-evenly false :spacing 3 :valign "center" :halign "end"
+        (label :class "text-main" :text "${raw-time}")
+        ;; (label :class "text-sub" :text " ~")
+        (label :class "text-sub pr-4" :text "   ")
+        (label :class "text-sub" :text "${raw-date}")
+        (box :orientation "h" :class "pr-2")
+    )
+)
+
+(defwidget power []
+    (box :space-evenly false :class "font-main text-main ml-1" :orientation "h"
+        (revealer-on-hover :var revealPower :varname "revealPower" :transition "slideleft"
+            (hovered-sign :var revealPower
+                (label :text "")
+                (label :text "")
+            )
+            (box :space-evenly false :spacing 1 :orientation "h" :halign "center" :valign "center" :class "background-overlay text-sub"
+                (button :tooltip "Power off" :class "btn mx-1 px-2 ico-adjust-reg" :onclick "systemctl poweroff" :halign "center"
+                    "󰐥")
+                (button :tooltip "Reboot" :class "btn mx-1 px-2 ico-adjust-med" :onclick "reboot"
+                    "")
+                (button :tooltip "Sleep" :class "btn mx-1 px-2 ico-adjust-big" :onclick monitor-off
+                    "")
+            )
+        "󰐦 ")
+    )
+)
+
+(defwidget metric [icon value ?onchange ?onclick ?class ?height ?width]
+  (box :orientation "h" :class "metric" :space-evenly false
+    (scale  :class {class != "" ? class : value > 50 ? value > 75 ? "error" : "warning" : "normal"}
+            :active {onchange != ""}
+            :min 0 :max 101 :value value :onchange onchange)
+    )
+)
+
+(defwidget hovered-sign [var]
+    (box :space-evenly false
+        (revealer :reveal {!var} :duration "350ms" :transition "slideleft"
+            (children :nth 0)
+        )
+        (revealer :reveal {var} :duration "350ms" :transition "slideleft"
+            (children :nth 1)
+        )
+    )
+)
+
+(defwidget revealer-on-hover [var varname ?duration ?transition ?class]
+    (box :orientation "h" :space-evenly false :class "${class}"
+        (eventbox :onhover "eww update ${varname}=true" :onhoverlost "eww update ${varname}=false"
+            (box :space-evenly false :class "${class}"
+                (children :nth 0)
+                (revealer :reveal var :transition {transition ?: "slideleft"} :duration {duration ?: "500ms"}
+                    (children :nth 1)
+                )
+                (box :class "${class}"
+                    (children :nth 2)
+                )
+            )
+        )
+    )
+)
+(defwidget revealer-on-click [var varname ?duration ?transition ?class]
+    (box :orientation "h" :space-evenly false :class "${class}"
+        (eventbox :onclick "eww update ${varname}=${!var}"
+            (box :space-evenly false
+                (children :nth 0)
+                (revealer :reveal var :transition {transition ?: "slideleft"} :duration {duration ?: "500ms"}
+                    (children :nth 1)
+                )
+                (box :class "${class}"
+                    (children :nth 2)
+                )
+            )
+        )
+    )
+)

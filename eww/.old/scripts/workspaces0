@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+D0_DP_VP="0,1440"                               # DP-0 viewport to identify display
+UF_D0_LOCK="$HOME/.cache/eww_d0.lock"           # lockfile for DP-0
+UF_D1_LOCK="$HOME/.cache/eww_d1.lock"           # lockfile for HDMI-1
+[ ! -f "$UF_D0_LOCK" ] && touch "$UF_D0_LOCK"
+
+check_occupied() {
+    wmctrl -l | awk '{print $2}' | uniq | while read -r op; do
+        if [ "$op" == "$1" ]; then
+            echo "true"
+            return
+        fi
+    done
+}
+check_other_unfocused() {
+    ACTIVE_OTHER_UF=$(cat "$UF_D1_LOCK");
+    if [ "$ACTIVE_OTHER_UF" == "$1" ]; then
+        echo "true"
+        return
+    fi
+}
+check_active_unfocused() {
+    ACTIVE_UF=$(cat "$UF_D0_LOCK");
+    if [ "$ACTIVE_UF" == "$1" ]; then
+        echo "true"
+        return
+    fi
+}
+
+xprop -spy -root _NET_CURRENT_DESKTOP | while read -r; do
+    wsNumber=$(wmctrl -d | awk '{print $1}' | tail -c 2)
+    wmctrl -d | awk '{print $1 " " $2 " " $9 " " $6 " "}' | while read -r number status name vp; do
+        statusClass="ws_inactive"
+        icon="󰝦"
+
+        if [ "$(check_occupied "$number")" == "true" ]; then
+            statusClass="ws_occupied"
+            icon=""
+
+            if [ "$(check_other_unfocused "$number")" == "true" ]; then
+                statusClass="ws_other"
+                icon=""
+            fi
+        fi
+
+
+        if [ "$(check_active_unfocused "$number")" == "true" ]; then
+            statusClass="ws_active_unfocused"
+            icon=""
+        fi
+
+
+        if [ "$status" == "*" ]; then
+            if [ "$vp" == "$D0_DP_VP" ]; then
+                statusClass="ws_active"
+                icon=""
+                echo "$number" > "$UF_D0_LOCK";
+
+            elif [ "$vp" != "$D0_DP_VP" ]; then
+                statusClass="ws_other_active"
+                icon=""
+            fi
+        fi
+
+
+        buffered+="(label :class '$statusClass' :text '$icon')"
+        if [ "$number" == "$wsNumber" ]; then
+            echo "(box :space-evenly false :spacing 7 $buffered)"
+        fi
+
+
+    done
+done
+

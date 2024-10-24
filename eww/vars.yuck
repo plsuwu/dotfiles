@@ -1,0 +1,13 @@
+;; workspace alteration listener
+;;  --> piped via xmonad to root window
+(deflisten wmstate :initial "" "scripts/xmonad-ws.sh")
+
+(defpoll volume :interval "1s" "scripts/volume.sh")
+(defpoll netstatus :interval "30s" "scripts/network.sh")
+
+;; date/time
+(defpoll time :interval "5s" `date +\"%H:%M %p\"`)
+(defpoll date :interval "5s" `date +\"%A, %B %d\"`)
+
+(defvar power-menu-state false)
+

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+DEV="enp6s0"
+STATE="$(ip link show ${DEV} | awk '{print $9}')"
+
+
+if [ "$STATE" == "UP" ]; then
+   echo "ok"
+else
+   echo "!"
+fi
