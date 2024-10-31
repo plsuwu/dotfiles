@@ -4,4 +4,5 @@ return {
     -- "github/copilot.vim",
     "nvim-lua/plenary.nvim",
     { 'numToStr/Comment.nvim', opts = {} },
+    "ThePrimeagen/vim-be-good",
 }

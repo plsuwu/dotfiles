@@ -3,29 +3,20 @@ return {
     dependencies = {
         { "williamboman/mason.nvim", config = true },
         "williamboman/mason-lspconfig.nvim",
-        -- {
         "hrsh7th/nvim-cmp",
-        -- dependencies = {
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "hrsh7th/cmp-cmdline",
         "L3MON4D3/LuaSnip",
-        "saadparwaiz1/cmp_luasnip",
-        "rafamadriz/friendly-snippets",
-        -- },
-        -- },
-        -- {
+        "folke/neodev.nvim",
         "jay-babu/mason-null-ls.nvim",
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "williamboman/mason.nvim",
             "nvimtools/none-ls.nvim",
         },
-        -- },
         "jose-elias-alvarez/null-ls.nvim",
-        "folke/neodev.nvim",
-        -- {
         "j-hui/fidget.nvim",
         opts = {
             integration = {
@@ -34,7 +25,6 @@ return {
                 },
             },
         },
-        -- },
     },
     config = function()
         local cmp = require("cmp")
@@ -49,7 +39,7 @@ return {
         require("fidget").setup({})
         require("mason").setup()
         require("mason-lspconfig").setup({
-            ensure_installed = { "lua_ls", "tsserver", "rust_analyzer", "clangd" },
+            ensure_installed = { "lua_ls", "ts_ls", "rust_analyzer", "clangd" },
             automatic_installation = false,
             handlers = {
                 function(server_name)

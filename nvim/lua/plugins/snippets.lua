@@ -6,6 +6,7 @@ return {
 
         dependencies = {
             "rafamadriz/friendly-snippets",
+            "kmarius/jsregexp",
         },
         config = function()
             local ls = require("luasnip")
