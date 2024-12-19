@@ -2,7 +2,7 @@
 
 h*skell
 
-![screen](screen.png)
+![screen](screen.webp)
 
 ## applications
 
