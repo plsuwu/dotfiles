@@ -52,7 +52,7 @@ scriptsPath = confDir ++ "/xmonad/scripts"
 myAdditionalKeys :: [(String, X ())]
 myAdditionalKeys =
   [ ("M-<Return>", spawn "alacritty"),
-    ("M-w", spawn "google-chrome-stable"),
+    ("M-w", spawn "google-chrome-unstable"),
     ("M-d", spawn "rofi -show drun"),
     ("M-p", spawn "pavucontrol"),
     ("M-<F7>", spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"),

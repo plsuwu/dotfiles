@@ -12,10 +12,9 @@ return {
 			disable_netrw = true,
 			view = {
 				centralize_selection = true,
-                signcolumn = "auto",
-				-- side = "right",
+				signcolumn = "auto",
 				number = true,
-                relativenumber = true,
+				relativenumber = true,
 				width = 38,
 			},
 			renderer = {

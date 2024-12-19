@@ -40,7 +40,8 @@ target_items: dict[str, list[str]] = {
 }
 
 # specify directories/files to avoid copying over
-walk_dir("/eww", ["eww-git", "sysmon"])
+walk_dir("/eww", ["eww-git", "sysmon", ".old"])
+walk_dir("/nvim", [".old"])
 walk_dir("/feh")
 walk_dir("/xmonad", [".stack-work", "xmonad-contrib-git", "xmonad-git"])
 
