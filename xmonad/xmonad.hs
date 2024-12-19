@@ -72,7 +72,7 @@ myAdditionalKeys =
   ]
 
 myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-
+myKeys conf@XConfig {XMonad.modMask = modm} =
   M.fromList $
     [ ((modm, xK_Tab), windows W.focusDown),
       ((modm, xK_space), sendMessage NextLayout),
