@@ -1,3 +1,5 @@
+vim.opt.mouse = a
+
 local home = os.getenv("HOME")
 vim.g.python3_host_prog = home .. "/.pyenv/shims/python"
 vim.opt.undodir = home .. "/.vim/undodir"
@@ -27,3 +29,20 @@ vim.opt.termguicolors = true
 vim.opt.scrolloff = 10
 vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
+
+-- vim.api.nvim_create_autocmd("TextYankPost", {
+-- 	group = vim.api.nvim_create_augroup("HighlightYank", {}),
+-- 	pattern = "*",
+-- 	callback = function()
+-- 		vim.highlight.on_yank({
+-- 			higroup = "IncSearch",
+-- 			timeout = 40,
+-- 		})
+-- 	end,
+-- })
+--
+-- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+-- 	group = vim.api.nvim_create_augroup("Main", {}),
+-- 	pattern = "*",
+-- 	command = [[%s/\s\+$//e]],
+-- })

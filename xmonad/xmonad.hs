@@ -49,10 +49,13 @@ randomBg = "feh --bg-fill --no-xinerama --no-fehbg --randomize " ++ confDir ++ "
 scriptsPath :: [Char]
 scriptsPath = confDir ++ "/xmonad/scripts"
 
+browser :: [Char]
+browser = "firefox"
+
 myAdditionalKeys :: [(String, X ())]
 myAdditionalKeys =
   [ ("M-<Return>", spawn "alacritty"),
-    ("M-w", spawn "google-chrome-unstable"),
+    ("M-w", spawn browser),
     ("M-d", spawn "rofi -show drun"),
     ("M-p", spawn "pavucontrol"),
     ("M-<F7>", spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%"),
