@@ -15,8 +15,12 @@ return {
 			desc = "[f]ormat buffer",
 		},
 	},
+
+    ---@module "conform"
+    ---@type conform.setupOpts
 	opts = {
 		notify_on_error = true,
+        lsp_format = "fallback",
 		-- format_on_save = function(bufnum)
 		-- 	local lsp_format_opt
 		--
@@ -31,8 +35,11 @@ return {
 		formatters_by_ft = {
 			lua = { "stylua" },
 			python = { "isort", "black" },
+            ruast = { "rustfmt" },
 			javascript = { "prettierd", "prettier", stop_after_first = true },
 			typescript = { "prettierd", "prettier", stop_after_first = true },
+            cs = { "clang-format", fallback = "lsp_format" },
+            c = { "clang-format" },
 		},
 	},
 }

@@ -11,7 +11,7 @@ import XMonad.Actions.SpawnOn
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers (doCenterFloat, isDialog)
+import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Layout.Decoration (ModifiedLayout)
@@ -49,8 +49,8 @@ randomBg = "feh --bg-fill --no-xinerama --no-fehbg --randomize " ++ confDir ++ "
 scriptsPath :: [Char]
 scriptsPath = confDir ++ "/xmonad/scripts"
 
-browser :: [Char]
-browser = "firefox"
+browser :: String
+browser = "/usr/bin/brave"
 
 myAdditionalKeys :: [(String, X ())]
 myAdditionalKeys =
@@ -215,6 +215,7 @@ myManageHook =
       , hasNetWMState "_NET_WM_STATE_STICKY" --> doF copyToAll
       , stringProperty "WM_WINDOW_ROLE" =? "pop-up" --> doCenterFloat
       , stringProperty "WM_NAME" =? "QEMU/KVM - Connection Details" --> doFloat
+      , (className =? "PacketTracer") <&&> (stringProperty "WM_NAME" /=? "PacketTracer") --> doFloat
       , className =? "vesktop" --> doShift "0"
       , className =? "Eww" --> doIgnore
       , className =? "pavucontrol" --> doFloat
