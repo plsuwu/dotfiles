@@ -1,6 +1,9 @@
 vim.opt.mouse = a
 
 local home = os.getenv("HOME")
+
+yls = home .. "/.pyenv/shims/yls"
+
 vim.g.python3_host_prog = home .. "/.pyenv/shims/python"
 vim.opt.undodir = home .. "/.vim/undodir"
 
