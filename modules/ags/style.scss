@@ -1,0 +1,65 @@
+// https://gitlab.gnome.org/GNOME/gtk/-/blob/gtk-3-24/gtk/theme/Adwaita/_colors-public.scss
+$fg-color: #{"@theme_fg_color"};
+$bg-color: #{"@theme_bg_color"};
+
+window#bar {
+  background: transparent;
+  color: $fg-color;
+  font-weight: 700;
+  font-family: "Inter Medium";
+  font-size: 11px;
+  margin: 0 18px;
+
+  >box {
+    color: $fg-color;
+  }
+
+  button {
+    padding: 0;
+    margin: 0 8px;
+    background: transparent;
+    opacity: 100%;
+  }
+
+  // menubutton {
+  //   opacity: 100%;
+  // }
+
+  .icon-size {
+    font-size: 12px;
+  }
+
+  .calendar-bg {
+    background: transparent;
+    margin: 6px 8px;
+  }
+
+  .clock {
+    margin: 0 10px;
+  }
+
+  .date {
+    margin-right: 2px;
+  }
+
+  .time {
+    // margin-left: 1px;
+    padding: 0 2px;
+    padding-left: 2px;
+
+  }
+
+  .animate-blink {
+    // animation: blink 1s infinite ease-out;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 100%;
+  }
+
+  100% {
+    opacity: 0%;
+  }
+}
