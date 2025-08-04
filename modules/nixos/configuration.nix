@@ -6,6 +6,8 @@
   ...
 }:
 {
+  # nixpkgs.overlays = [ (import ../../overlays) ];
+
   imports = [
     ./auth
     ./boot

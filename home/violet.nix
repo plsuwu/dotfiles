@@ -10,6 +10,7 @@
   ];
 
   config.modules = {
+    waybar.enable = true;
     discord.enable = true;
     myracursor.enable = true;
     term.enable = true;
@@ -31,6 +32,9 @@
     };
     programs.gh = {
       enable = true;
+      gitCredentialHelper = {
+        enable = true;
+      };
     };
     programs.wofi = {
       enable = true;

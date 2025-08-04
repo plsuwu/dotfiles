@@ -49,6 +49,40 @@ window#bar {
 
   }
 
+  .workspaces {
+    margin-top: 5px;
+  }
+
+  .clients {
+    margin-left: 8px;
+    margin-top: 5px;
+  }
+
+  .ws-icon {
+    border-radius: 100%;
+    color: $fg-color;
+  }
+
+  .focused {
+    font-size: 10px;
+    color: $fg-color;
+    margin: 0 2px;
+  }
+
+  .unfocused {
+    font-size: 10px;
+    color: $fg-color;
+    margin: 0 2px;
+    opacity: 50%;
+  }
+
+  .inactive {
+    font-size: 10px;
+    color: $bg-color;
+    margin: 0 2px;
+    opacity: 85%;
+  }
+
   .animate-blink {
     // animation: blink 1s infinite ease-out;
   }
@@ -63,3 +97,13 @@ window#bar {
     opacity: 0%;
   }
 }
+
+// @keyframes fade {
+//   0% {
+//     opacity: 100%;
+//   }
+//
+//   100% {
+//     opacity: 0%
+//   }
+// }

@@ -41,7 +41,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     home.packages = with pkgs; [
       swaybg
 
@@ -103,7 +102,7 @@ in
         ];
         extraCommands = [
           "systemctl --user start hyprpolkitagent"
-          # "systemctl --user stop graphical-session.target"
+          "systemctl --user stop graphical-session.target"
           "systemctl --user start hyprland-session.target"
         ];
       };
@@ -123,10 +122,10 @@ in
         };
 
         exec-once = [
-          "hyprpaper"
-          "vesktop"
-          "wl-paste --type text --watch cliphist store"
-          "wl-paste --type image --watch cliphist store"
+          "${pkgs.hyprpaper}/bin/hyprpaper"
+          "${pkgs.vesktop}/bin/vesktop"
+          "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store"
+          "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store"
         ];
 
         windowrule = [
@@ -198,8 +197,8 @@ in
           animation = [
             "border, 1, 2, default"
             "fade, 1, 1.3, default"
-            "windows, 1, 1, easioquint"
-            "workspaces, 1, 1, easioquint, slide"
+            "windows, 1, 1, easioquint, gnomed"
+            "workspaces, 1, 1, easioquint, fade"
           ];
         };
 

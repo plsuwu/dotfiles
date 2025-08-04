@@ -15,8 +15,9 @@ in
   config = lib.mkIf cfg.enable {
     boot = {
       loader.systemd-boot.enable = true;
-      loader.efi.canTouchEfiVariables = true;
+      loader.systemd-boot.configurationLimit = 5;
       loader.systemd-boot.consoleMode = "max";
+      loader.efi.canTouchEfiVariables = true;
 
       kernelPackages = pkgs.linuxPackages_latest;
       extraModprobeConfig = ''

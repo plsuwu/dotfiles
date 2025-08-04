@@ -14,6 +14,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # violetshell = {
+    #   url = "path:./modules/ags";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs =
@@ -23,14 +28,13 @@
       home-manager,
       nix-std,
       ...
-    }@inputs: let
+    }@inputs:
+    let
 
-      # inherit (self) outputs; # idk what i was even using this for tbh
       std = nix-std.lib;
       user = {
         name = "please";
       };
-
       mkSystem =
         {
           hostname,
@@ -75,6 +79,7 @@
         };
     in
     {
+
       nixosConfigurations = {
         violet = mkSystem {
           inherit user;
@@ -83,27 +88,4 @@
         };
       };
     };
-
-  # nixosConfigurations = {
-  #   inherit user;
-  #   violet = nixpkgs.lib.nixosSystem {
-  #     specialArgs = { inherit inputs outputs; };
-  #     modules = [
-  #       ./violet/configuration.nix
-  #       ./modules/nixos
-  #     ];
-  #   };
-  # };
-
-  # homeConfigurations = {
-  #   "please@violet" = home-manager.lib.homeManagerConfiguration {
-  #     pkgs = nixpkgs.legacyPackages.x86_64-linux;
-  #     extraSpecialArgs = { inherit inputs outputs; };
-  #     modules = [
-  #       ./home/violet.nix
-  #       ./home/hypr
-  #       ./home/discord
-  #     ];
-  #   };
-  # };
 }

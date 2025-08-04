@@ -12,19 +12,10 @@ in
   enabled = [
     "FriendsSince"
     "NoTypingAnimation"
-    "ImplicitRelationships"
-    "ShowAllMessageButtons"
     "ReadAllNotificationsButton"
     "MessageLogger"
-    "PermissionsViewer"
-    "MemberCount"
-    "ViewRaw"
     "ShowMeYourName"
     "NoReplyMention"
-    "ShikiCodeBlocks"
-    "PinDMs"
-    "PermissionFreeWill"
-    "ShowHiddenThings"
     "ShowHiddenChannels"
     "RelationshipNotifier"
   ];
@@ -37,25 +28,6 @@ in
 
     NoReplyMention = {
       inverseShiftReply = true;
-    };
-
-    ShikiCodeBlocks = {
-      theme = shikiRepoTheme theme;
-    };
-
-    PinDMs = {
-      canCollapseDmSection = true;
-    };
-
-    PermissionFreeWill = {
-      lockout = true;
-      onboarding = true;
-    };
-
-    ShowHiddenThings = {
-      showTimeouts = true;
-      showInvitesPaused = true;
-      showModView = true;
     };
 
     ShowHiddenChannels = {

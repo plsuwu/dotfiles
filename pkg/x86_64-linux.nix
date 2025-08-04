@@ -1,9 +1,14 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 with pkgs;
 [
   git
   wget
   curl
+  pavucontrol
   # neovim
   vim
   wayland

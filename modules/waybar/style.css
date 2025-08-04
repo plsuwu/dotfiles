@@ -1,0 +1,98 @@
+* {
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+}
+
+window#waybar {
+    background: transparent;
+    color: white;
+}
+
+#workspaces button {
+    padding: 1px;
+    margin: 0;
+    color: #5d6b91;
+}
+
+#workspaces button.empty {
+    color: black;
+}
+
+#workspaces button.visible {
+    color: #91a0c9;
+    /* opacity: 65%; */
+}
+
+#workspaces button.active {
+    color: white;
+}
+
+#clock {
+    margin-right: 25px;
+}
+
+#custom-power {
+    margin-left: 25px;
+}
+
+/*
+#window { 
+     margin-left: 8px; 
+ } 
+*/
+
+#network.disconnected,
+#network.ethernet {
+    margin-top: 5px;
+    margin-right: 20px;
+}
+
+#network.ethernet {
+    background-image: url('/home/please/.config/waybar/svg/network-up.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+#network.disconnected {
+    background-image: url('/home/please/.config/waybar/svg/network-down.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+#custom-power {
+    background-image: url('/home/please/.config/waybar/svg/power.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+#custom-separator {
+    margin-left: 12px;
+    margin-right: 12px;
+    background-image: url('/home/please/.config/waybar/svg/dot.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+#workspaces,
+#clock,
+#pulseaudio,
+#custom-power,
+#custom-separator,
+#window {
+    margin-top: 5px;
+}
+
+#pulseaudio {
+    background-image: url('/home/please/.config/waybar/svg/speaker.svg');
+    background-position: 0% 50%;
+    background-repeat: no-repeat;
+    background-size: auto;
+}

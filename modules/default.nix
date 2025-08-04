@@ -2,7 +2,7 @@
   inputs,
   pkgs,
   lib,
-  config,
+  system,
   ...
 }:
 {
@@ -14,26 +14,18 @@
     ./nvim
     ./pipewire
     ./term
+    ./waybar
     ./zoom-us
     ./zsh
   ];
 
   home.packages =
     (import ../pkg {
-      inherit pkgs;
-      inherit lib;
+      inherit pkgs lib;
+
     })
     ++ (import (../pkg + "/${pkgs.system}.nix") {
-      inherit pkgs;
-    });
+      inherit pkgs lib;
 
-  # programs.direnv = {
-  #   enable = true;
-  #   enableZshIntegration = true;
-  #   nix-direnv.enable = true;
-  #
-  #   config = {
-  #     global.hide_env_diff = true;
-  #   };
-  # };
+    });
 }
