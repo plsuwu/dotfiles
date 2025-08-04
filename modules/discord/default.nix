@@ -20,7 +20,11 @@ in
         tray = true;
         appBadge = true;
         discordBranch = "stable";
+        
+        # ??
         hardwareAcceleration = true;
+        winNativeTitleBar = true;
+
         spellCheckLanguages = [
           "en-US"
           "en"
@@ -29,6 +33,8 @@ in
 
       vencord.settings = {
         inherit plugins;
+
+        useQuickCss = false;
       };
     };
   };

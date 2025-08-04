@@ -30,8 +30,8 @@
       ...
     }@inputs:
     let
-
       std = nix-std.lib;
+
       user = {
         name = "please";
       };
