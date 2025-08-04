@@ -23,6 +23,10 @@ in
       prettierd
       black
 
+      cmake
+      ccls
+      clang-tools
+
       nixd
       nixfmt-rfc-style
 
@@ -33,7 +37,15 @@ in
       typescript-language-server
       vscode-langservers-extracted
       nodejs_22
+
+      rust-analyzer
+      cargo
     ];
+
+    # home.sessionVariables = {
+    #   # `ccls` to auto-generate a `compile_commands.json`
+    #   CMAKE_EXPORT_COMPILE_COMMANDS = "YES";
+    # };
 
     programs.neovim = {
       enable = true;

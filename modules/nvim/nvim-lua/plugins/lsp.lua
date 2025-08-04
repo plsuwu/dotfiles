@@ -77,6 +77,8 @@ return {
 			vim.lsp.enable("cssls")
 			vim.lsp.enable("gopls")
 
+            vim.lsp.enable("ccls")
+
 			vim.lsp.config("lua_ls", {
 				on_init = function(client)
 					if client.workspace_folders then

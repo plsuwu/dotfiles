@@ -43,3 +43,4 @@ for key, bracket in pairs(brackets) do
 		{ desc = "delete bracket pair surrounding a chunk of text" }
 	)
 end
+

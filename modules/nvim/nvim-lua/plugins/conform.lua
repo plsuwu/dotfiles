@@ -28,7 +28,7 @@ return {
 			typescript = { "prettierd" },
 			typescriptreact = { "prettierd" },
 			json = { "prettierd" },
-			-- rust = { "rustfmt" },
+			c = { "clang-format" },
 		},
 
 		formatters = {

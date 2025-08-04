@@ -28,6 +28,15 @@ vim.opt.scrolloff = 10
 vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 10
 
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = { "nix", "html", "lua" },
+	callback = function()
+		vim.opt_local.tabstop = 2
+		vim.opt_local.softtabstop = 2
+		vim.opt_local.shiftwidth = 2
+	end,
+})
+
 -- vim.api.nvim_create_autocmd("TextYankPost", {
 -- 	group = vim.api.nvim_create_augroup("HighlightYank", {}),
 -- 	pattern = "*",
