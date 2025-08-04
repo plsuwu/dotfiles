@@ -14,10 +14,14 @@ in
 
   config = lib.mkIf cfg.enable {
     boot = {
-      loader.systemd-boot.enable = true;
-      loader.systemd-boot.configurationLimit = 5;
-      loader.systemd-boot.consoleMode = "max";
-      loader.efi.canTouchEfiVariables = true;
+      loader = {
+        efi.canTouchEfiVariables = true;
+        systemd-boot = {
+          enable = true;
+          configurationLimit = 5;
+          consoleMode = "max";
+        };
+      };
 
       kernelPackages = pkgs.linuxPackages_latest;
       extraModprobeConfig = ''

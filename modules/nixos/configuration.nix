@@ -12,6 +12,7 @@
     ./auth
     ./boot
     ./desktop-manager
+    ./docker
     ./net
     ./sound
     ./thunar

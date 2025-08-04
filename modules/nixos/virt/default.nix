@@ -36,7 +36,6 @@ in
 
     programs.virt-manager.enable = true;
     environment.systemPackages = [ pkgs.gnome-boxes ];
-
     networking.firewall.interfaces."virbr0".allowedTCPPortRanges = [
       {
         from = 8000;

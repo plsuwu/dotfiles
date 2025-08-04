@@ -22,10 +22,8 @@
   home.packages =
     (import ../pkg {
       inherit pkgs lib;
-
     })
     ++ (import (../pkg + "/${pkgs.system}.nix") {
       inherit pkgs lib;
-
     });
 }
