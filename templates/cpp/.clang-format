@@ -1,0 +1,101 @@
+ColumnLimit: 80
+TabWidth: 4
+
+# align rules
+AlignAfterOpenBracket: BlockIndent
+AlignConsecutiveAssignments: 
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: false
+  AlignCompound: true
+  PadOperators: true
+
+AlignConsecutiveDeclarations: 
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: false
+  AlignFunctionPointers: true
+  AlignFunctionDeclarations: false
+
+AlignConsecutiveBitFields: AcrossEmptyLines
+AlignConsecutiveMacros: AcrossEmptyLines
+AlignConsecutiveShortCaseStatements:
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: true
+  AlignCaseColons: false
+
+AlignConsecutiveTableGenDefinitionColons: AcrossEmptyLines
+AlignOperands: AlignAfterOperator
+AlignTrailingComments: 
+  Kind: Always
+  OverEmptyLines: 2
+
+QualifierAlignment: Left    # uses the form `const int var` vs. `int const var`
+ReferenceAlignment: Right
+ReflowComments: IndentOnly
+
+# line break rules
+AllowShortBlocksOnASingleLine: Empty
+AllowShortCaseExpressionOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortCompoundRequirementOnASingleLine: true
+AllowShortEnumsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLambdasOnASingleLine: Empty
+AllowShortLoopsOnASingleLine: false
+AllowShortNamespacesOnASingleLine: false
+BinPackArguments: false
+BinPackParameters: OnePerLine
+BitFieldColonSpacing: Both
+BreakBeforeBraces: Attach                           # pre-brace line break rule
+BreakInheritanceList: AfterComma
+BreakStringLiterals: false
+BreakTemplateDeclarations: MultiLine
+CompactNamespaces: false
+
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex:           '^"(llvm|llvm-c|clang|clang-c)/'
+    Priority:        2
+    SortPriority:    2
+    CaseSensitive:   true
+  - Regex:           '^((<|")(gtest|gmock|isl|json)/)'
+    Priority:        3
+  - Regex:           '<[[:alnum:].]+>'
+    Priority:        4
+  - Regex:           '.*'
+    Priority:        1
+    SortPriority:    0
+
+
+IndentWidth: 4
+
+IndentAccessModifiers: false
+IndentCaseBlocks: true
+IndentCaseLabels: true
+IndentExportBlock: true
+IndentExternBlock: Indent
+IndentGotoLabels: true
+IndentPPDirectives: AfterHash
+IndentWrappedFunctionNames: true
+
+# misc
+MaxEmptyLinesToKeep: 1
+NamespaceIndentation: All
+RemoveEmptyLinesInUnwrappedLines: true
+RequiresClausePosition: OwnLineWithBrace
+RequiresExpressionIndentation: OuterScope
+Standard: Latest
+
+# spacing
+SpaceAfterCStyleCast: false
+SpaceAfterLogicalNot: false
+SpaceAfterTemplateKeyword: false
+SpaceBeforeParens: ControlStatements
+SpacesInParens: Never
+
+# import/includes sorting
+SortUsingDeclarations: LexicographicNumeric
+SeparateDefinitionBlocks: Always
