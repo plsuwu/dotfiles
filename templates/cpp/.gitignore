@@ -1,0 +1,23 @@
+# Build directories
+build/
+bin/
+lib/
+.ccls-cache
+
+# Compiled Object files
+*.o
+*.obj
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+main
+
+# Debug files
+*.dSYM/
+*.pdb

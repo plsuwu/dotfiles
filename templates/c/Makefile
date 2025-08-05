@@ -1,32 +1,48 @@
-CC=gcc
-CFLAGS=-std=c17 -Wall -Wextra -g
-TARGET=main
-SOURCE_DIR=src
+CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra -g
+TARGET = main
+SRCDIR = src
+SOURCES = $(wildcard $(SRCDIR)/*.c)
 
-BUILD_DIR=build
-SOURCES=$(wildcard $(SOURCE_DIR)/*.c)
-OBJECTS=$(patsubst $(SOURCE_DIR)/%.c,$(BUILD_DIR)/%.o,$(SOURCES))
+BUILDDIR = build
+DEBUGDIR = $(BUILDDIR)/debug
+RELEASEDIR = $(BUILDDIR)/release
 
-.PHONY: all clean debug release
+DEBUG_OBJECTS = $(SOURCES:$(SRCDIR)/%.c=$(DEBUGDIR)/%.o)
+RELEASE_OBJECTS = $(SOURCES:$(SRCDIR)/%.c=$(RELEASEDIR)/%.o)
+DEFAULT_OBJECTS = $(SOURCES:$(SRCDIR)/%.c=$(BUILDDIR)/%.o)
 
-all: $(BUILD_DIR)/$(TARGET)
+.PHONY: all clean debug release dirs
 
-$(BUILD_DIR)/$(TARGET): $(OBJECTS) | $(BUILD_DIR)
-	$(CC) $(OBJECTS) -o $@
+all: dirs $(BUILDDIR)/$(TARGET)
+debug: dirs $(DEBUGDIR)/$(TARGET)
+release: dirs $(RELEASEDIR)/$(TARGET)
+dirs:
+	@mkdir -p $(BUILDDIR) $(DEBUGDIR) $(RELEASEDIR)
 
-$(BUILD_DIR)/%.o: $(SOURCE_DIR)/%.c | $(BUILD_DIR)
+
+# general
+$(BUILDDIR)/$(TARGET): $(DEFAULT_OBJECTS)
+	$(CC) $(DEFAULT_OBJECTS) -o $@
+$(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(BUILD_DIR):
-	mkdir -p $(BUILD_DIR)
+
+# debug
+$(DEBUGDIR)/$(TARGET): $(DEBUG_OBJECTS)
+	$(CC) $(DEBUG_OBJECTS) -o $@
+$(DEBUGDIR)/%.o: $(SRCDIR)/%.c
+	$(CC) $(CFLAGS) -DDEBUG -O0 -ggdb3 -c $< -o $@
+
+
+# release
+$(RELEASEDIR)/$(TARGET): $(RELEASE_OBJECTS)
+	$(CC) $(RELEASE_OBJECTS) -o $@
+$(RELEASEDIR)/%.o: $(SRCDIR)/%.c
+	$(CC) $(CFLAGS) -DNDEBUG -O2 -c $< -o $@
+
+run: debug
+	@$(DEBUGDIR)/$(TARGET)
 
 clean:
-	rm -rf build/
-
-debug: BUILD_DIR=build/debug
-debug: CFLAGS += -DDEBUG -O0 -ggdb3
-debug: $(BUILD_DIR)/$(TARGET)
-
-release: BUILD_DIR=build/release
-release: CFLAGS += -DNDEBUG -O2
-release: $(BUILD_DIR)/$(TARGET)
+	rm -rf $(BUILDDIR)

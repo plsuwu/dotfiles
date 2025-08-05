@@ -1,5 +1,9 @@
 {
-  description = "C template";
+  # this is basically just the C template but with a slightly
+  # different makefile ://
+
+  description = "C++ template";
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
@@ -49,7 +53,7 @@
         };
 
         packages.default = pkgs.stdenv.mkDerivation {
-          pname = "c-template";
+          pname = "cpp-template";
           version = "0.1.0";
           src = ./.;
 
@@ -64,3 +68,4 @@
       }
     );
 }
+
