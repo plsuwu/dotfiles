@@ -18,6 +18,7 @@
     nvim.enable = true;
     zsh.enable = true;
     hypr.enable = true;
+    obs.enable = true;
   };
 
   config = {

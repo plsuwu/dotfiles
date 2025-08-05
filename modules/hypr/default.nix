@@ -161,7 +161,7 @@ in
           # "${mod} SHIFT, Print, exec, grim -g \"$(slurp -d)\" - | wl-copy"
           "${mod} SHIFT, S, exec, grimblast save area - | wl-copy"
           "${mod}, S, exec, grimblast save area ~/Pictures/screenshots/$(date +%4Y%m%d-%S%N).png"
-          "${mod}, Print, exec, grimblast save screen ~/Pictures/screenshots/$(date +%4Y%m%d-%S%N).png"
+          "${mod}, End, exec, grimblast copysave screen ~/Pictures/screenshots/$(date +%4Y%m%d-%S%N).png"
 
           "${mod}, L, movefocus, right"
           "${mod}, H, movefocus, left"
@@ -232,7 +232,7 @@ in
       settings = {
         listener = [
           {
-            timeout = 300;
+            timeout = 1800;
             on-timeout = "hyprctl dispatch dpms off";
             on-resume = "hyprctl dispatch dpms on";
           }

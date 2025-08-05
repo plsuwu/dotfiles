@@ -12,6 +12,7 @@
     ./discord
     ./hypr
     ./nvim
+    ./obs
     ./pipewire
     ./term
     ./waybar
