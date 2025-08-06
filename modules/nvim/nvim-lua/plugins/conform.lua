@@ -29,6 +29,8 @@ return {
 			typescriptreact = { "prettierd" },
 			json = { "prettierd" },
 			c = { "clang-format" },
+      bash = { "shfmt" },
+      zsh = { "shfmt" },
 		},
 
 		formatters = {

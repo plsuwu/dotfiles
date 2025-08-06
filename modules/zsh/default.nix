@@ -15,6 +15,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    xdg.configFile.".zshrc.d" = {
+      source = ./.zshrc.d;
+      recursive = true;
+    };
+
     programs.zoxide = {
       enable = true;
       enableZshIntegration = true;
@@ -27,9 +32,21 @@ in
       autosuggestion.enable = true;
       defaultKeymap = null;
 
-      initContent = ''
-        autoload -Uz promptinit && promptinit && prompt redhat
-      '';
+      initContent =
+        let
+          zshEarly = lib.mkOrder 550 ''
+            ZNIXDIR="$HOME/.config/.zshrc.d"
+            fpath=($ZNIXDIR $fpath)
+          '';
+
+          zshNormal = lib.mkOrder 1000 ''
+            autoload -Uz promptinit && promptinit && prompt violet
+          '';
+        in
+        lib.mkMerge [
+          zshEarly
+          zshNormal
+        ];
 
       shellAliases = {
         ll = "ls -lh";
@@ -51,22 +68,16 @@ in
         enable = true;
         useFriendlyNames = true;
         plugins = [
-          "getantidote/use-omz"
-
-          "ohmyzsh/ohmyzsh path:lib"
-          "ohmyzsh/ohmyzsh path:plugins/colored-man-pages"
-          "ohmyzsh/ohmyzsh path:plugins/gh"
-          "ohmyzsh/ohmyzsh path:plugins/git"
-          "ohmyzsh/ohmyzsh path:plugins/git-prompt"
-          "ohmyzsh/ohmyzsh path:plugins/ssh"
-
           "mattmc3/ez-compinit"
-
           "zsh-users/zsh-completions kind:fpath path:src"
-          "zsh-users/zsh-autosuggestions"
-          "zsh-users/zsh-history-substring-search"
+
+          "belak/zsh-utils path:editor"
+          "belak/zsh-utils path:history"
+          "belak/zsh-utils path:utility"
 
           "zdharma-continuum/fast-syntax-highlighting"
+          "zsh-users/zsh-autosuggestions"
+          "zsh-users/zsh-history-substring-search"
         ];
       };
     };

@@ -19,9 +19,10 @@ in
       luajit
 
       stylua
-      shfmt
       prettierd
       black
+
+      shfmt
 
       cmake
       ccls
