@@ -11,6 +11,7 @@
 
   config.modules = {
     waybar.enable = true;
+    media-utils.enable = true;
     discord.enable = true;
     myracursor.enable = true;
     term.enable = true;

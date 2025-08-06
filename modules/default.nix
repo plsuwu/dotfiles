@@ -18,6 +18,7 @@
     ./waybar
     ./zoom-us
     ./zsh
+    ./media-utils
   ];
 
   home.packages =
