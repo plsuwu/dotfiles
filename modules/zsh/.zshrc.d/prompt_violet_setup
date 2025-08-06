@@ -31,10 +31,12 @@ prompt_violet_setup () {
 
     autoload -Uz vcs_info
 
-    zstyle ':vcs_info:*' formats '(%F{230}%r%f):on %(u.%F{196}*.)%F{111}%b%f'
+    zstyle ':vcs_info:git:*' check-for-changes true
+    zstyle ':vcs_info:git:*' formats '(%F{230}%r%f):on %(u.%F{196}*%f.)%F{111}%b%f'
 
     PS1="$lp[open_br]$lp[user]$lp[sep]$lp[host]$lp[close_br]$lp[open_br]$lp[curr_wd]$lp[close_br]%(#.#.$) "
-    RPS1="\$vcs_info_msg_0_"
+    RPS1="\$vcs_info_msg_0_ %u"
+
 
     add-zsh-hook precmd prompt_violet_precmd
 }
