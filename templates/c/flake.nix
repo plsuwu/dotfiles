@@ -40,11 +40,7 @@
               bear -- make all clean 2>/dev/null || true
             fi
 
-            alias la="ls -la"
             alias gdb="gef"
-
-            gcc --version
-            gdb --version
           '';
         };
 

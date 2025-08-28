@@ -19,6 +19,7 @@
     ./zoom-us
     ./zsh
     ./media-utils
+    ./nh
   ];
 
   home.packages =
@@ -27,5 +28,9 @@
     })
     ++ (import (../pkg + "/${pkgs.system}.nix") {
       inherit pkgs lib;
+    })
+    ++ (import ../pkg/steam.nix {
+      inherit pkgs lib;
     });
 }
+

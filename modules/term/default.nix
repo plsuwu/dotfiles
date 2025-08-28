@@ -58,7 +58,7 @@ in
       terminal = "tmux-256color";
       historyLimit = 50000;
 
-      escapeTime = 50;
+      escapeTime = 20;
       focusEvents = true;
       baseIndex = 1;
       disableConfirmationPrompt = true;
@@ -68,8 +68,14 @@ in
         set-option -sa terminal-features ",alacritty:RGB"
 
         bind '"' split-window -c '#{pane_current_path}'
-        bind '%' split-window -h -c '#{pane_current_path}'
+        bind '/' split-window -h -c '#{pane_current_path}'
         bind c new-window -c '#{pane_current_path}'
+        
+        bind h select-pane -L
+        bind j select-pane -D
+        bind k select-pane -U
+        bind l select-pane -R
+        bind -n C-x kill-pane
       '';
     };
   };

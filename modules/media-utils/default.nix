@@ -1,4 +1,9 @@
-{ pkgs, config, lib, ... }:
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
 let
   cfg = config.modules.media-utils;
 in
@@ -10,7 +15,9 @@ in
   config = lib.mkIf cfg.enable {
     programs = {
       feh.enable = true;
-      mpv.enable = true;
+      mpv = {
+        enable = true;
+      };
     };
   };
 }

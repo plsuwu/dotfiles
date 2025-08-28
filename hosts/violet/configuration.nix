@@ -18,6 +18,19 @@
     thunar.enable = true;
     net.enable = true;
     auth.enable = true;
+    nix-ld.enable = true;
+
+    browser = {
+      enable = true;
+      chromium.enable = true;
+      chromium.ephemeral = true;
+    };
+
+    # containers = {
+    #   enable = true;
+    #   dockerCompat = true;
+    #   compose = true;
+    # };
   };
 
   config = {

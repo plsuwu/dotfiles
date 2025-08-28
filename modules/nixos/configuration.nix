@@ -10,9 +10,12 @@
   imports = [
     ./auth
     ./boot
+    ./browser
+    ./containers
     ./desktop-manager
     ./docker
     ./net
+    ./nix-ld
     ./sound
     ./thunar
     ./tz

@@ -8,6 +8,7 @@
 }:
 let
   cfg = config.modules.zsh;
+  additionalKeybindConfig = builtins.readFile ./key-bindings.zsh;
 in
 {
   options.modules.zsh = {
@@ -15,6 +16,23 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # don't care enough rn to create an enable option or
+    # an entire module for eza :3
+    programs.eza = {
+      enable = true;
+      enableZshIntegration = true;
+      git = true;
+      icons = "auto";
+
+      extraOptions = [
+        "--group-directories-first"
+      ];
+    };
+
+    xdg.configFile."eza/theme.yml" = {
+      source = ./eza/theme.yml;
+    };
+
     xdg.configFile.".zshrc.d" = {
       source = ./.zshrc.d;
       recursive = true;
@@ -39,9 +57,12 @@ in
             fpath=($ZNIXDIR $fpath)
           '';
 
-          zshNormal = lib.mkOrder 1000 ''
-            autoload -Uz promptinit && promptinit && prompt violet
-          '';
+          zshNormal = lib.mkOrder 1000 (
+            ''
+              autoload -Uz promptinit && promptinit && prompt violet
+            ''
+            + additionalKeybindConfig
+          );
         in
         lib.mkMerge [
           zshEarly
@@ -49,9 +70,16 @@ in
         ];
 
       shellAliases = {
-        ll = "ls -lh";
-        la = "ls -lah";
+
         zi = "cdi";
+
+        # some omz default aliases
+        ll = "eza -lh";
+        la = "eza -lah";
+        "..." = "../..";
+        "...." = "../../..";
+        "....." = "../../../..";
+        "......" = "../../../../..";
       };
 
       history = {

@@ -7,46 +7,70 @@
 }:
 let
   cfg = config.modules.nvim;
+  texlivePkg = pkgs.texliveFull;
+  # texliveExtraPkgs = (pkgs.texlive.withPackages (ps: with ps; [
+  #
+  # ]));
 in
 {
   options.modules.nvim = {
     enable = lib.mkEnableOption "nvim";
+    extraTexlivePkgs = lib.mkEnableOption "texlive";
+    pythonPackages = pkgs.python313.withPackages (
+      ps: with ps; [
+
+      ]
+    );
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      gcc
-      luajit
+    home.packages =
+      with pkgs;
+      [
+        gcc
+        luajit
 
-      stylua
-      prettierd
-      black
+        stylua
+        prettierd
+        python313Full
+        ruff
 
-      shfmt
+        shfmt
 
-      cmake
-      ccls
-      clang-tools
+        cmake
+        ccls
 
-      nixd
-      nixfmt-rfc-style
+        clang-tools
 
-      lua-language-server
-      postgres-lsp
-      gopls
-      typescript
-      typescript-language-server
-      vscode-langservers-extracted
-      nodejs_22
+        nixd
+        nixfmt-rfc-style
 
-      rust-analyzer
-      cargo
-    ];
+        pyright
+        lua-language-server
+        gopls
 
-    # home.sessionVariables = {
-    #   # `ccls` to auto-generate a `compile_commands.json`
-    #   CMAKE_EXPORT_COMPILE_COMMANDS = "YES";
-    # };
+        postgres-lsp
+
+        typescript
+        typescript-language-server
+        vscode-langservers-extracted
+        svelte-language-server
+        tailwindcss-language-server
+
+        texlab
+
+        rust-analyzer
+        rustc
+        rustfmt
+        cargo
+
+        ghc
+        fourmolu
+        haskell-language-server
+
+        kdePackages.okular
+      ]
+      ++ lib.optional cfg.extraTexlivePkgs texlivePkg;
 
     programs.neovim = {
       enable = true;
@@ -68,6 +92,7 @@ in
         fzf-lua
         harpoon2
         tiny-inline-diagnostic-nvim
+        trouble-nvim
         telescope-nvim
         telescope-fzf-native-nvim
         telescope-ui-select-nvim
@@ -83,6 +108,8 @@ in
         crates-nvim
         fidget-nvim
         todo-comments-nvim
+
+        vimtex
       ];
 
       extraLuaConfig =
@@ -92,6 +119,7 @@ in
         in
         ''
           vim.g.mapleader = " "
+          vim.g.maplocalleader = " "
           require("lazy").setup({
               performance = {
                   reset_packpath = false;

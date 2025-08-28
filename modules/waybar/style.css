@@ -48,6 +48,7 @@ window#waybar {
 #network.disconnected,
 #network.ethernet {
     margin-top: 5px;
+    margin-bottom: 2px;
     margin-right: 20px;
 }
 
@@ -88,6 +89,7 @@ window#waybar {
 #custom-separator,
 #window {
     margin-top: 5px;
+    margin-bottom: 2px;
 }
 
 #pulseaudio {

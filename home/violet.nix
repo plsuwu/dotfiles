@@ -16,16 +16,26 @@
     myracursor.enable = true;
     term.enable = true;
     pipewire.enable = true;
-    nvim.enable = true;
     zsh.enable = true;
     hypr.enable = true;
     obs.enable = true;
+    nh.enable = true;
+
+    nvim = {
+      enable = true;
+      extraTexlivePkgs = true;
+    };
   };
 
   config = {
+    programs.direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+      enableZshIntegration = true;
+      config.global.hide_env_diff = true;
+    };
 
     # TODO: put these somewhere real later
-    programs.firefox.enable = true;
     programs.rbw.enable = true;
     programs.git = {
       enable = true;
@@ -40,10 +50,6 @@
     };
     programs.wofi = {
       enable = true;
-    };
-    programs.direnv = {
-      enable = true;
-      nix-direnv.enable = true;
     };
     programs.spotify-player = {
       enable = true;

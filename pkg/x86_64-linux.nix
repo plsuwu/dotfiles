@@ -9,13 +9,14 @@ with pkgs;
   wget
   curl
   pavucontrol
-  # neovim
+
   vim
   wayland
   neofetch
   btop
   remmina
   zoom-us
+  usbutils
 
   inter
   nerd-fonts.noto

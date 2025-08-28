@@ -44,3 +44,9 @@ for key, bracket in pairs(brackets) do
 	)
 end
 
+-- vim.api.nvim_create_autocmd({ "FileType" }, {
+--   pattern = { "rust" },
+--   callback = function ()
+--     -- vim.keymap.set("n", "", "[:RustLsp hover  ]")
+--   end
+-- })

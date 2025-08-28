@@ -22,15 +22,20 @@ return {
 
 		formatters_by_ft = {
 			lua = { "stylua" },
-			python = { "black" },
 			nix = { "nixfmt" },
+			python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
+			rust = { "rustfmt" },
+			-- c = { "clang-format" },
+			c = { "ccls" },
+
 			javascript = { "prettierd" },
 			typescript = { "prettierd" },
 			typescriptreact = { "prettierd" },
 			json = { "prettierd" },
-			c = { "clang-format" },
-      bash = { "shfmt" },
-      zsh = { "shfmt" },
+
+			bash = { "shfmt" },
+			zsh = { "shfmt" }, -- this is pretty unreliable for zsh formatting but it is what it is
+			haskell = { "fourmolu" },
 		},
 
 		formatters = {

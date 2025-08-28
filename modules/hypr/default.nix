@@ -43,13 +43,16 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = with pkgs; [
       swaybg
+      hyprland-qtutils
 
       wl-clipboard
       cliphist
       slurp
       grimblast
-      polkit_gnome
+      # polkit_gnome
       swappy
+
+      pinta
     ];
 
     services.hyprpolkitagent.enable = true;
@@ -57,6 +60,7 @@ in
       QT_QPA_PLATFORM = "wayland";
       SDL_VIDEODRIVER = "wayland";
       XDG_SESSION_TYPE = "wayland";
+      GRIMBLAST_EDITOR = "${pkgs.pinta}/bin/pinta";
     };
 
     xdg.userDirs = {
@@ -116,29 +120,37 @@ in
         };
 
         general = {
-          gaps_in = 5;
-          gaps_out = 5;
+          gaps_in = 2;
+          gaps_out = 3;
           layout = "dwindle";
         };
 
         exec-once = [
-          "${pkgs.hyprpaper}/bin/hyprpaper"
+          # "${pkgs.hyprpaper}/bin/hyprpaper"
           "${pkgs.vesktop}/bin/vesktop"
           "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store"
           "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store"
         ];
+
+        decoration = {
+          rounding = 4;
+        };
 
         windowrule = [
           "workspace 10, class:vesktop"
         ];
 
         windowrulev2 = [
-          "float,class:(polkit-gnome-authentication-agent-1)"
-          "move 37% 2%,class:(polkit-gnome-authentication-agent)"
-          "size 25% 10%,class:(polkit-gnome-authentication-agent)"
-          # "center,class:(polkit-gnome-authentication-agent-1)"
-          "pin,class:(polkit-gnome-authentication-agent-1)"
-          "stayfocused,class:(polkit-gnome-authentication-agent-1)"
+
+          # this (probably) only floats Pinta windows called via `grimblast edit`
+          "float,title:^(\\d{4}\-\\d{2}\-\\d{2}T\\d{2}:\\d{2}:\\d{2},\\d+.*\\.png\ \-\ Pinta)$"
+          "size 70% 80%,title:^(\\d{4}\-\\d{2}\-\\d{2}T\\d{2}:\\d{2}:\\d{2},\\d+.*\\.png\ \-\ Pinta)$"
+
+          "float,class:(*polkit*agent)"
+          "pin,class:(*polkit*agent)"
+          "stayfocused,class:(*polkit*agent)"
+
+          "float,title:(*Bitwarden\ Password\ Manager*),class:firefox"
         ];
 
         layerrule = [
@@ -147,6 +159,7 @@ in
 
         bind = [
           "${mod}, mouse:272, setfloating"
+
           "${mod}, Return, exec, alacritty"
           "${mod}, T, settiled,"
           "${mod}, Q, killactive,"
@@ -159,15 +172,17 @@ in
           "${mod}, V, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
           # "${mod} SHIFT, S, exec, grim -g \"$(slurp -d)\" - | wl-copy"
           # "${mod} SHIFT, Print, exec, grim -g \"$(slurp -d)\" - | wl-copy"
-          "${mod} SHIFT, S, exec, grimblast save area - | wl-copy"
-          "${mod}, S, exec, grimblast save area ~/Pictures/screenshots/$(date +%4Y%m%d-%S%N).png"
-          "${mod}, End, exec, grimblast copysave screen ~/Pictures/screenshots/$(date +%4Y%m%d-%S%N).png"
+          "${mod}, S, exec, grimblast edit area"
+          "${mod} SHIFT, S, exec, grimblast copysave area ~/Pictures/Screenshots/$(date +%4Y%m%d-%S%N).png"
+          "${mod}, End, exec, grimblast --cursor copysave screen ~/Pictures/screenshots/$(date +%4Y%m%d-%S%N).png"
 
-          "${mod}, L, movefocus, right"
-          "${mod}, H, movefocus, left"
-          "${mod}, K, movefocus, up"
-          "${mod}, H, movefocus, down"
+          "${mod}, L, movefocus, r"
+          "${mod}, H, movefocus, l"
+          "${mod}, K, movefocus, u"
+          "${mod}, J, movefocus, d"
 
+          "${mod} SHIFT, K, movewindow, r"
+          "${mod} SHIFT, J, movewindow, l"
         ]
         ++ workspaces;
 
@@ -182,6 +197,10 @@ in
           "${mod} ALT, mouse:272, resizewindow"
         ];
 
+        workspace = [
+          "10,monitor:DP-3"
+        ];
+
         input = {
           repeat_delay = 200;
           repeat_rate = 50;
@@ -193,12 +212,23 @@ in
             "expin, 0.01, 1, 0.2, 0.99"
             "expout, 0.75, 0.15, 0.95, 0.25"
             "easioquint, 0.86, 0, 0.07, 1"
+            "easio, 0.74, 0.12, 0.28, 0.9"
           ];
           animation = [
-            "border, 1, 2, default"
-            "fade, 1, 1.3, default"
-            "windows, 1, 1, easioquint, gnomed"
-            "workspaces, 1, 1, easioquint, fade"
+            "border, 1, 2.5, default"
+
+            "fadeIn, 1, 1, default"
+            "fadeOut, 1, 1, default"
+
+            "workspaces, 0"
+            "windows, 0"
+
+            # "windowsIn, 1, 1, easioquint, slide"
+            # "windowsOut, 1, 1, easioquint, slide"
+            # "windowsMove, 1, 1, easio, slide"
+
+            # "workspacesIn, 1, 2, expin, fade"
+            # "workspacesOut, 1, 2, expout, fade"
           ];
         };
 
@@ -291,6 +321,7 @@ in
 
       gtk3.extraConfig = {
         gtk-application-prefer-dark-theme = 1;
+        gtk-recent-files-enabled = 0;
       };
     };
 
