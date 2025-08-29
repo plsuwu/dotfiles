@@ -49,8 +49,8 @@ in
       cliphist
       slurp
       grimblast
-      # polkit_gnome
       swappy
+      socat
 
       pinta
     ];
@@ -67,6 +67,10 @@ in
       enable = true;
       pictures = "${config.home.homeDirectory}/Pictures";
     };
+
+    xdg.dataFile."scripts/hyprland-bitwarden-resize.sh".source = (
+      import ./resize-extensions-script.nix pkgs
+    );
 
     home.activation.createScreenshots = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       mkdir -p ${config.home.homeDirectory}/Pictures/screenshots
@@ -126,10 +130,10 @@ in
         };
 
         exec-once = [
-          # "${pkgs.hyprpaper}/bin/hyprpaper"
           "${pkgs.vesktop}/bin/vesktop"
           "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store"
           "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store"
+          "$HOME/.local/share/scripts/hyprland-bitwarden-resize.sh"
         ];
 
         decoration = {
@@ -149,8 +153,8 @@ in
           "float,class:(*polkit*agent)"
           "pin,class:(*polkit*agent)"
           "stayfocused,class:(*polkit*agent)"
-
-          "float,title:(*Bitwarden\ Password\ Manager*),class:firefox"
+          
+          "suppressevent maximize, class:^(firefox)$"
         ];
 
         layerrule = [
@@ -170,8 +174,6 @@ in
           "${mod} SHIFT, E, exit,"
 
           "${mod}, V, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
-          # "${mod} SHIFT, S, exec, grim -g \"$(slurp -d)\" - | wl-copy"
-          # "${mod} SHIFT, Print, exec, grim -g \"$(slurp -d)\" - | wl-copy"
           "${mod}, S, exec, grimblast edit area"
           "${mod} SHIFT, S, exec, grimblast copysave area ~/Pictures/Screenshots/$(date +%4Y%m%d-%S%N).png"
           "${mod}, End, exec, grimblast --cursor copysave screen ~/Pictures/screenshots/$(date +%4Y%m%d-%S%N).png"

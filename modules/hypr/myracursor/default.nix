@@ -47,7 +47,7 @@ stdenv.mkDerivation {
       "col-resize"
       "nwse-resize"
       "nesw-resize" 
-      "plus"
+      "crosshair"
       "hand2"
       "pointer"
       "pin"
@@ -66,8 +66,13 @@ stdenv.mkDerivation {
       win2xcur "''${x_cursors[$index]}" -o "$conversions/"
     done
 
-    mkdir -p $out/share/icons/${pname}/cursors
-    cp -r $conversions/* $out/share/icons/${pname}/cursors/
+
+    install_dir=$out/share/icons/${pname}/cursors/
+    mkdir -p $install_dir
+    cp -r $conversions/* $install_dir
+
+    ln -sf "$install_dir/crosshair" "$install_dir/cell"
+
     cp -t $out/share/icons/${pname}/ cursor.theme index.theme
   '';
 }
