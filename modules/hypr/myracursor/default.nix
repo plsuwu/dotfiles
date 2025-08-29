@@ -7,7 +7,7 @@ let
   pname = "myramors";
   commit = "d5c878cbecaf23b6491a69bc2eea90670c0354d0";
   url = "https://github.com/plsuwu/dotfiles/raw/${commit}/myramors_cursor_linux.tar.gz";
-  
+
   themeFileContent = ''
     [Icon Theme]
     name=myramors
@@ -16,7 +16,7 @@ let
 in
 stdenv.mkDerivation {
   inherit pname;
-  version = "1.0";
+  version = "1.1";
   src = builtins.fetchTarball {
     inherit url;
     sha256 = "181bsyqy34z4sh1lcmna3kdjjbkq7scc1911dbs3fwwwlag2mhw5";
@@ -35,10 +35,23 @@ stdenv.mkDerivation {
 
     declare -a x_cursors
     x_cursors=(
-      "default" "help" "progress" "wait" "move" 
-      "text" "pencil" "no-drop" "row-resize" 
-      "col-resize" "nwse-resize" "nesw-resize" 
-      "plus" "hand2" "pointer" "pin" "person"
+      "default" 
+      "help" 
+      "progress" 
+      "wait" 
+      "move" 
+      "text"
+      "pencil"
+      "no-drop"
+      "row-resize" 
+      "col-resize"
+      "nwse-resize"
+      "nesw-resize" 
+      "plus"
+      "hand2"
+      "pointer"
+      "pin"
+      "person"
     )
 
     cat <<< "${themeFileContent}" > 'cursor.theme'
@@ -46,15 +59,15 @@ stdenv.mkDerivation {
 
     for index in "''${!x_cursors[@]}"; do
       num=$((index + 1))
-      original="$win_cursors/$base_filename$num.ani"
-      cp "$original" "''${x_cursors[$index]}"
-      win2xcur "$original" -o "$conversions/"
-    done
 
-    
+      original="$win_cursors/$base_filename$num.ani"
+
+      mv "$original" "''${x_cursors[$index]}"
+      win2xcur "''${x_cursors[$index]}" -o "$conversions/"
+    done
 
     mkdir -p $out/share/icons/${pname}/cursors
     cp -r $conversions/* $out/share/icons/${pname}/cursors/
-    cp -t $out/share/icons/${pname}/ cursor.theme index.theme 
+    cp -t $out/share/icons/${pname}/ cursor.theme index.theme
   '';
 }

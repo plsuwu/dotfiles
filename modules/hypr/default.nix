@@ -298,7 +298,7 @@ in
           gtk-theme = "Tokyonight-Dark";
           color-scheme = "prefer-dark";
           # cursor-theme = "macOS";
-          cursor-theme = "myracursor";
+          cursor-theme = "myramors";
         };
       };
     };

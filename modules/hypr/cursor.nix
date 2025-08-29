@@ -5,7 +5,7 @@
   ...
 }:
 let
-  myracursor = pkgs.callPackage ./myracursor { }; # see: `myracursor/default.nix`
+  myramors = pkgs.callPackage ./myracursor { }; # see: `myracursor/default.nix`
   cfg = config.modules.myracursor;
 in
 {
@@ -18,20 +18,20 @@ in
     dconf = {
       settings = {
         "org/gnome/desktop/interface" = {
-          cursor-theme = "myracursor";
+          cursor-theme = "myramors";
         };
       };
     };
 
     home.pointerCursor = {
       gtk.enable = true;
-      name = "myracursor";
-      package = myracursor;
+      name = "myramors";
+      package = myramors;
     };
     gtk = {
       cursorTheme = {
-        name = "myracursor";
-        package = myracursor;
+        name = "myramors";
+        package = myramors;
       };
     };
 
