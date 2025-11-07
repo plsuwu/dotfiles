@@ -1,8 +1,3 @@
-# dotfiles 
+# (windows) dotfiles
 
-![screen](./screen.webp)
-
-> [old arch config](https://github.com/plsuwu/dotfiles/tree/main)
-
-
-
+windows-specific configuration, mostly just slight alterations to neovim config so that it works on windows.
