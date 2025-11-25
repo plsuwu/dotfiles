@@ -4,7 +4,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nix-std.url = "github:chessai/nix-std";
 
-    # not actually enabled yet
+    # not actually enabled
     vfio-hooks = {
       url = "github:PassthroughPOST/VFIO-Tools";
       flake = false;

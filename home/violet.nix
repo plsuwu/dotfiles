@@ -39,8 +39,10 @@
     programs.rbw.enable = true;
     programs.git = {
       enable = true;
-      userName = "plsuwu";
-      userEmail = "124419933+plsuwu@users.noreply.github.com";
+      settings.user = {
+        name = "plsuwu";
+        email = "124419933+plsuwu@users.noreply.github.com";
+      };
     };
     programs.gh = {
       enable = true;

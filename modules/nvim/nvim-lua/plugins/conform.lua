@@ -28,10 +28,15 @@ return {
 			-- c = { "clang-format" },
 			c = { "ccls" },
 
-			javascript = { "prettierd" },
-			typescript = { "prettierd" },
-			typescriptreact = { "prettierd" },
-			json = { "prettierd" },
+			htmldjango = { "djlint" },
+
+			html = { "prettierd", "prettier", stop_after_first = true },
+			javascript = { "prettierd", "prettier", stop_after_first = true },
+			typescript = { "prettierd", "prettier", stop_after_first = true },
+			typescriptreact = { "prettierd", "prettier", stop_after_first = true },
+			json = { "prettierd", "prettier", stop_after_first = true },
+
+			scala = { "scalafmt" },
 
 			bash = { "shfmt" },
 			zsh = { "shfmt" }, -- this is pretty unreliable for zsh formatting but it is what it is

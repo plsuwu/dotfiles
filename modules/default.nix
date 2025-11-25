@@ -26,7 +26,7 @@
     (import ../pkg {
       inherit pkgs lib;
     })
-    ++ (import (../pkg + "/${pkgs.system}.nix") {
+    ++ (import (../pkg + "/${pkgs.stdenv.hostPlatform.system}.nix") {
       inherit pkgs lib;
     })
     ++ (import ../pkg/steam.nix {

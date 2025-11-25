@@ -31,7 +31,7 @@ in
         enable = true;
         settings =
           let
-            greeter = "${pkgs.greetd.tuigreet}/bin/tuigreet";
+            greeter = "${pkgs.tuigreet}/bin/tuigreet";
             command = "${pkgs.hyprland}/bin/Hyprland";
           in
           {

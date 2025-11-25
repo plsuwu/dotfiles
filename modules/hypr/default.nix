@@ -145,15 +145,15 @@ in
         ];
 
         windowrulev2 = [
-
-          # this (probably) only floats Pinta windows called via `grimblast edit`
-          "float,title:^(\\d{4}\-\\d{2}\-\\d{2}T\\d{2}:\\d{2}:\\d{2},\\d+.*\\.png\ \-\ Pinta)$"
-          "size 70% 80%,title:^(\\d{4}\-\\d{2}\-\\d{2}T\\d{2}:\\d{2}:\\d{2},\\d+.*\\.png\ \-\ Pinta)$"
+          # this does not work it would seem and if i am to tell the truth i no longer fucking care
+          # # this (probably) only floats Pinta windows called via `grimblast edit`
+          # "float,title:^(\\d{4}\-\\d{2}\-\\d{2}T\\d{2}:\\d{2}:\\d{2},\\d+.*\\.png\ \-\ Pinta)$"
+          # "size 70% 80%,title:^(\\d{4}\-\\d{2}\-\\d{2}T\\d{2}:\\d{2}:\\d{2},\\d+.*\\.png\ \-\ Pinta)$"
 
           "float,class:(*polkit*agent)"
           "pin,class:(*polkit*agent)"
           "stayfocused,class:(*polkit*agent)"
-          
+
           "suppressevent maximize, class:^(firefox)$"
         ];
 
@@ -206,6 +206,8 @@ in
         input = {
           repeat_delay = 200;
           repeat_rate = 50;
+          sensitivity = 0.5;
+          accel_profile = "flat";
         };
 
         animations = {
@@ -236,13 +238,13 @@ in
 
         monitor = [
           # "Dell Inc. DELL S2721DGF GY2PS83 (DP-1)"
-          "DP-1, 2560x1440@165.08, 0x-1440, 1"
+          "DP-1, 2560x1440@165.08, 0x-1440, 1, cm, auto"
 
           # "Acer Technologies XB323U TKWSA0018523 (DP-2)"
-          "DP-2, 2560x1440@170.02, 0x0, 1"
+          "DP-2, 2560x1440@170.02, 0x0, 1, cm, auto"
 
           # "Samsung Electric Company Odyssey G40B HNMW300577 (DP-3)"
-          "DP-3, 1920x1080@239.76, 2560x-720, 1, transform, 1"
+          "DP-3, 1920x1080@239.76, -1080x-720, 1, transform, 3, cm, auto"
         ];
       };
 
@@ -278,7 +280,6 @@ in
       settings = {
         ipc = "off";
         splash = false;
-        # splash_offset = 2.0;
         preload = [ "/home/${user.name}/.config/hypr/kronii.jpg" ];
         wallpaper = [ ", /home/${user.name}/.config/hypr/kronii.jpg" ];
       };
@@ -316,14 +317,10 @@ in
         package = pkgs.adwaita-icon-theme;
       };
 
-      # cursorTheme = {
-      #   name = "myracursor";
-      #   # package = pkgs.apple-cursor;
-      # };
-
       gtk3.extraConfig = {
         gtk-application-prefer-dark-theme = 1;
         gtk-recent-files-enabled = 0;
+        gtk-dnd-drag-threshold = 12;
       };
     };
 

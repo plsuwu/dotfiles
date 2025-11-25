@@ -23,7 +23,7 @@
     browser = {
       enable = true;
       chromium.enable = true;
-      chromium.ephemeral = true;
+      # chromium.ephemeral = true;
     };
 
     # containers = {
@@ -35,6 +35,7 @@
 
   config = {
     programs.zsh.enable = true;
+    programs.steam.enable = true;
   };
 
   # Enable the OpenSSH daemon.

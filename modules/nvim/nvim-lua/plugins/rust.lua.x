@@ -1,24 +1,24 @@
-return {
-	"mrcjkb/rustaceanvim",
-	version = "^6", -- Recommended
-	lazy = false, -- This plugin is already lazy
-	config = function()
-		local bufnr = vim.api.nvim_get_current_buf()
-
-		vim.keymap.set("n", "<leader>ca", function()
-			vim.cmd.RustLsp("codeAction")
-		end, { silent = true, buffer = bufnr })
-
-		vim.keymap.set("n", "K", function()
-			vim.cmd.RustLsp({ "hover", "actions" })
-		end, { silent = true, buffer = bufnr })
-
-		vim.keymap.set("n", "<leader>dgr", function()
-			vim.cmd.RustLsp("relatedDiagnostics")
-		end, { silent = true, buffer = bufnr })
-
-		vim.keymap.set({ "n", "v" }, "<leader>ssr", function()
-			vim.cmd.RustLsp("ssr", "<query>")
-		end, { silent = false, buffer = bufnr })
-	end,
-}
+-- return {
+-- 	"mrcjkb/rustaceanvim",
+-- 	version = "^6", -- Recommended
+-- 	lazy = false, -- This plugin is already lazy
+-- 	config = function()
+-- 		local bufnr = vim.api.nvim_get_current_buf()
+-- 
+-- 		vim.keymap.set("n", "<leader>ca", function()
+-- 			vim.cmd.RustLsp("codeAction")
+-- 		end, { silent = true, buffer = bufnr })
+-- 
+-- 		vim.keymap.set("n", "K", function()
+-- 			vim.cmd.RustLsp({ "hover", "actions" })
+-- 		end, { silent = true, buffer = bufnr })
+-- 
+-- 		vim.keymap.set("n", "<leader>dgr", function()
+-- 			vim.cmd.RustLsp("relatedDiagnostics")
+-- 		end, { silent = true, buffer = bufnr })
+-- 
+-- 		vim.keymap.set({ "n", "v" }, "<leader>ssr", function()
+-- 			vim.cmd.RustLsp("ssr", "<query>")
+-- 		end, { silent = false, buffer = bufnr })
+-- 	end,
+-- }

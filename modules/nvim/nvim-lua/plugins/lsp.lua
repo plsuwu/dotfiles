@@ -85,24 +85,43 @@ return {
 			vim.lsp.enable("ruff")
 
 			vim.lsp.enable("ccls")
+			vim.lsp.enable("gleam")
 
-			vim.lsp.enable("pyright")
-			vim.lsp.config("pyright", {
+			-- vim.lsp.enable("metals")  -- scala LSP
+			vim.lsp.enable("pylsp")
+			vim.lsp.config("pylsp", {
 				settings = {
-					pyright = {
-						-- Using Ruff's import organizer
-						disableOrganizeImports = true,
-					},
-					python = {
-						analysis = {
-							-- Ignore all files for analysis to exclusively use Ruff for linting
-							ignore = { "*" },
+					pylsp = {
+						plugins = {
+							pycodestyle = {
+								ignore = { "W391" },
+								maxLineLength = 80,
+							},
 						},
 					},
 				},
 			})
+			-- vim.lsp.enable("pyright")
+			-- vim.lsp.config("pyright", {
+			-- 	settings = {
+			-- 		pyright = {
+			-- 			-- Using Ruff's import organizer
+			-- 			disableOrganizeImports = true,
+			-- 		},
+			-- 		python = {
+			-- 			analysis = {
+			-- 				-- Ignore all files for analysis to exclusively use Ruff for linting
+			-- 				ignore = { "*" },
+			-- 			},
+			-- 		},
+			-- 	},
+			-- })
 
 			vim.lsp.enable("hls")
+			vim.lsp.enable("htmx")
+
+			vim.lsp.enable("jdtls") -- java
+
 			vim.lsp.config("hls", {
 				filetypes = { "haskell", "lhaskell", "cabal" },
 			})

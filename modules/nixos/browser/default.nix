@@ -12,7 +12,6 @@ in
     enable = lib.mkEnableOption "browser";
     chromium = {
       enable = lib.mkEnableOption "chromium";
-      ephemeral = lib.mkEnableOption "ephemeral";
     };
   };
 
@@ -41,11 +40,8 @@ in
       };
     };
 
-    programs.chromium = lib.mkIf cfg.chromium.enable {
-      enable = true;
-      extraOpts = {
-        ForceEphemeralProfiles = cfg.chromium.ephemeral;
-      };
+    programs.chromium = {
+      enable = cfg.chromium.enable;
     };
   };
 }

@@ -45,6 +45,13 @@
     fsType = "ext4";
   };
 
+  fileSystems."/data/shared" = {
+    device = "/dev/disk/by-uuid/EE37-6447";
+    fsType = "exfat";
+    depends = [ "/data" ];
+    options = [ "uid=1000" "gid=1000" ];
+  };
+
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/C5D5-F030";
     fsType = "vfat";

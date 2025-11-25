@@ -8,54 +8,59 @@
 let
   cfg = config.modules.nvim;
   texlivePkg = pkgs.texliveFull;
-  # texliveExtraPkgs = (pkgs.texlive.withPackages (ps: with ps; [
-  #
-  # ]));
 in
 {
   options.modules.nvim = {
     enable = lib.mkEnableOption "nvim";
     extraTexlivePkgs = lib.mkEnableOption "texlive";
-    pythonPackages = pkgs.python313.withPackages (
-      ps: with ps; [
-
-      ]
-    );
   };
 
   config = lib.mkIf cfg.enable {
+
+    # TODO: tidy this up a little :)
     home.packages =
       with pkgs;
       [
         gcc
         luajit
 
+        djlint
+
         stylua
         prettierd
-        python313Full
+
+        python314FreeThreading
+        python313Packages.python-lsp-server
         ruff
 
         shfmt
 
         cmake
         ccls
-
         clang-tools
+
+        bun
+        nodejs
+        ttfautohint
 
         nixd
         nixfmt-rfc-style
 
         pyright
         lua-language-server
+
         gopls
+        coursier
+        metals
 
-        postgres-lsp
-
+        postgres-language-server
         typescript
         typescript-language-server
         vscode-langservers-extracted
         svelte-language-server
         tailwindcss-language-server
+
+        jdt-language-server
 
         texlab
 
@@ -64,9 +69,12 @@ in
         rustfmt
         cargo
 
+        gleam
+
         ghc
         fourmolu
         haskell-language-server
+        htmx-lsp
 
         kdePackages.okular
       ]
@@ -104,6 +112,7 @@ in
         nvim-lightbulb
         nvim-code-action-menu
         nvim-lsp-notify
+        nvim-metals
         nvim-notify
         crates-nvim
         fidget-nvim

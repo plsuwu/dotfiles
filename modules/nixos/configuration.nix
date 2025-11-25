@@ -43,7 +43,7 @@
       "root"
       user.name
     ];
-    auto-optimise-store = true;
+    # auto-optimise-store = true;
     download-buffer-size = 524288000;
   };
 
@@ -57,6 +57,10 @@
     "/share/xdg-desktop-portal"
     "/share/applications"
     "/share/zsh"
+  ];
+
+  environment.systemPackages = [
+    pkgs.pulseaudio
   ];
 
   services.gvfs.enable = true;

@@ -53,18 +53,26 @@ in
     programs.tmux = {
       enable = true;
       clock24 = true;
+      plugins = with pkgs.tmuxPlugins; [
+        harpoon
+        fzf-tmux-url
+        logging
+
+        tmux-which-key
+      ];
 
       prefix = "C-a";
-      terminal = "tmux-256color";
+      terminal = "screen-256color";
       historyLimit = 50000;
 
-      escapeTime = 20;
+      escapeTime = 0;
       focusEvents = true;
       baseIndex = 1;
       disableConfirmationPrompt = true;
 
       mouse = true;
       extraConfig = ''
+        set -g display-time 4000
         set-option -sa terminal-features ",alacritty:RGB"
 
         bind '"' split-window -c '#{pane_current_path}'
