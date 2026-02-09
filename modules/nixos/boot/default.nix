@@ -26,6 +26,7 @@ in
       kernelPackages = pkgs.linuxPackages_latest;
       extraModprobeConfig = ''
         options hid_apple fnmode=2
+        options iwlwifi power_save=0
       '';
 
       plymouth = {

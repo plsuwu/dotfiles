@@ -26,13 +26,12 @@ in
       };
 
       fstrim.enable = true;
-
       greetd = {
         enable = true;
         settings =
           let
             greeter = "${pkgs.tuigreet}/bin/tuigreet";
-            command = "${pkgs.hyprland}/bin/Hyprland";
+            command = "${pkgs.hyprland}/bin/start-hyprland";
           in
           {
             default_session = {
@@ -83,7 +82,13 @@ in
     };
 
     hardware = {
-      graphics.enable = true;
+      graphics = {
+        enable = true;
+        extraPackages = with pkgs; [
+          libvdpau-va-gl
+          libva-vdpau-driver
+        ];
+      };
       nvidia = {
         open = true;
         package = config.boot.kernelPackages.nvidiaPackages.latest;

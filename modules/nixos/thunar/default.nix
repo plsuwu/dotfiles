@@ -16,11 +16,9 @@ in
 
   config = lib.mkIf cfg.enable {
     programs.thunar.enable = true;
-    programs.thunar.plugins = with pkgs.xfce; [
-      thunar-archive-plugin
-    ];
 
     environment.systemPackages = with pkgs; [
+      thunar-archive-plugin
       ffmpegthumbnailer
       webp-pixbuf-loader
       freetype

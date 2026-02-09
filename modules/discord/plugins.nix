@@ -9,6 +9,7 @@
     "NoReplyMention"
     "ShowHiddenChannels"
     "RelationshipNotifier"
+    "ShowHiddenThings"
   ];
 
   settings = {

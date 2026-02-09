@@ -10,7 +10,6 @@
   imports = [
     ./auth
     ./boot
-    ./browser
     ./containers
     ./desktop-manager
     ./docker
@@ -33,7 +32,6 @@
     "dotnet-sdk-wrapped-6.0.428"
   ];
 
-  # nix.optimise.automatic = true;
   nix.settings = {
     experimental-features = [
       "nix-command"
@@ -43,7 +41,6 @@
       "root"
       user.name
     ];
-    # auto-optimise-store = true;
     download-buffer-size = 524288000;
   };
 

@@ -12,9 +12,9 @@ in
 
   config = {
     networking.networkmanager.enable = true;
-    hardware.bluetooth.enable = cfg.enableBluetooth;
+    hardware.bluetooth.enable = false;
 
-    services.resolved.enable = true;
+    # services.resolved.enable = true;
     services.mullvad-vpn.enable = true;
 
     networking.firewall = {

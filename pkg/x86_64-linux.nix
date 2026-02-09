@@ -8,6 +8,8 @@ with pkgs;
   git
   wget
   curl
+
+  iw
   pavucontrol
 
   vim
@@ -18,6 +20,9 @@ with pkgs;
   zoom-us
   usbutils
 
+  nix-index
+  morph
+
   davinci-resolve
 
   ffmpeg-full
@@ -27,4 +32,5 @@ with pkgs;
   inter
   nerd-fonts.noto
   nerd-fonts.jetbrains-mono
+  nerd-fonts.iosevka
 ]

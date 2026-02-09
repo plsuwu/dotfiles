@@ -26,14 +26,14 @@ in
           program = "${pkgs.zsh}/bin/zsh";
         };
         font = {
-          size = 11;
+          size = 13;
 
-          bold.family = "JetBrainsMonoNerdFont";
+          bold.family = "Iosevka Nerd Font";
           bold.style = "Bold";
-          italic.family = "JetBrainsMonoNerdFont";
+          italic.family = "Iosevka Nerd Font";
           italic.style = "Italic";
-          normal.family = "JetBrainsMonoNerdFont";
-          normal.style = "Regular";
+          normal.family = "Iosevka Nerd Font";
+          normal.style = "Medium";
         };
 
         scrolling = {
@@ -44,7 +44,7 @@ in
         window = {
           decorations = "full";
           dynamic_padding = false;
-          padding.x = 14;
+          padding.x = 10;
           padding.y = 10;
         };
       };

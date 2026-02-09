@@ -15,7 +15,7 @@ let
           let
             c = (x + 1) / 10;
           in
-          builtins.toString (x + 1 - (c * 10));
+          toString (x + 1 - (c * 10));
       in
       [
         "${mod} SHIFT, ${ws}, movetoworkspacesilent, ${toString (x + 1)}"
@@ -89,6 +89,7 @@ in
 
       extraPortals = [
         pkgs.xdg-desktop-portal-gtk
+        pkgs.xdg-desktop-portal-hyprland
       ];
     };
 
@@ -130,6 +131,7 @@ in
         };
 
         exec-once = [
+          "${pkgs.hyprpaper}/bin/hyprpaper"
           "${pkgs.vesktop}/bin/vesktop"
           "${pkgs.wl-clipboard}/bin/wl-paste --type text --watch ${pkgs.cliphist}/bin/cliphist store"
           "${pkgs.wl-clipboard}/bin/wl-paste --type image --watch ${pkgs.cliphist}/bin/cliphist store"
@@ -141,25 +143,14 @@ in
         };
 
         windowrule = [
-          "workspace 10, class:vesktop"
+          "match:class vesktop, workspace 10"
+          "match:class *polkit*, float on"
+          "match:class *polkit*, pin on"
         ];
 
-        windowrulev2 = [
-          # this does not work it would seem and if i am to tell the truth i no longer fucking care
-          # # this (probably) only floats Pinta windows called via `grimblast edit`
-          # "float,title:^(\\d{4}\-\\d{2}\-\\d{2}T\\d{2}:\\d{2}:\\d{2},\\d+.*\\.png\ \-\ Pinta)$"
-          # "size 70% 80%,title:^(\\d{4}\-\\d{2}\-\\d{2}T\\d{2}:\\d{2}:\\d{2},\\d+.*\\.png\ \-\ Pinta)$"
-
-          "float,class:(*polkit*agent)"
-          "pin,class:(*polkit*agent)"
-          "stayfocused,class:(*polkit*agent)"
-
-          "suppressevent maximize, class:^(firefox)$"
-        ];
-
-        layerrule = [
-          "noanim,hyprpaper"
-        ];
+        # layerrule = [
+        #   "no_anim, match:namespace hyprpaper"
+        # ];
 
         bind = [
           "${mod}, mouse:272, setfloating"
@@ -169,7 +160,7 @@ in
           "${mod}, Q, killactive,"
           "${mod}, F, fullscreen, 0"
           "${mod}, D, exec, wofi -G --show drun"
-          "${mod}, W, exec, firefox"
+          "${mod}, W, exec, floorp"
           "${mod} SHIFT, C, pin,"
           "${mod} SHIFT, E, exit,"
 
@@ -266,7 +257,7 @@ in
       settings = {
         listener = [
           {
-            timeout = 1800;
+            timeout = 3600;
             on-timeout = "hyprctl dispatch dpms off";
             on-resume = "hyprctl dispatch dpms on";
           }
@@ -278,20 +269,24 @@ in
       enable = true;
 
       settings = {
-        ipc = "off";
         splash = false;
-        preload = [ "/home/${user.name}/.config/hypr/kronii.jpg" ];
-        wallpaper = [ ", /home/${user.name}/.config/hypr/kronii.jpg" ];
+        wallpaper = [
+          { 
+            monitor = "";
+            fit_mode = "cover";
+            path = "/home/${user.name}/.config/hypr/kronii.jpg"; 
+          }
+        ];
       };
     };
 
     programs.hyprlock = {
       enable = true;
-      settings = {
-        general = {
-          disable_loading_bar = true;
-        };
-      };
+      # settings = {
+      #   general = {
+      #     disable_loading_bar = true;
+      #   };
+      # };
     };
 
     dconf = {

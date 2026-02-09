@@ -1,5 +1,4 @@
 {
-  # inputs,
   config,
   pkgs,
   user,
@@ -20,16 +19,9 @@
     auth.enable = true;
     nix-ld.enable = true;
 
-    browser = {
-      enable = true;
-      chromium.enable = true;
-      # chromium.ephemeral = true;
-    };
-
-    # containers = {
+    # browser = {
     #   enable = true;
-    #   dockerCompat = true;
-    #   compose = true;
+    #   chromium.enable = true;
     # };
   };
 
@@ -37,13 +29,4 @@
     programs.zsh.enable = true;
     programs.steam.enable = true;
   };
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 }

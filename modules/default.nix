@@ -10,6 +10,7 @@
 
   imports = [
     ./discord
+    ./browser
     ./hypr
     ./nvim
     ./obs
@@ -33,4 +34,3 @@
       inherit pkgs lib;
     });
 }
-

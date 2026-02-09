@@ -20,11 +20,9 @@
     hypr.enable = true;
     obs.enable = true;
     nh.enable = true;
+    browser.enable = true;
 
-    nvim = {
-      enable = true;
-      extraTexlivePkgs = true;
-    };
+    nvim.enable = true;
   };
 
   config = {
@@ -53,9 +51,10 @@
     programs.wofi = {
       enable = true;
     };
-    programs.spotify-player = {
-      enable = true;
-    };
+
+    # programs.floorp = {
+    #   enable = true;
+    # };
 
     systemd.user.startServices = "sd-switch";
   };
