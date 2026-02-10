@@ -52,10 +52,6 @@
       enable = true;
     };
 
-    # programs.floorp = {
-    #   enable = true;
-    # };
-
     systemd.user.startServices = "sd-switch";
   };
 }
