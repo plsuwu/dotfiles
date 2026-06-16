@@ -31,6 +31,8 @@ return {
 			htmldjango = { "djlint" },
 
 			html = { "prettierd", "prettier", stop_after_first = true },
+			astro = { "prettierd", "prettier", stop_after_first = true },
+
 			javascript = { "prettierd", "prettier", stop_after_first = true },
 			typescript = { "prettierd", "prettier", stop_after_first = true },
 			typescriptreact = { "prettierd", "prettier", stop_after_first = true },
@@ -41,6 +43,7 @@ return {
 			bash = { "shfmt" },
 			zsh = { "shfmt" }, -- this is pretty unreliable for zsh formatting but it is what it is
 			haskell = { "fourmolu" },
+			solidity = { "forge_fmt", "prettierd", "prettier", stop_after_first = true },
 		},
 
 		formatters = {

@@ -26,6 +26,22 @@
   };
 
   config = {
+
+    gtk.gtk4.theme = config.gtk.theme;
+    xdg.mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "x-scheme-handler/http" = [ "brave.desktop" ];
+        "x-scheme-handler/https" = [ "brave.desktop" ];
+        "application/pdf" = [ "brave.desktop" ];
+        "text/html" = [ "brave.desktop" ];
+        "x-scheme-handler/zoommtg" = [ "Zoom.desktop" ];
+        "x-scheme-handler/zoomus" = [ "Zoom.desktop" ];
+      };
+    };
+
+    xdg.configFile."mimeapps.list".force = true;
+
     programs.direnv = {
       enable = true;
       nix-direnv.enable = true;

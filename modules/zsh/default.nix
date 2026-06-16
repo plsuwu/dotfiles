@@ -96,16 +96,33 @@ in
         enable = true;
         useFriendlyNames = true;
         plugins = [
+          # "mattmc3/ez-compinit"
+          # "zsh-users/zsh-completions kind:fpath path:src"
+          #
+          # "belak/zsh-utils path:editor"
+          # "belak/zsh-utils path:history"
+          # "belak/zsh-utils path:utility"
+          #
+          # "zdharma-continuum/fast-syntax-highlighting"
+          # "zsh-users/zsh-autosuggestions"
+          # "zsh-users/zsh-history-substring-search"
+
           "mattmc3/ez-compinit"
+
+          "mattmc3/zephyr path:plugins/editor"
+          "mattmc3/zephyr path:plugins/history"
+          "mattmc3/zephyr path:plugins/prompt"
+          "mattmc3/zephyr path:plugins/utility"
+
+          "mattmc3/zephyr path:plugins/compstyle"
+          "mattmc3/zephyr path:plugins/completion kind:defer"
+
+
           "zsh-users/zsh-completions kind:fpath path:src"
-
-          "belak/zsh-utils path:editor"
-          "belak/zsh-utils path:history"
-          "belak/zsh-utils path:utility"
-
-          "zdharma-continuum/fast-syntax-highlighting"
-          "zsh-users/zsh-autosuggestions"
           "zsh-users/zsh-history-substring-search"
+          "zsh-users/zsh-autosuggestions"
+
+          "zdharma-continuum/fast-syntax-highlighting kind:defer"
         ];
       };
     };

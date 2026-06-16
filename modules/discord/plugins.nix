@@ -4,7 +4,6 @@
     "FriendsSince"
     "NoTypingAnimation"
     "ReadAllNotificationsButton"
-    "MessageLogger"
     "ShowMeYourName"
     "NoReplyMention"
     "ShowHiddenChannels"

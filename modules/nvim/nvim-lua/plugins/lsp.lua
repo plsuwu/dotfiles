@@ -70,30 +70,23 @@ return {
 			local servers = {
 				svelte = {},
 				tailwindcss = {},
+				cssls = {},
 				ruff = {},
-				ccls = {},
+				-- ccls = {},
+        clangd = {},
 				nixd = {},
-				rust_analyzer = {},
-				ts_ls = {},
-
-				denols = {
-					root_dir = function(bufnr, on_dir)
-						local root_markers = { "deno.lock" }
-						root_markers = vim.fn.has("nvim-0.11.3") == 1 and { root_markers, { ".git" } }
-							or vim.list_extend(root_markers, { ".git " })
-
-						local ignore_path = vim.fs.root(
-							bufnr,
-							{ "package-lock.json", "yarn.lock", "pnpm-lock.yaml", "bun.lock", "bun.lockb" }
-						)
-
-						local project_root = vim.fs.root(bufnr, root_markers)
-						if ignore_path and (not project_root or #ignore_path >= #project_root) then
-							return
-						end
-						on_dir(project_root or vim.fn.getcwd())
-					end,
+				rust_analyzer = {
+					settings = {
+						["rust-analyzer"] = {
+							check = { command = "clippy" },
+						},
+					},
 				},
+				ts_ls = {},
+				solidity_ls = {},
+				gopls = {},
+				astro = {},
+
 				pylsp = {
 					settings = {
 						pylsp = {

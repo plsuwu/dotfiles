@@ -54,6 +54,7 @@ in
       ttfautohint
       fd
 
+      astro-language-server
       tree-sitter
 
       gcc
@@ -63,10 +64,12 @@ in
       nodejs
       ghc
 
+      bear
       ccls
       clang-tools
       typescript
       coursier
+      gopls
 
       nixfmt
       stylua
@@ -76,8 +79,8 @@ in
       djlint
       fourmolu
 
-      python314FreeThreading
-      python314Packages.python-lsp-server
+      python313
+      python313Packages.python-lsp-server
       pyright
 
       nixd
@@ -88,15 +91,22 @@ in
       haskell-language-server
       htmx-lsp
 
-      vscode-langservers-extracted
-      tailwindcss-language-server
       rust-analyzer
-      # rustc
-      # rustfmt
-      # cargo
+      tailwindcss-language-server
+      vscode-langservers-extracted
+
+      # ------ solidity ------
+      vscode-solidity-server
+      # slither-analyzer
+      # ----------------------
     ];
 
     programs.neovim = {
+      withRuby = true;
+    
+      # withPython3 = true;
+      withPython3 = false;
+
       enable = true;
       package = pkgs.neovim-unwrapped;
       viAlias = true;

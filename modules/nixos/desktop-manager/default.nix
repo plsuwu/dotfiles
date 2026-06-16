@@ -15,7 +15,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-
     services = {
       xserver = {
         enable = true;
@@ -49,12 +48,13 @@ in
         nerd-fonts.jetbrains-mono
         nerd-fonts.noto
         openmoji-color
+        noto-fonts-color-emoji
       ];
 
       fontconfig = {
         hinting.autohint = true;
         defaultFonts = {
-          emoji = [ "Noto Color Emoji" ];
+          emoji = [ "OpenMoji Color" ];
         };
       };
     };

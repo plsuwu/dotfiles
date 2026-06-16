@@ -8,13 +8,16 @@ with pkgs;
   git
   wget
   curl
+  jq
+
+  obsidian
 
   iw
   pavucontrol
 
   vim
   wayland
-  neofetch
+
   btop
   remmina
   zoom-us
@@ -24,6 +27,8 @@ with pkgs;
   morph
 
   davinci-resolve
+  brave
+  spotify
 
   ffmpeg-full
   cudatoolkit
@@ -33,4 +38,8 @@ with pkgs;
   nerd-fonts.noto
   nerd-fonts.jetbrains-mono
   nerd-fonts.iosevka
+
+  # fixes e.g. Chinese, Japanese character rendering issues in Chromium-based programs
+  noto-fonts-cjk-serif
+  noto-fonts-cjk-sans
 ]

@@ -2,7 +2,7 @@
 with pkgs;
 [
   protonup-qt
-  lutris
-  bottles
+  # lutris
+  # bottles
   heroic
 ]

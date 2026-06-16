@@ -63,8 +63,14 @@ in
       GRIMBLAST_EDITOR = "${pkgs.pinta}/bin/pinta";
     };
 
+    # LSP stubs for the Lua API
+    # links to ~/.local/share/hypr/stubs which we can reference in a `.luarc.json`
+    home.file.".local/share/hypr/stubs".source =
+      "${pkgs.hyprland}/share/hypr/stubs";
+
     xdg.userDirs = {
       enable = true;
+      setSessionVariables = true;
       pictures = "${config.home.homeDirectory}/Pictures";
     };
 
@@ -94,6 +100,9 @@ in
     };
 
     wayland.windowManager.hyprland = {
+      # TODO set this to lua when there is time to reconfigure!!
+      configType = "hyprlang";
+
       enable = true;
       systemd = {
         enable = true;
@@ -160,7 +169,7 @@ in
           "${mod}, Q, killactive,"
           "${mod}, F, fullscreen, 0"
           "${mod}, D, exec, wofi -G --show drun"
-          "${mod}, W, exec, floorp"
+          "${mod}, W, exec, brave"
           "${mod} SHIFT, C, pin,"
           "${mod} SHIFT, E, exit,"
 
@@ -228,13 +237,13 @@ in
         };
 
         monitor = [
-          # "Dell Inc. DELL S2721DGF GY2PS83 (DP-1)"
+          # "Dell Inc. DELL S2721DGF GY2PS83                    (DP-1)"
           "DP-1, 2560x1440@165.08, 0x-1440, 1, cm, auto"
 
-          # "Acer Technologies XB323U TKWSA0018523 (DP-2)"
+          # "Acer Technologies XB323U TKWSA0018523              (DP-2)"
           "DP-2, 2560x1440@170.02, 0x0, 1, cm, auto"
 
-          # "Samsung Electric Company Odyssey G40B HNMW300577 (DP-3)"
+          # "Samsung Electric Company Odyssey G40B HNMW300577   (DP-3)"
           "DP-3, 1920x1080@239.76, -1080x-720, 1, transform, 3, cm, auto"
         ];
       };
@@ -271,10 +280,10 @@ in
       settings = {
         splash = false;
         wallpaper = [
-          { 
+          {
             monitor = "";
             fit_mode = "cover";
-            path = "/home/${user.name}/.config/hypr/kronii.jpg"; 
+            path = "/home/${user.name}/.config/hypr/kronii.jpg";
           }
         ];
       };

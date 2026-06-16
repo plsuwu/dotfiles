@@ -22,7 +22,10 @@
   };
 
   config = {
+    fonts.enableDefaultPackages = true;
+
     programs.zsh.enable = true;
     programs.steam.enable = true;
   };
+
 }

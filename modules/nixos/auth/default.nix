@@ -1,7 +1,7 @@
 {
   lib,
   config,
-  user,
+  pkgs,
   ...
 }:
 let
@@ -13,8 +13,13 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    services.gnome.gnome-keyring.enable = true;
+    services.dbus.packages = [ pkgs.gcr ];
+
     security = {
       pam.services.hyprlock = { };
+      pam.services.swaylock = { };
+      pam.services.gdm = { };
     };
   };
 }

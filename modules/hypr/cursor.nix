@@ -35,9 +35,9 @@ in
       };
     };
 
-    # home.file.".icons/myracursor" = {
-    #   recursive = true;
-    #   source = ./myracursor;
-    # };
+    home.file.".icons/myracursor" = {
+      recursive = true;
+      source = ./myracursor;
+    };
   };
 }

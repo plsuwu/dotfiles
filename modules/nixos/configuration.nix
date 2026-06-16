@@ -47,7 +47,7 @@
   documentation = {
     enable = true;
     man.enable = true;
-    man.generateCaches = true;
+    man.cache.enable = true;
   };
 
   environment.pathsToLink = [

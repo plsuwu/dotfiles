@@ -1,6 +1,5 @@
-# this is a little verbose but i find the zsh syntax
-# a little cumbersome to read so its written this way
-# for the sake of my own sanity in the future
+# this is a little verbose but i find the zsh syntax kind of cumbersome to
+# read, so its written this way for the sake of my own future sanity...
 prompt_violet_setup () {
     prompt_opts=(subst percent)
 

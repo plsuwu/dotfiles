@@ -7,7 +7,6 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
   };
 
   outputs =
@@ -48,21 +47,24 @@
 
                 extraSpecialArgs = {
                   # inherit outputs;
-                  inherit inputs;
-                  inherit system;
-                  inherit user;
-                  inherit std;
+                  inherit
+                    inputs
+                    system
+                    user
+                    std
+                    ;
                 };
               };
             }
           ];
 
           specialArgs = {
-            # inherit outputs;
-            inherit inputs;
-            inherit system;
-            inherit user;
-            inherit std;
+            inherit
+              inputs
+              system
+              user
+              std
+              ;
           };
         };
     in
