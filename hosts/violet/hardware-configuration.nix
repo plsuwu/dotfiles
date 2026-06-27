@@ -17,6 +17,7 @@
   boot.initrd.verbose = false;
   boot.initrd.systemd.enable = true;
   boot.consoleLogLevel = 0;
+
   boot.initrd.availableKernelModules = [
     "vmd"
     "xhci_pci"
@@ -26,8 +27,8 @@
     "usb_storage"
     "sd_mod"
   ];
-  boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
+  boot.initrd.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
   boot.kernelParams = [

@@ -73,7 +73,7 @@ return {
 				cssls = {},
 				ruff = {},
 				-- ccls = {},
-        clangd = {},
+				clangd = {},
 				nixd = {},
 				rust_analyzer = {
 					settings = {
@@ -140,113 +140,6 @@ return {
 				vim.lsp.config(name, conf)
 				vim.lsp.enable(name)
 			end
-
-			-- vim.lsp.enable('air') -- R fmt/lsp
-
-			-- vim.lsp.enable("texlab")
-			--
-			-- vim.lsp.enable("ts_ls")
-			-- vim.lsp.config("ts_ls", {
-			-- 	workspace_required = true,
-			-- 	root_markers = { "package.json" },
-			-- })
-			--
-			-- vim.lsp.enable("svelte")
-			-- vim.lsp.enable("tailwindcss")
-			--
-			-- vim.lsp.enable("postgres-lsp")
-			--
-			-- vim.lsp.enable("nixd")
-			-- vim.lsp.enable("rust-analyzer")
-			--
-			-- vim.lsp.enable("cssls")
-			-- vim.lsp.enable("gopls")
-			-- vim.lsp.enable("ruff")
-			--
-			-- vim.lsp.enable("ccls")
-			-- vim.lsp.enable("gleam")
-			--
-			-- vim.lsp.enable("denols")
-			-- vim.lsp.config("denols", {
-			-- 	cmd = { "deno", "lsp" },
-			-- 	root_markers = { "deno.json", "deno.jsonc" },
-			-- 	workspace_required = true,
-			-- })
-			--
-			-- -- vim.lsp.enable("metals")  -- scala LSP
-			-- vim.lsp.enable("pylsp")
-			-- vim.lsp.config("pylsp", {
-			-- 	settings = {
-			-- 		pylsp = {
-			-- 			plugins = {
-			-- 				pycodestyle = {
-			-- 					ignore = { "W391" },
-			-- 					maxLineLength = 80,
-			-- 				},
-			-- 			},
-			-- 		},
-			-- 	},
-			-- })
-			-- -- vim.lsp.enable("pyright")
-			-- -- vim.lsp.config("pyright", {
-			-- -- 	settings = {
-			-- -- 		pyright = {
-			-- -- 			-- Using Ruff's import organizer
-			-- -- 			disableOrganizeImports = true,
-			-- -- 		},
-			-- -- 		python = {
-			-- -- 			analysis = {
-			-- -- 				-- Ignore all files for analysis to exclusively use Ruff for linting
-			-- -- 				ignore = { "*" },
-			-- -- 			},
-			-- -- 		},
-			-- -- 	},
-			-- -- })
-			--
-			-- vim.lsp.enable("hls")
-			-- -- vim.lsp.enable("htmx")
-			--
-			-- vim.lsp.enable("jdtls") -- java
-			--
-			-- vim.lsp.config("hls", {
-			-- 	filetypes = { "haskell", "lhaskell", "cabal" },
-			-- })
-			--
-			-- vim.lsp.enable("lua_ls")
-			-- vim.lsp.config("lua_ls", {
-			-- 	on_init = function(client)
-			-- 		if client.workspace_folders then
-			-- 			local path = client.workspace_folders[1].name
-			-- 			if
-			-- 				path ~= vim.fn.stdpath("config")
-			-- 				-- `vim.uv.fs_stat` is allegedly undefined ://
-			-- 				---@diagnostic disable-next-line: undefined-field
-			-- 				and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
-			-- 			then
-			-- 				return
-			-- 			end
-			-- 		end
-			--
-			-- 		client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-			-- 			runtime = {
-			-- 				version = "LuaJIT",
-			-- 				path = {
-			-- 					"lua/?.lua",
-			-- 					"lua/?/init.lua",
-			-- 				},
-			-- 			},
-			-- 			workspace = {
-			-- 				checkThirdParty = false,
-			-- 				library = {
-			-- 					vim.env.VIMRUNTIME,
-			-- 				},
-			-- 			},
-			-- 		})
-			-- 	end,
-			-- 	settings = {
-			-- 		Lua = {},
-			-- 	},
-			-- })
 		end,
 	},
 }

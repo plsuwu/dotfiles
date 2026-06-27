@@ -17,7 +17,7 @@ in
 stdenv.mkDerivation {
   inherit pname;
   version = "1.1";
-  src = builtins.fetchTarball {
+  src = fetchTarball {
     inherit url;
     sha256 = "181bsyqy34z4sh1lcmna3kdjjbkq7scc1911dbs3fwwwlag2mhw5";
   };

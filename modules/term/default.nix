@@ -26,14 +26,14 @@ in
           program = "${pkgs.zsh}/bin/zsh";
         };
         font = {
-          size = 13;
+          size = 14;
 
-          bold.family = "Iosevka Nerd Font";
+          bold.family = "Iosevka Comfy";
           bold.style = "Bold";
-          italic.family = "Iosevka Nerd Font";
+          italic.family = "Iosevka Comfy";
           italic.style = "Italic";
-          normal.family = "Iosevka Nerd Font";
-          normal.style = "Medium";
+          normal.family = "Iosevka Comfy";
+          normal.style = "Regular";
         };
 
         scrolling = {
@@ -78,7 +78,7 @@ in
         bind '"' split-window -c '#{pane_current_path}'
         bind '/' split-window -h -c '#{pane_current_path}'
         bind c new-window -c '#{pane_current_path}'
-        
+
         bind h select-pane -L
         bind j select-pane -D
         bind k select-pane -U

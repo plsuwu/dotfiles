@@ -117,7 +117,6 @@ in
           "mattmc3/zephyr path:plugins/compstyle"
           "mattmc3/zephyr path:plugins/completion kind:defer"
 
-
           "zsh-users/zsh-completions kind:fpath path:src"
           "zsh-users/zsh-history-substring-search"
           "zsh-users/zsh-autosuggestions"
