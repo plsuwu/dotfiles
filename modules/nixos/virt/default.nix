@@ -2,15 +2,13 @@
   lib,
   config,
   pkgs,
-  inputs,
-  user,
   ...
 }:
 let
-  cfg = config.modules.virt;
+  cfg = config.systemModules.virt;
 in
 {
-  options.modules.virt = {
+  options.systemModules.virt = {
     enable = lib.mkEnableOption "virt";
   };
 
@@ -24,13 +22,13 @@ in
       };
     };
 
-    environment.etc = {
-      # "libvirt/hooks/qemu".source = "${inputs.vfio-hooks}/libvirt_hooks/qemu";
-      "qemu/firmware".source = "${pkgs.qemu}/share/qemu/firmware";
+    environment = {
+      systemPackages = [ pkgs.virt-manager ];
+      etc = {
+        "qemu/firmware".source = "${pkgs.qemu}/share/qemu/firmware";
+      };
     };
 
-    programs.virt-manager.enable = true;
-    environment.systemPackages = [ pkgs.gnome-boxes ];
     networking.firewall.interfaces."virbr0".allowedTCPPortRanges = [
       {
         from = 8000;

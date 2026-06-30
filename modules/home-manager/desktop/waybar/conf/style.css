@@ -1,0 +1,142 @@
+@define-color primary-fg #d5dbed;
+@define-color primary-bg rgba(122, 137, 185, 0.5);
+
+@define-color secondary-fg #9c8fd7;
+@define-color secondary-bg rgb(29, 44, 71);
+
+@define-color muted-fg #151232;
+
+@define-color warn-bg rgba(178, 142, 81, 0.3);
+@define-color warn-fg #f7c377;
+
+@define-color error-bg rgba(206, 31, 50, 0.3);
+@define-color error-fg #fd012c;
+
+
+* {
+    background: transparent;
+    border: none;
+    border-radius: 3px;
+    min-height: 0;
+    margin: 0.1em 0.2em 0.05em 0.3em;
+}
+
+#waybar {
+    background: transparent;
+    font-family: "Inter", "Font Awesome";
+    font-size: 12px;
+    font-weight: 400;
+    color: @primary-fg;
+    background: rgba(122, 137, 185, 0.2);
+}
+
+#clock,
+#network,
+#pulseaudio,
+#tray {
+    padding-left: 0.6em;
+    padding-right: 0.6em;
+}
+
+#network.disconnected { 
+    background: @error-bg; 
+    color: @error-fg
+}
+
+#workspaces button {
+    font-weight: 700;
+    padding: 0;
+    opacity: 0.5;
+    background: none;
+    font-size: 1em;
+}
+
+
+#workspaces button { 
+    color: @secondary-fg; 
+    opacity: 0.5; 
+    font-weight: 400;
+}
+
+#workspaces button.empty { 
+    color: @muted-fg; 
+}
+
+#workspaces button.visible,
+#workspaces button.active { 
+    color: @primary-fg;
+    font-weight: 900;
+}
+
+#workspaces button.active { 
+    opacity: 1;
+}
+
+#workspaces button.urgent {
+    background: @warn-bg;
+    color: @warn-fg;
+    font-weight: 900;
+}
+
+#custom-separator {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#window {
+    font-weight: 600;
+}
+
+#clock { 
+    color: @primary-fg; 
+    font-weight: 700;
+    font-size: 11px;
+}
+
+#pulseaudio {
+    color: @primary-fg;
+    opacity: 0.75;
+    font-weight: 700;
+    transition: all 200ms ease-out;
+    padding-right: 9px;
+}
+
+#pulseaudio:hover {
+    opacity: 1;
+}
+
+#pulseaudio.muted { 
+    color: @error-fg;
+    background: @error-bg; 
+}
+
+#tray {
+    border: 0px solid transparent;
+}
+
+#tray menu {
+    background-color: rgb(67, 69, 100);
+    border: 1px solid @secondary-fg;
+    padding: 2px 1px;
+    opacity: 1;
+    border-radius: 8px;
+}
+
+#tray menuitem {
+    transition: all 100ms;
+    padding: 0.2rem;
+    margin-left: 0.05rem;
+    margin-right: 0.05rem;
+}
+
+#tray menuitem:hover {
+    background-color: rgba(29, 44, 71, 0.8);
+    opacity: 0.7;
+}
+
+tooltip {
+    font-family: "";
+    background-color: rgb(67, 69, 100);
+    border: 1px solid @secondary-fg;
+    border-radius: 8px;
+}

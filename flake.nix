@@ -1,10 +1,14 @@
 {
-  description = "flake";
+  description = "flake :)";
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nix-std.url = "github:chessai/nix-std";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nur.url = "github:nix-community/NUR";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nh = {
+      url = "github:nix-community/nh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -14,67 +18,50 @@
       self,
       nixpkgs,
       home-manager,
-      nix-std,
       ...
     }@inputs:
     let
-      std = nix-std.lib;
-      user = {
-        name = "please";
-      };
-      mkSystem =
+
+      mkNixOS =
         {
-          hostname,
+          host,
           system,
-          user,
+          users,
         }:
-        inputs.nixpkgs.lib.nixosSystem {
+        nixpkgs.lib.nixosSystem {
           inherit system;
+          specialArgs = { inherit inputs; };
           modules = [
             {
-              networking.hostName = hostname;
+              networking.hostName = host;
+              nixpkgs.overlays = import ./overlays;
             }
-            ./modules/nixos/configuration.nix
-            (./. + "/hosts/${hostname}/configuration.nix")
-            (./. + "/hosts/${hostname}/hardware-configuration.nix")
-
+            ./hosts/${host}
+            ./modules/nixos
             home-manager.nixosModules.home-manager
             {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.please = ./home/violet.nix;
-
-                extraSpecialArgs = {
-                  # inherit outputs;
-                  inherit
-                    inputs
-                    system
-                    user
-                    std
-                    ;
-                };
-              };
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users = nixpkgs.lib.genAttrs users (username: {
+                imports = [ ./users/${username}/home.nix ];
+                _module.args.username = username;
+              });
             }
-          ];
-
-          specialArgs = {
-            inherit
-              inputs
-              system
-              user
-              std
-              ;
-          };
+          ]
+          ++ map (username: {
+            imports = [ ./users/${username}/nixos.nix ];
+            _module.args.username = username;
+            _module.args.hostname = host;
+          }) users;
         };
     in
     {
-
       nixosConfigurations = {
-        violet = mkSystem {
-          inherit user;
-          hostname = "violet";
+        violet = mkNixOS {
+          host = "violet";
           system = "x86_64-linux";
+          users = [ "please" ];
         };
       };
     };

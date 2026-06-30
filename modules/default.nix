@@ -1,36 +1,7 @@
+{ ... }:
 {
-  inputs,
-  pkgs,
-  lib,
-  system,
-  ...
-}:
-{
-  home.stateVersion = "25.11";
-
   imports = [
-    ./discord
-    ./browser
-    ./hypr
-    ./nvim
-    ./obs
-    ./pipewire
-    ./term
-    ./waybar
-    ./zoom-us
-    ./zsh
-    ./media-utils
-    ./nh
+    ./home-manager
+    ./nixos
   ];
-
-  home.packages =
-    (import ../pkg {
-      inherit pkgs lib;
-    })
-    ++ (import (../pkg + "/${pkgs.stdenv.hostPlatform.system}.nix") {
-      inherit pkgs lib;
-    })
-    ++ (import ../pkg/steam.nix {
-      inherit pkgs lib;
-    });
 }

@@ -1,0 +1,15 @@
+{
+  "workspace": {
+    "library": ["/home/please/.local/share/hypr/stubs"],
+    "checkThirdParty": false
+  },
+  "diagnostics": {
+    "globals": ["hl", "vim"]
+  },
+  "runtime": {
+    "version": "LuaJIT"
+  },
+  "Lua.format.defaultConfig": {
+    "max_line_length": 70
+  }
+}

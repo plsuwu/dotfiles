@@ -1,0 +1,77 @@
+{
+    "reload_style_on_change": true,
+    "layer": "top", // Waybar at top layer
+    "position": "top", // Waybar position (top|bottom|left|right)
+    // Choose the order of the modules
+    "modules-left": ["hyprland/workspaces", "custom/separator", "hyprland/window"],
+    // "modules-center": [ ],
+    "modules-right": ["pulseaudio", "custom/separator", "network", "idle_inhibitor", "custom/separator", "clock", "custom/separator", "tray"],
+    // Modules configuration
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "format": "{icon}",
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": [],
+            "6": [],
+            "7": [],
+            "8": [],
+            "9": [],
+            "10": [],
+        },
+    },
+    "hyprland/window": {
+        "format": "{title}",
+        "separate-outputs": true,
+        "max-length": 75, 
+        "tooltip": false
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "󰈈 ",
+            "deactivated": "󰈉 "
+        },
+        "tooltip": "true"
+    },
+    "tray": {
+        "icon-size": 10,
+        "spacing": 7
+    },
+    "clock": {
+        "format": "{:%H:%M   %a, %e %b}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "today-format": "<strong>{}</strong>",
+    },
+    "custom/separator": {
+        "format": "",
+    },
+    "network": {
+        // "interface": "wlan0", // (Optional) To force the use of this interface,
+        "format-wifi": "{icon}",
+        "format-icons": {
+            "default": [
+                "󰤟",
+                "󰤢",
+                "󰤥",
+                "󰤨"
+            ]
+        },
+        "format-alt": "{icon}   ({ipaddr}/{cidr})",
+        "format-disconnected": "󰤭",
+        "family": "ipv4",
+        "tooltip-format-wifi": "{icon}   {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz\n {bandwidthUpBits} /  {bandwidthDownBits}",
+    },
+    "pulseaudio": {
+        "scroll-step": 3,
+        "format": "{icon} {volume}%",
+        "format-muted": "󰸈  {volume}%",
+        "format-source": "",
+        "format-icons": { "default": ["󰕿", "󰖀 ", "󰖀 ", "󰕾 "] },
+        "on-click": "pwvucontrol",
+        "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+    }
+}
