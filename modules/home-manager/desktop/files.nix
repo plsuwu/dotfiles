@@ -9,35 +9,26 @@ let
 in
 {
   config = lib.mkIf (cfg.enable && pkgs.stdenv.isLinux) {
-    home.packages = with pkgs; [
-      (nemo-with-extensions.override {
-        extensions = with pkgs; [
-          nemo-fileroller
-          nemo-emblems
-          nemo-preview
-        ];
-      })
-    ];
-
-    xdg.desktopEntries.nemo = {
-      name = "Nemo";
-      exec = "${pkgs.nemo-with-extensions}/bin/nemo";
+    xdg.desktopEntries.thunar = {
+      name = "Thunar";
+      exec = "${pkgs.thunar}/bin/thunar";
     };
+
     xdg.mimeApps = {
       enable = true;
       defaultApplications = {
-        "inode/directory" = [ "nemo.desktop" ];
-        "application/x-gnome-saved-search" = [ "nemo.desktop" ];
+        "inode/directory" = [ "thunar.desktop" ];
+        "application/x-gnome-saved-search" = [ "thunar.desktop" ];
       };
     };
 
-    dconf = {
-      settings = {
-        "org/cinnamon/desktop/applications/terminal" = {
-          exec = "alacritty";
-          # exec-arg = ""; # argument
-        };
-      };
-    };
+    # dconf = {
+    #   settings = {
+    #     "org/gnome/desktop/applications/terminal" = {
+    #       exec = "alacritty";
+    #       # exec-arg = ""; # argument
+    #     };
+    #   };
+    # };
   };
 }

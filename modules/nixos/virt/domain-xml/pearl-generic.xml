@@ -1,0 +1,121 @@
+<domain type="kvm" xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0">
+    <name>pearl-overlay</name>
+    <memory unit="GiB">16</memory>
+    <currentMemory unit="GiB">16</currentMemory>
+    <vcpu placement="static">8</vcpu>
+    <cputune>
+        <vcpupin vcpu="0" cpuset="4"/>
+        <vcpupin vcpu="1" cpuset="5"/>
+        <vcpupin vcpu="2" cpuset="6"/>
+        <vcpupin vcpu="3" cpuset="7"/>
+        <vcpupin vcpu="4" cpuset="8"/>
+        <vcpupin vcpu="5" cpuset="9"/>
+        <vcpupin vcpu="6" cpuset="10"/>
+        <vcpupin vcpu="7" cpuset="11"/>
+        <emulatorpin cpuset="0-1"/>
+    </cputune>
+    <sysinfo type="smbios">
+        <bios>
+            <entry name="vendor">Dell Inc.</entry>
+            <entry name="version">2.18.0</entry>
+            <entry name="date">03/14/2023</entry>
+        </bios>
+        <system>
+            <entry name="manufacturer">Dell Inc.</entry>
+            <entry name="product">OptiPlex 7090</entry>
+            <entry name="version">Not Specified</entry>
+            <entry name="serial">3DTXSC7</entry>
+            <entry name="uuid">4c4c4544-0908-437c-a5de-eeb69ae50eae</entry>
+            <entry name="sku">0A01</entry>
+            <entry name="family">OptiPlex</entry>
+        </system>
+        <baseBoard>
+            <entry name="manufacturer">Dell Inc.</entry>
+            <entry name="product">0M6D9K</entry>
+            <entry name="version">A00</entry>
+            <entry name="serial">3DTXSC7</entry>
+            <entry name="asset">Not Specified</entry>
+        </baseBoard>
+        <chassis>
+            <entry name="manufacturer">Dell Inc.</entry>
+            <entry name="version">Not Specified</entry>
+            <entry name="serial">3DTXSC7</entry>
+            <entry name="asset">Not Specified</entry>
+            <entry name="sku">Desktop</entry>
+        </chassis>
+        <oemStrings>
+            <entry>String 1: Default string</entry>
+            <entry>String 2: Default string</entry>
+            <entry>String 3: Default string</entry>
+            <entry>String 4: Default string</entry>
+        </oemStrings>
+    </sysinfo>
+    <os firmware="efi">
+        <type arch="x86_64" machine="pc-q35-10.2">hvm</type>
+        <firmware>
+            <feature enabled="no" name="enrolled-keys"/>
+            <feature enabled="yes" name="secure-boot"/>
+        </firmware>
+        <loader readonly="yes" secure="yes" type="pflash" format="raw">
+            /run/libvirt/nix-ovmf/edk2-x86_64-secure-code.fd</loader>
+        <nvram template="/run/libvirt/nix-ovmf/edk2-i386-vars.fd" templateFormat="raw" format="raw">
+            /var/lib/libvirt/qemu/nvram/pearl-init_VARS.fd</nvram>
+        <boot dev="hd"/>
+        <bootmenu enable="yes"/>
+    </os>
+    <features>
+        <acpi/>
+        <apic/>
+        <hyperv mode="custom">
+            <relaxed state="on"/>
+            <vapic state="on"/>
+            <spinlocks state="on" retries="8191"/>
+            <vendor_id state="on" value="GenuineIntel"/>
+        </hyperv>
+        <kvm>
+            <hidden state="on"/>
+        </kvm>
+        <vmport state="off"/>
+        <smm state="on"/>
+    </features>
+    <cpu mode="host-passthrough" check="none" migratable="off">
+        <topology sockets="1" dies="1" clusters="1" cores="4" threads="2"/>
+        <cache mode="passthrough"/>
+        <feature policy="require" name="vmx"/>
+        <feature policy="disable" name="hypervisor"/>
+    </cpu>
+    <clock offset="localtime">
+        <timer name="hpet" present="yes"/>
+        <timer name="hypervclock" present="yes"/>
+    </clock>
+    <devices>
+        <emulator>/run/libvirt/nix-emulators/qemu-system-x86_64</emulator>
+        <controller type="scsi" index="0" model="virtio-scsi"/>
+        <disk type="file" device="disk">
+            <driver name="qemu" type="qcow2" cache="none" io="threads" discard="unmap"/>
+            <source file="/data/virtual-machine/disk/win/pearl-overlay.qcow2"/>
+            <target dev="sda" bus="scsi"/>
+            <serial>L6A26W9EYLF88C7</serial>
+            <boot order="1"/>
+            <address type="drive" controller="0" bus="0" target="0" unit="0"/>
+        </disk>
+        <interface type="network">
+            <mac address="00:02:b3:02:97:66"/>
+            <source network="nat100"/>
+            <model type="e1000e"/>
+            <address type="pci" domain="0x0000" bus="0x01" slot="0x00" function="0x0"/>
+        </interface>
+        <video>
+            <model type="bochs" vram="16384" heads="1" primary="yes"/>
+            <address type="pci" domain="0x0000" bus="0x00" slot="0x01" function="0x0"/>
+        </video>
+    </devices>
+    <qemu:override>
+        <qemu:device alias="scsi0-0-0-0">
+            <qemu:frontend>
+                <qemu:property name="vendor" type="string" value="Samsung"/>
+                <qemu:property name="product" type="string" value="SSD PM9A1"/>
+            </qemu:frontend>
+        </qemu:device>
+    </qemu:override>
+</domain>

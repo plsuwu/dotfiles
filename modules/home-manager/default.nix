@@ -21,5 +21,6 @@
   programs.mullvad-vpn.enable = true;
   home.packages = [
     # ..
-  ] ++ (import ../../packages { inherit pkgs lib; });
+  ]
+  ++ (import ../../packages { inherit pkgs lib; });
 }

@@ -72,7 +72,16 @@ return {
 				tailwindcss = {},
 				cssls = {},
 				ruff = {},
-				-- ccls = {},
+				lemminx = {
+					settings = {
+						xml = {
+							format = {
+								enabled = true,
+								maxLineWidth = 100,
+							},
+						},
+					},
+				},
 				clangd = {},
 				nixd = {},
 				rust_analyzer = {

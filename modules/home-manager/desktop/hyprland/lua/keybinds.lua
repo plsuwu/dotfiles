@@ -1,7 +1,7 @@
 local cmd = {
 	drun = "wofi -G --show drun",
 	read_cliphist = "cliphist list | wofi --dmenu | cliphist decode | wl-copy",
-	sr = "wf-recorder --audio -g $(slurp) --file=~/Videos/Recordings/r_$(date +%Y%m%d-%H%M%S).mp4",
+	sr = "wf-toggle",
 	ss = "grimblast copysave area ~/Pictures/Screenshots/s_$(date +%Y%m%d-%H%M%S).png",
 }
 

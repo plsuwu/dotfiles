@@ -8,9 +8,16 @@ let
   cfg = config.systemModules.virt;
 in
 {
+  imports = [ ./inetsim ];
+
   options.systemModules.virt = {
     enable = lib.mkEnableOption "virt";
+    inetsim = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+    };
   };
+
 
   config = lib.mkIf cfg.enable {
     virtualisation.libvirtd = {
@@ -23,7 +30,11 @@ in
     };
 
     environment = {
-      systemPackages = [ pkgs.virt-manager ];
+      systemPackages = [
+        pkgs.virt-manager
+        pkgs.dmidecode
+        pkgs.inetsim
+      ];
       etc = {
         "qemu/firmware".source = "${pkgs.qemu}/share/qemu/firmware";
       };

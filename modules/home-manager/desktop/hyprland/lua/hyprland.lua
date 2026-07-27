@@ -35,16 +35,14 @@ A = {
 
 hl.on("hyprland.start", function()
 	hl.exec_cmd("systemctl --user start hyprland-session.target")
-  hl.exec_cmd("steam -silent")
 
-	-- some of this block could be implemented as systemd units instead
-	-- not sure that is more convenient though...
-	hl.exec_cmd("awww-daemon --no-cache")
+	-- this block could be implemented as systemd units instead, though
+  -- i am not sure that is more convenient...
 	hl.exec_cmd("awww img /home/please/.config/wallpaper.jpg")
 	hl.exec_cmd("wl-paste --type text --watch cliphist store")
 	hl.exec_cmd("wl-paste --type image --watch cliphist store")
-	-- --
 
+  hl.exec_cmd("steam -silent")
 	hl.exec_cmd(A.vesktop)
 end)
 

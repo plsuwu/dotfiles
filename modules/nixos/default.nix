@@ -7,6 +7,7 @@
     ./display.nix
     ./docker.nix
     ./greeter.nix
+    ./files.nix
     ./network.nix
     ./nh.nix
     ./nix-ld.nix

@@ -22,6 +22,10 @@
     XDG_DATA_HOME = "$HOME/.local/share";
   };
 
+  environment.systemPackages = [
+    pkgs.reaper
+  ];
+
   programs.steam = {
     enable = true;
     package = pkgs.steam;

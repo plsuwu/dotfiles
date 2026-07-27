@@ -80,6 +80,8 @@ in
 
       tailwindcss-language-server
       vscode-langservers-extracted
+
+      lemminx
     ];
 
     programs.neovim = {

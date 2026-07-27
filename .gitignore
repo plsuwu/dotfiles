@@ -3,3 +3,4 @@ aseprite/
 aseprite.nix
 templates/python/
 *.lua.x
+**/pearl.xml

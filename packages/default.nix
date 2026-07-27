@@ -27,6 +27,7 @@ with pkgs;
   gnutar
   unar
   _7zip-zstd
-  fzf
-  ripgrep
+
+  obsidian
+  obs-studio
 ]

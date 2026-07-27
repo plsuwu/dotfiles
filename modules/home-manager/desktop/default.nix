@@ -15,6 +15,7 @@
     ./gtk.nix
     ./polkit.nix
     ./qt.nix
+    ./screenshot.nix
     ./swaync.nix
     ./xdg.nix
   ];
@@ -28,6 +29,8 @@
       solaar
       spotify
       mpv
+
+      aseprite
     ];
   };
 }

@@ -19,7 +19,6 @@ in
       packages = with pkgs; [
         wl-clipboard
         ffmpeg-full
-        wf-recorder
         pwvucontrol
         grimblast
         cliphist
@@ -38,7 +37,7 @@ in
     home.file.".local/share/hypr/stubs".source =
       "${pkgs.hyprland}/share/hypr/stubs";
 
-    # force nix to eval plugins properly and gives us a reliable way to source them in our config
+    # force nix to eval plugins properly and provide a reliable way for hyprland to source them in the config
     xdg.configFile."hypr/nix-plugin.lua".text = ''
       return { 
         "${pkgs.hyprlandPlugins.hyprbars}/lib/libhyprbars.so" 
@@ -58,8 +57,7 @@ in
         pkgs.hyprlandPlugins.hyprbars
       ];
 
-      # populate some config field with junk to silence heuristic warnings
-      # about our hpyrland config being missing
+      # populate some config field with junk to silence heuristic warnings about our hpyrland config being missing
       extraConfig = "#";
     };
 
