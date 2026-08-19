@@ -1,5 +1,21 @@
 hl.window_rule({
 	match = {
+		content = "game",
+		fullscreen = true,
+	},
+	confine_pointer = true,
+})
+
+hl.window_rule({
+	match = {
+		class = "^(swayimg)$",
+	},
+
+	float = true,
+})
+
+hl.window_rule({
+	match = {
 		class = "^(vesktop)$",
 	},
 	workspace = "10",
@@ -18,7 +34,7 @@ hl.window_rule({
 		class = "SwayNotificationCenterControlCenter",
 	},
 	float = true,
-  pin = true,
+	pin = true,
 })
 
 hl.window_rule({
@@ -34,10 +50,10 @@ hl.window_rule({
 		class = "com.saivert.pwvucontrol",
 	},
 	float = true,
-  pin = true,
-  monitor = 2,
+	pin = true,
+	monitor = 2,
 	size = { 1000, 400 },
-  move = { 35, 260 },
+	move = { 35, 260 },
 })
 
 -- idk if this words teehee :3

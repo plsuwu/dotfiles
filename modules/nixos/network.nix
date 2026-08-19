@@ -9,7 +9,7 @@
     firewall = {
       enable = lib.mkDefault true;
       logReversePathDrops = true;
-      allowedTCPPorts = [ 5173 ];
+      allowedTCPPorts = [ 5173 4321 ];
     };
   };
 

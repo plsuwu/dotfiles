@@ -9,6 +9,7 @@
     ./hyprland
     ./waybar
     ./awww
+    ./swayimg
 
     ./files.nix
     ./fonts.nix

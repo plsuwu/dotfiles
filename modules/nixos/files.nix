@@ -7,7 +7,7 @@
 {
   config = {
     environment.systemPackages = with pkgs; [
-      feh
+      file-roller
       ffmpegthumbnailer
       thunar-archive-plugin
       thunar-volman

@@ -1,6 +1,9 @@
 {
   "workspace": {
-    "library": ["/home/please/.local/share/hypr/stubs"],
+    "library": [
+      "/home/please/.local/share/hypr/stubs",
+      "/home/please/.local/share/swayimg/swayimg.lua"
+    ],
     "checkThirdParty": false
   },
   "diagnostics": {
