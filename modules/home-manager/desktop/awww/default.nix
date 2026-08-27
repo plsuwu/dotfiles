@@ -14,6 +14,6 @@ in
     };
 
     xdg.configFile."wallpaper.jpg".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/src/dotfiles/modules/home-manager/desktop/awww/default-img.jpg";
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/src/dotfiles/modules/home-manager/desktop/awww/bibi.jpg";
   };
 }
