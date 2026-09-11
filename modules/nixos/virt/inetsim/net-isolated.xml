@@ -1,9 +1,13 @@
-<network>
+<network xmlns:dnsmasq="http://libvirt.org/schemas/network/dnsmasq/1.0">
     <name>isol</name>
     <bridge name="virbr-iso" stp="on" delay="0"/>
+    <dns enable="no"/>
     <ip address="192.168.10.1" netmask="255.255.255.0">
         <dhcp>
             <range start="192.168.10.128" end="192.168.10.254"/>
         </dhcp>
     </ip>
+    <dnsmasq:options>
+        <dnsmasq:option value="dhcp-option=6,192.168.10.1"/>
+    </dnsmasq:options>
 </network>

@@ -16,8 +16,13 @@
       in
       {
         devShell = pkgs.mkShell {
+          packages = [
+            pkgs.clang-tools
+            pkgs.clang
+          ];
+
           buildInputs = with pkgs; [
-            clang 
+            clang
             bear
           ];
         };

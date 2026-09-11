@@ -33,5 +33,7 @@
 
       aseprite
     ];
+
+    services.remmina.enable = true;
   };
 }

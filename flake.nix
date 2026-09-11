@@ -21,6 +21,17 @@
       ...
     }@inputs:
     let
+      templates = {
+        rust = {
+          path = ./templates/rust;
+          description = "crane, rust-overlay";
+        };
+
+        c = {
+          path = ./templates/c;
+          description = "clang, gnumake";
+        };
+      };
 
       mkNixOS =
         {
@@ -57,6 +68,8 @@
         };
     in
     {
+      inherit templates;
+
       nixosConfigurations = {
         violet = mkNixOS {
           host = "violet";

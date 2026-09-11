@@ -10,9 +10,17 @@ let
   perlEnv = perl.withPackages (
     p: with p; [
       NetServer
-      NetDNS
       IPCShareable
       IOSocketSSL
+      (NetDNS.overrideAttrs (old: rec {
+        version = "1.33";
+        name = "${old.pname or "Net-DNS"}-${version}";
+        src = fetchurl {
+          url = "mirror://cpan/authors/id/N/NL/NLNETLABS/Net-DNS-${version}.tar.gz";
+          hash = "sha256-WkDnz1JOS9LDPPA7grR9Uwi3Egg6pe4YCwta9Uxx+9I=";
+        };
+        patches = [ ];
+      }))
     ]
   );
 in

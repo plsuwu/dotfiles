@@ -9,7 +9,12 @@
     firewall = {
       enable = lib.mkDefault true;
       logReversePathDrops = true;
-      allowedTCPPorts = [ 5173 4321 ];
+      allowedTCPPorts = [
+        5173
+        4321
+      ];
+
+      # trustedInterfaces = [ "virbr-iso" ];
     };
   };
 

@@ -7,6 +7,8 @@
 {
   config = {
     environment.systemPackages = with pkgs; [
+      ntfs3g
+
       file-roller
       ffmpegthumbnailer
       thunar-archive-plugin

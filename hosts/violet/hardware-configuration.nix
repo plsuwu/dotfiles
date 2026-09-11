@@ -23,8 +23,6 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.initrd.kernelModules = [ ];
   boot.extraModulePackages = [ ];
-  
-  
 
   swapDevices = [
     { device = "/dev/disk/by-uuid/7517fe9c-ff28-445c-8223-4b301e1a4e39"; }
@@ -49,13 +47,26 @@
     fsType = "ext4";
   };
 
+  # fileSystems."/data/shared" = {
+  #   device = "/dev/disk/by-uuid/EE37-6447";
+  #   fsType = "exfat";
+  #   depends = [ "/data" ];
+  #   options = [
+  #     "uid=1000"
+  #     "gid=1000"
+  #   ];
+  # };
+
+  boot.supportedFilesystems = [ "ntfs" ];
   fileSystems."/data/shared" = {
-    device = "/dev/disk/by-uuid/EE37-6447";
-    fsType = "exfat";
-    depends = [ "/data" ];
+    device = "/dev/disk/by-uuid/4C03820E768D9B4B";
+    fsType = "ntfs3";
     options = [
+      "rw"
       "uid=1000"
-      "gid=1000"
+      "gid=100"
+      "umask=022"
+      "nofail"
     ];
   };
 }

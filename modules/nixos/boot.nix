@@ -13,7 +13,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # networking.enableIPv6 = false;
+    # boot.kernel.sysctl."net.ipv6.conf.wlo1.disable_ipv6" = true;
+
     boot = {
+
       loader = {
         efi.canTouchEfiVariables = true;
         systemd-boot = {

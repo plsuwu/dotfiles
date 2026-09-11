@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   username,
   config,
@@ -16,6 +17,8 @@
     ++ lib.optional config.systemModules.docker.enable "docker"
     ++ lib.optional config.systemModules.virt.enable "libvirtd";
   };
+
+  nix.registry.pls.flake = inputs.self;
 
   programs.zsh.enable = true;
   environment.variables = {

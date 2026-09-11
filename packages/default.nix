@@ -8,26 +8,28 @@ with pkgs;
   which
   gnused
   gawk
-
   curl
   wget
   git
 
-  nix-index
-  usbutils
-  doctl
-  
   jq
   ripgrep
   fzf
-
-  btop
 
   xz
   gnutar
   unar
   _7zip-zstd
 
+  nix-index
+  usbutils
+  doctl
+  traceroute
+  
+  fastfetch
+  btop
   obsidian
   obs-studio
+
+  davinci-resolve
 ]

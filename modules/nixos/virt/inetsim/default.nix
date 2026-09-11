@@ -61,6 +61,10 @@ in
     wantedBy = [ ]; # manual start
 
     preStart = ''
+      echo "~!: running systemd-unit as: $(whoami)"
+      echo "~!: running systemd-unit as: $(whoami)"
+      echo "~!: running systemd-unit as: $(whoami)"
+
       mkdir -p /var/log/inetsim/report
 
       if [ ! -d ${stateDir}/data ]; then
@@ -69,20 +73,23 @@ in
       fi
 
       # chgrp -R inetsim ${stateDir}/data /var/log/inetsim
-      chmod -R g+rwX ${stateDir}/data
-      chmod -R 770 /var/log/inetsim
-      chmod -R g+rw /var/log/inetsim/* 2>/dev/null || true
-
-      if [ ! -f ${stateDir}/data/certs/default_key.pem ]; then
-        openssl req -new -x509 -days 3650 -nodes -sha256      \
-            -keyout ${stateDir}/data/certs/default_key.pem    \
-            -out    ${stateDir}/data/certs/default_cert.pem   \
-            -subj "/O=INetSim/OU=Development/CN=inetsim.org"
-
-        chgrp inetsim ${stateDir}/data/certs/default_*.pem
-        chmod 640     ${stateDir}/data/certs/default_key.pem
-      fi
-    '';
+      # chmod -R g+rwX ${stateDir}/data
+      # chmod -R 770 /var/log/inetsim
+      # chmod -R g+rw /var/log/inetsim/* 2>/dev/null || true
+    
+    #  ---------------------------------
+    #  I think we just let this die...
+    #  ---------------------------------
+    #   if [ ! -f ${stateDir}/data/certs/default_key.pem ]; then
+    #     openssl req -new -x509 -days 3650 -nodes -sha256      \
+    #         -keyout ${stateDir}/data/certs/default_key.pem    \
+    #         -out    ${stateDir}/data/certs/default_cert.pem   \
+    #         -subj "/O=INetSim/OU=Development/CN=inetsim.org"
+    #
+    #     chgrp inetsim ${stateDir}/data/certs/default_*.pem
+    #     chmod 640     ${stateDir}/data/certs/default_key.pem
+    #   fi
+    # '';
 
     serviceConfig = {
       Type = "exec";
