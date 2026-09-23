@@ -13,6 +13,7 @@ in
     lutris.enable = true;
 
     shell.enable = true;
+    quickshell.enable = true;
     nvim.enable = true;
     terminal.enable = true;
     browsers.enable = true;

@@ -25,12 +25,31 @@
     XDG_DATA_HOME = "$HOME/.local/share";
   };
 
-  environment.systemPackages = [
-    pkgs.reaper
+  services.solaar = {
+    enable = true;
+    window = "hide";
+    batteryIcons = "regular";
+    extraArgs = "";
+  };
+
+  environment.systemPackages = with pkgs; [
+    reaper
+
+    # mono
+
+    winetricks
+    protontricks
+    protonup-qt
+    wine64
+    wine64Packages.full
+    wine64Packages.waylandFull
   ];
 
-  programs.steam = {
-    enable = true;
-    package = pkgs.steam;
+  programs = {
+    steam = {
+      enable = true;
+      package = pkgs.steam;
+    };
+    gamemode.enable = true;
   };
 }

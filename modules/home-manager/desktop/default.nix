@@ -6,10 +6,11 @@
 }:
 {
   imports = [
-    ./hyprland
-    ./waybar
     ./awww
+    ./hyprland
+    ./quickshell
     ./swayimg
+    ./waybar
 
     ./files.nix
     ./fonts.nix
@@ -27,7 +28,6 @@
 
   config = lib.mkIf config.systemModules.desktop.enable {
     home.packages = with pkgs; [
-      solaar
       spotify
       mpv
 

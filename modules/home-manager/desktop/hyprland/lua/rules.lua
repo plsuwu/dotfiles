@@ -2,7 +2,37 @@ hl.window_rule({
 	match = {
 		class = "^(brave-nngceckbapebfimnlniiiahkandclblb-Default)$",
 	},
-  float = true,
+	float = true,
+})
+
+local function trim_end_matches(s)
+	local suffix = " — Zen Browser"
+	return (s:gsub(suffix, ""))
+end
+
+local PTITLES = {
+	["Sign in - Google Accounts"] = true,
+	["Extension: (Bitwarden Password Manager) - Bitwarden"] = true,
+}
+
+local function title_matches(title)
+	return PTITLES[trim_end_matches(title)]
+end
+
+hl.on("window.title", function(w)
+	if w ~= nil and title_matches(w.title) then
+		if hl.get_window(w).floating ~= true then
+			hl.dispatch(hl.dsp.window.float({ action = "set", window = w }))
+			hl.dispatch(hl.dsp.window.resize({ window = w, x = 350, y = 680 }))
+		end
+	end
+end)
+
+hl.window_rule({
+	match = {
+		title = "^(Virtual Machine Manager)$",
+	},
+	float = true,
 })
 
 hl.window_rule({

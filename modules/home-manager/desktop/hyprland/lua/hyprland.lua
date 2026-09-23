@@ -23,7 +23,7 @@ end
 
 A = {
 	term = get_store_path("alacritty"),
-	browser = get_store_path("brave"),
+	browser = get_store_path("zen"),
 	files = get_store_path("nemo"),
 	wofi = get_store_path("wofi"),
 	clip = get_store_path("cliphist"),
@@ -42,7 +42,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("wl-paste --type text --watch cliphist store")
 	hl.exec_cmd("wl-paste --type image --watch cliphist store")
 
-  hl.exec_cmd("steam -silent")
+  -- hl.exec_cmd("steam -silent")
 	hl.exec_cmd(A.vesktop)
 end)
 
@@ -56,19 +56,19 @@ hl.config({
 	},
 
 	general = {
-		border_size = 1,
-		-- border_color = "E1DFE1",
-		gaps_in = 1,
+		border_size = 0,
+		gaps_in = 0,
 		gaps_out = 0,
 		layout = "dwindle",
 		col = {
-			active_border = "rgba(E1DFE14f)",
+    -- active_border = "rgba(E1DFE1af)",
+    active_border = "rgba(641a20ff)",
 		},
     modal_parent_blocking = false,
 	},
 
 	decoration = {
-		rounding = 8,
+		rounding = 0,
 	},
 
 	input = {

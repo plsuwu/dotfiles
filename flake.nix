@@ -3,12 +3,23 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     nur.url = "github:nix-community/NUR";
+    solaar.url = "github:Svenum/Solaar-Flake/main";
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nh = {
       url = "github:nix-community/nh";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    zen-browser = {
+      url = "github:youwen5/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    quickshell = {
+      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -18,20 +29,11 @@
       self,
       nixpkgs,
       home-manager,
+      solaar,
       ...
     }@inputs:
     let
-      templates = {
-        rust = {
-          path = ./templates/rust;
-          description = "crane, rust-overlay";
-        };
-
-        c = {
-          path = ./templates/c;
-          description = "clang, gnumake";
-        };
-      };
+      templates = import ./templates;
 
       mkNixOS =
         {
@@ -43,6 +45,7 @@
           inherit system;
           specialArgs = { inherit inputs; };
           modules = [
+            solaar.nixosModules.default
             {
               networking.hostName = host;
               nixpkgs.overlays = import ./overlays;

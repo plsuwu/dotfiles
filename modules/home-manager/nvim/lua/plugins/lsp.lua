@@ -68,10 +68,18 @@ return {
 			})
 
 			local servers = {
-				svelte = {},
-				tailwindcss = {},
-				cssls = {},
-				ruff = {},
+				qmlls = {},
+        gopls = {},
+
+        astro = {},
+        tailwindcss = {},
+        cssls = {},
+
+        ts_ls = {},
+        svelte = {},
+        ruff = {},
+        clangd = {},
+        nixd = {},
 				lemminx = {
 					settings = {
 						xml = {
@@ -82,8 +90,6 @@ return {
 						},
 					},
 				},
-				clangd = {},
-				nixd = {},
 				rust_analyzer = {
 					settings = {
 						["rust-analyzer"] = {
@@ -91,11 +97,6 @@ return {
 						},
 					},
 				},
-				ts_ls = {},
-				solidity_ls = {},
-				gopls = {},
-				astro = {},
-
 				pylsp = {
 					settings = {
 						pylsp = {

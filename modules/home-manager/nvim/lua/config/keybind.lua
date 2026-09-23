@@ -1,3 +1,18 @@
+-- seems like this is fixed in the next release (we have 0.12.4, fixes are in
+-- 0.12.5, i think), so we can remove this when the changes get merged into
+-- nixpkgs: https://github.com/neovim/neovim/pull/40615
+vim.api.nvim_create_autocmd("VimEnter", {
+	callback = function()
+		vim.fn.setreg("/", {})
+	end,
+})
+
+vim.keymap.set("n", "<C-l>", function()
+	vim.fn.setreg("/", "")
+end)
+
+-- vim.keymap.set("n", "<C-c>", ":let @/= ''<CR>")
+
 vim.keymap.set("n", "<leader>vt", ":NvimTreeToggle<CR>", { silent = true })
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -8,10 +23,6 @@ vim.keymap.set("n", "<C-f>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
--- vim.keymap.set("n", "<C-c>", ":let @/= ''<CR>")
-vim.keymap.set("n", "<C-c>", function()
-	vim.fn.setreg("/", "")
-end)
 
 vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])

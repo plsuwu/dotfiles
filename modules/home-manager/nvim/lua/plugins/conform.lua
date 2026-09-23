@@ -39,6 +39,7 @@ return {
 			json = { "prettierd", "prettier", stop_after_first = true },
 
 			scala = { "scalafmt" },
+      qml = { "qmlformat" },
 
 			bash = { "shfmt" },
 			zsh = { "shfmt" }, -- this is pretty unreliable for zsh formatting but it is what it is

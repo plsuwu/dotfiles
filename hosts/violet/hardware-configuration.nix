@@ -60,7 +60,7 @@
   boot.supportedFilesystems = [ "ntfs" ];
   fileSystems."/data/shared" = {
     device = "/dev/disk/by-uuid/4C03820E768D9B4B";
-    fsType = "ntfs3";
+    fsType = "ntfs-3g";
     options = [
       "rw"
       "uid=1000"
