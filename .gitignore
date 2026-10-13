@@ -1,7 +1,9 @@
 .ccls-cache/
+.qmlls.ini
 aseprite/
 aseprite.nix
 templates/python/
 *.lua.x
 **/pearl.xml
 **/*.x
+**/assets/fonts/

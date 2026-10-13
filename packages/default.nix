@@ -29,7 +29,6 @@ with pkgs;
   fastfetch
   btop
   obsidian
-  obs-studio
 
   davinci-resolve
 ]

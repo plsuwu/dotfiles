@@ -11,8 +11,8 @@ in
   config = lib.mkIf cfg.enable {
     programs.zoxide = {
       enable = true;
-      enableZshIntegration = true;
-      options = [ "--cmd cd" ];
+      enableZshIntegration = false;
+      # options = [ "--cmd cd" ];
     };
   };
 }

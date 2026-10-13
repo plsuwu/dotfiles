@@ -21,6 +21,7 @@ in
       # fix broken chinese/japanese/.. font rendering in chromium derivatives
       noto-fonts-cjk-serif
       noto-fonts-cjk-sans
+      rodinNTLG
     ];
 
     fonts.fontconfig = {

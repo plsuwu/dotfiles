@@ -80,9 +80,9 @@ in
 
       tailwindcss-language-server
       vscode-langservers-extracted
-      kdePackages.qtdeclarative
 
       lemminx
+      kdePackages.qtdeclarative
     ];
 
     programs.neovim = {

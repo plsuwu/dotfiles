@@ -7,6 +7,5 @@
 
   security.polkit = {
     enable = true;
-    extraConfig = lib.mkForce "";
   };
 }

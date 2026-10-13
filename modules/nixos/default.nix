@@ -11,6 +11,7 @@
     ./network.nix
     ./nh.nix
     ./nix-ld.nix
+    ./obs.nix
     ./security.nix
     ./sound.nix
     ./sshd.nix

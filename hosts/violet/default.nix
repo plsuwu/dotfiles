@@ -13,6 +13,7 @@
     greeter.enable = true;
     nh.enable = true;
     nix-ld.enable = true;
+    obs.enable = true;
     sound.enable = true;
     sshd.enable = true;
     virt.enable = true;

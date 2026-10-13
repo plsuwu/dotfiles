@@ -4,4 +4,7 @@
   (import ./myramors-cursor)
   (import ./inetsim)
   (import ./swayimg)
+  (import ./rodin-ntlg)
+  (import ./codex)
+  (import ./claude-code)
 ]

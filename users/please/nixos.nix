@@ -15,7 +15,8 @@
       "networkmanager"
     ]
     ++ lib.optional config.systemModules.docker.enable "docker"
-    ++ lib.optional config.systemModules.virt.enable "libvirtd";
+    ++ lib.optional config.systemModules.virt.enable "libvirtd"
+    ++ lib.optional config.systemModules.virt.lab "lab-clients";
   };
 
   nix.registry.pls.flake = inputs.self;
@@ -35,8 +36,7 @@
   environment.systemPackages = with pkgs; [
     reaper
 
-    # mono
-
+    umu-launcher
     winetricks
     protontricks
     protonup-qt

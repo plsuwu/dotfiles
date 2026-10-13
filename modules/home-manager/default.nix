@@ -19,6 +19,9 @@
   ];
 
   programs.mullvad-vpn.enable = true;
-  home.packages = [ ] ++ (import ../../packages { inherit pkgs lib; });
-
+  home.packages = [
+    pkgs.codex
+    pkgs.claude-code
+  ]
+  ++ (import ../../packages { inherit pkgs lib; });
 }

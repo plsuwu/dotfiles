@@ -35,10 +35,17 @@ in
             ''
             + extraKeybind
           );
+
+          zoxide = lib.mkOrder 2000 ''
+            if [[ -z "$CLAUDECODE" ]]; then
+              eval "$(${lib.getExe config.programs.zoxide.package} init --cmd cd zsh)"
+            fi
+          '';
         in
         lib.mkMerge [
           early
           norm
+          zoxide
         ];
 
       shellAliases = {

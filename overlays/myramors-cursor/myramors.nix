@@ -4,10 +4,13 @@
 }:
 let
   inherit (pkgs) stdenv;
-  owner = "plsuwu";
-  repo = "dotfiles";
-  rev = "d5c878cbecaf23b6491a69bc2eea90670c0354d0";
-  url = "https://github.com/${owner}/${repo}/raw/${rev}/myramors_cursor_linux.tar.gz";
+  # owner = "plsuwu";
+  # repo = "dotfiles";
+  # rev = "d5c878cbecaf23b6491a69bc2eea90670c0354d0";
+  # url = "https://github.com/${owner}/${repo}/raw/${rev}/myramors_cursor_linux.tar.gz";
+  bucket = "darkened-finance-sauna-siamese";
+  filename = "myramors_cursor_linux.tar.gz";
+  url = "https://storage.googleapis.com/${bucket}/public/${filename}";
 
   pname = "myramors";
 
@@ -36,9 +39,7 @@ stdenv.mkDerivation {
     win_cursors="$PWD"
     base_filename="MyraMors_"
     conversions="$win_cursors/conversions"
-
     mkdir -p "$conversions"
-
     declare -a x_cursors
     x_cursors=(
       "default"       # 1   ->  Arrow

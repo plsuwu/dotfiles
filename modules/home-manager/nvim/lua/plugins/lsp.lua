@@ -68,18 +68,24 @@ return {
 			})
 
 			local servers = {
-				qmlls = {},
-        gopls = {},
+				gopls = {},
 
-        astro = {},
-        tailwindcss = {},
-        cssls = {},
+				astro = {},
+				tailwindcss = {},
+				cssls = {},
 
-        ts_ls = {},
-        svelte = {},
-        ruff = {},
-        clangd = {},
-        nixd = {},
+				ts_ls = {},
+				svelte = {},
+				ruff = {},
+				clangd = {},
+				nixd = {},
+
+				qmlls = {
+					cmd = { "qmlls", "-E" },
+					filetypes = { "qml", "qmljs" },
+					root_markers = { ".qmlls.ini", "shell.qml", ".git" },
+				},
+
 				lemminx = {
 					settings = {
 						xml = {
